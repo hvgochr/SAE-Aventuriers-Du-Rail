@@ -3,6 +3,7 @@ package fr.umontpellier.iut;
 import fr.umontpellier.iut.rails.CouleurWagon;
 import fr.umontpellier.iut.rails.Destination;
 import javafx.collections.ObservableList;
+import javafx.scene.shape.Rectangle;
 
 import java.util.List;
 
@@ -21,4 +22,5 @@ public interface IJoueur {
     Couleur getCouleur();
     int getNbGares();
     int getScore();
+
 }

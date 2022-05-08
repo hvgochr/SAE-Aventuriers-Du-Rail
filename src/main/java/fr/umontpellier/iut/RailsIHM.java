@@ -7,9 +7,11 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Worker;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -54,7 +56,6 @@ public class RailsIHM extends Application {
         Scene scene = new Scene(vueDuJeu); // la scene doit être créée avant de mettre en place les bindings
         vueDuJeu.creerBindings();
         demarrerServiceJeu(); // le service doit être démarré après que les bindings ont été mis en place
-
         primaryStage.setScene(scene);
         primaryStage.setTitle("Rails");
         primaryStage.centerOnScreen();

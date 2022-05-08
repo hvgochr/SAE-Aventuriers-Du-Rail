@@ -2,7 +2,13 @@ package fr.umontpellier.iut.vues;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -14,12 +20,14 @@ import java.io.IOException;
  */
 public class VuePlateau extends Pane {
 
+
     public VuePlateau() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/plateau.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
