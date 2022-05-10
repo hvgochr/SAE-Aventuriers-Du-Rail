@@ -5,11 +5,12 @@ import fr.umontpellier.iut.IJeu;
 import javafx.beans.binding.Bindings;
 import javafx.css.Style;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.effect.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -51,22 +52,22 @@ public class VueDuJeu extends Pane {
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
         plateau = new VuePlateau();
+        plateau.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(10))));
         getChildren().add(plateau);
         Button coin = new Button();
         coin.setShape(new Circle(0));
-        Rectangle rect1 = new Rectangle();
-        ImageView i1 = new ImageView("C:\\Users\\BLAST\\railsihm\\ressources\\images\\images\\toggle-button.png");
+    //    ImageView i1 = new ImageView("C:\\Users\\EX-L\\railsihm\\ressources\\images\\images\\toggle-button.png");
 
-        dropShadow.setRadius(5.0);
+        dropShadow.setRadius(20.0);
         dropShadow.setOffsetX(3.0);
         dropShadow.setOffsetY(3.0);
         dropShadow.setColor(Color.BLACK);
         plateau.setEffect(dropShadow);
 
-        i1.setFitHeight(60);
+      /*  i1.setFitHeight(60);
         i1.setFitWidth(60);
         coin.setStyle("-fx-background-color: BLACK");
-        coin.setGraphic(i1);
+        coin.setGraphic(i1);*/
 
         lighting.setDiffuseConstant(100.0);
         lighting.setSpecularConstant(0.8);
