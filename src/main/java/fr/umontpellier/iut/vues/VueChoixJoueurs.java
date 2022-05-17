@@ -4,17 +4,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -31,15 +28,21 @@ public class VueChoixJoueurs extends Stage {
     private ObservableList<String> nomsJoueurs;
 
     private Scene scene;
+
     private Pane pane;
+
     private Text titre1;
     private Text titre2;
+
     private Font fontTradeWindsTitre1;
     private Font fontTradeWindsTitre2;
     private Font fontTradeWindsBoutons;
-    private HBox boiteHorizontale;
+
+    private BorderPane paneBoutons;
+
     private Button boutonAjouter;
     private Button boutonSupprimer;
+    private Button jouer;
     
     public ObservableList<String> nomsJoueursProperty() {
         return nomsJoueurs;
@@ -76,21 +79,45 @@ public class VueChoixJoueurs extends Stage {
         titre2.setLayoutY(140);
         //Bouton ajouter joueur
         boutonAjouter = new Button("+");
+        boutonAjouter.setStyle(
+            "-fx-background-radius: 15em; " +
+            "-fx-min-width: 47px; " +
+            "-fx-min-height: 47px; " +
+            "-fx-max-width: 47px; " +
+            "-fx-max-height: 47px; " +
+            "-fx-background-color: GREEN;");
         boutonAjouter.setFont(fontTradeWindsBoutons);
         //Bouton supprimer joueur
         boutonSupprimer = new Button("-");
+        boutonSupprimer.setStyle(
+            "-fx-background-radius: 15em; " +
+            "-fx-min-width: 47px; " +
+            "-fx-min-height: 47px; " +
+            "-fx-max-width: 47px; " +
+            "-fx-max-height: 47px; " +
+            "-fx-background-color: RED;");
         boutonSupprimer.setFont(fontTradeWindsBoutons);
-        //HBox
-        boiteHorizontale = new HBox();
-        boiteHorizontale.setPrefWidth(256);
-        boiteHorizontale.setPrefHeight(61);
-        boiteHorizontale.setLayoutX(334);
-        boiteHorizontale.setLayoutY(219);
-        boiteHorizontale.setStyle("-fx-background-color: WHITE");
-        boiteHorizontale.setEffect(new DropShadow(10, 3, 3, Color.BLACK));
-        boiteHorizontale.getChildren().addAll(boutonAjouter, boutonSupprimer);
+        //Pane de boutons
+        paneBoutons = new BorderPane();
+        paneBoutons.setPrefWidth(256);
+        paneBoutons.setPrefHeight(61);
+        paneBoutons.setLayoutX(334);
+        paneBoutons.setLayoutY(219);
+        paneBoutons.setStyle("-fx-background-color: WHITE");
+        paneBoutons.setEffect(new DropShadow(10, 3, 3, Color.BLACK));
+        paneBoutons.setRight(boutonAjouter);
+        paneBoutons.setLeft(boutonSupprimer);
+        //Bouton jouer
+        jouer = new Button("Jouer");
+        jouer.setFont(fontTradeWindsTitre2);
+        jouer.setLayoutY(590);
+        jouer.setLayoutX(375);
+        jouer.setPrefHeight(42);
+        jouer.setPrefSize(173, 42);
+        jouer.setStyle("-fx-background-color: WHITE");
+        jouer.setEffect(new DropShadow(5, 2, 2, Color.BLACK));
         //AddAll children
-        pane.getChildren().addAll(titre1, titre2, boiteHorizontale);
+        pane.getChildren().addAll(titre1, titre2, paneBoutons, jouer);
         //Scene
         scene = new Scene(pane);
         //Stage
