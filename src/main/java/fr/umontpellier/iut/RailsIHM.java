@@ -45,10 +45,10 @@ public class RailsIHM extends Application {
             nomsJoueurs = vueChoixJoueurs.getNomsJoueurs();
         else {
             nomsJoueurs = new ArrayList<>();
-            nomsJoueurs.add("Guybrush");
-            nomsJoueurs.add("Largo");
-            nomsJoueurs.add("LeChuck");
-            nomsJoueurs.add("Elaine");
+            nomsJoueurs.add("Joueur1");
+            nomsJoueurs.add("Joueur2");
+            nomsJoueurs.add("Joueur3");
+            nomsJoueurs.add("Joueur4");
         }
 
         serviceDuJeu = new ServiceDuJeu(nomsJoueurs.toArray(new String[0]));
