@@ -20,7 +20,6 @@ import java.io.IOException;
  */
 public class VuePlateau extends Pane {
 
-
     public VuePlateau() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/plateau.fxml"));
