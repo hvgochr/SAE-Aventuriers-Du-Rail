@@ -167,7 +167,7 @@ public class VueChoixJoueurs extends Stage {
         paneBoutons.setPrefSize(256, 61);
         paneBoutons.setLayoutX(334);
         paneBoutons.setLayoutY(219);
-        paneBoutons.setStyle("-fx-background-color: WHITE");
+        paneBoutons.setStyle("-fx-background-radius: 10 10 10 10;" + "-fx-background-color: WHITE;");
         paneBoutons.setEffect(new DropShadow(10, 3, 3, Color.BLACK));
         paneBoutons.getChildren().addAll(boutonSupprimer, moins, nbJoueursTexte, boutonAjouter, plus);
         //Input avatars
@@ -211,37 +211,52 @@ public class VueChoixJoueurs extends Stage {
         joueurRose.setLayoutX(726);
         joueurRose.setLayoutY(337);
         //Textfield vert
-        pseudoJoueurVert = new TextField();
+        pseudoJoueurVert = new TextField("Saisir un nom: ");
         pseudoJoueurVert.setLayoutX(96);
         pseudoJoueurVert.setLayoutY(509);
         pseudoJoueurVert.setMaxSize(100, 20);
+        pseudoJoueurVert.setOnMouseClicked(e -> {
+            pseudoJoueurVert.setText("");
+        });
         //Textfield bleu
-        pseudoJoueurBleu = new TextField();
+        pseudoJoueurBleu = new TextField("Saisir un nom: ");
         pseudoJoueurBleu.setLayoutX(253);
         pseudoJoueurBleu.setLayoutY(509);
         pseudoJoueurBleu.setMaxSize(100, 20);
+        pseudoJoueurBleu.setOnMouseClicked(e -> {
+            pseudoJoueurBleu.setText("");
+        });
         //Textfield rose
-        pseudoJoueurRose = new TextField();
+        pseudoJoueurRose = new TextField("Saisir un nom: ");
         pseudoJoueurRose.setLayoutX(413);
         pseudoJoueurRose.setLayoutY(509);
         pseudoJoueurRose.setMaxSize(100, 20);
+        pseudoJoueurRose.setOnMouseClicked(e -> {
+            pseudoJoueurRose.setText("");
+        });
         //Textfield rouge
-        pseudoJoueurRouge = new TextField();
+        pseudoJoueurRouge = new TextField("Saisir un nom: ");
         pseudoJoueurRouge.setLayoutX(573);
         pseudoJoueurRouge.setLayoutY(509);
         pseudoJoueurRouge.setMaxSize(100, 20);
+        pseudoJoueurRouge.setOnMouseClicked(e -> {
+            pseudoJoueurRouge.setText("");
+        });
         //Textfield jaune
-        pseudoJoueurJaune = new TextField();
+        pseudoJoueurJaune = new TextField("Saisir un nom: ");
         pseudoJoueurJaune.setLayoutX(733);
         pseudoJoueurJaune.setLayoutY(509);
         pseudoJoueurJaune.setMaxSize(100, 20);
+        pseudoJoueurJaune.setOnMouseClicked(e -> {
+            pseudoJoueurJaune.setText("");
+        });
         //Bouton jouer
         jouer = new Button("Jouer");
         jouer.setFont(fontTradeWindsTitre2);
         jouer.setLayoutY(590);
         jouer.setLayoutX(375);
         jouer.setPrefSize(173, 42);
-        jouer.setStyle("-fx-background-color: WHITE");
+        jouer.setStyle("-fx-background-radius: 10 10 10 10;" + "-fx-background-color: WHITE;");
         jouer.setEffect(new DropShadow(5, 2, 2, Color.BLACK));
         //AddAll children
         pane.getChildren().addAll(titre1, titre2, paneBoutons, joueurVert, pseudoJoueurVert, joueurBleu, pseudoJoueurBleu, joueurJaune, pseudoJoueurJaune, joueurRouge, pseudoJoueurRouge, joueurRose, pseudoJoueurRose, jouer);
