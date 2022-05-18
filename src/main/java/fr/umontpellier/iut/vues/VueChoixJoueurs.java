@@ -4,16 +4,21 @@ import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,16 +38,52 @@ public class VueChoixJoueurs extends Stage {
 
     private Text titre1;
     private Text titre2;
+    private Text nbJoueursTexte;
+    private Text plus;
+    private Text moins;
+
+    private int nbJoueurs = 2;
 
     private Font fontTradeWindsTitre1;
     private Font fontTradeWindsTitre2;
     private Font fontTradeWindsBoutons;
 
-    private BorderPane paneBoutons;
+    private FileInputStream avatarVert;
+    private FileInputStream avatarBleu;
+    private FileInputStream avatarRose;
+    private FileInputStream avatarRouge; 
+    private FileInputStream avatarJaune;
+
+    private ImageView joueurVert;
+    private ImageView joueurBleu;
+    private ImageView joueurRose;
+    private ImageView joueurRouge;
+    private ImageView joueurJaune;
+
+    private TextField pseudoJoueurVert;
+    private TextField pseudoJoueurBleu;
+    private TextField pseudoJoueurRose;
+    private TextField pseudoJoueurRouge;
+    private TextField pseudoJoueurJaune;
+
+    private Pane paneBoutons;
 
     private Button boutonAjouter;
     private Button boutonSupprimer;
     private Button jouer;
+
+    private final EventHandler<ActionEvent> clicPlus = e -> {
+            if(nbJoueurs<5){
+                nbJoueurs++; 
+                nbJoueursTexte.setText(String.valueOf(nbJoueurs));
+            }
+        };
+    private final EventHandler<ActionEvent> clicMoins = e -> {
+        if(nbJoueurs>2){
+            nbJoueurs--; 
+            nbJoueursTexte.setText(String.valueOf(nbJoueurs));
+        }
+    };
     
     public ObservableList<String> nomsJoueursProperty() {
         return nomsJoueurs;
@@ -57,8 +98,7 @@ public class VueChoixJoueurs extends Stage {
         //Pane
         pane = new Pane();
         pane.setStyle("-fx-background-color: #F2EDBF");
-        pane.setPrefWidth(920);
-        pane.setPrefHeight(720);
+        pane.setPrefSize(920, 720);
         //Fonts
         fontTradeWindsTitre1 = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 26);
         fontTradeWindsTitre2 = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 18);
@@ -66,10 +106,10 @@ public class VueChoixJoueurs extends Stage {
         //Titre 1 "Aventuriers Du Rail - Version Europe"
         titre1 = new Text("Les Aventuriers Du Rail - Version Europe");
         titre1.setFont(fontTradeWindsTitre1);
+        //A voir si ombre ou non
         //titre1.setEffect(new DropShadow(1, 1, 1, Color.BLACK));
         titre1.setLayoutX(191);
         titre1.setLayoutY(41);
-        //A voir si ombre ou non
         //Titre 2 "Veuillez choisir un nombre de joueurs et renseigner leurs noms."
         titre2 = new Text("Veuillez choisir un nombre de joueurs et renseigner leurs noms.");
         titre2.setFont(fontTradeWindsTitre2);
@@ -78,46 +118,110 @@ public class VueChoixJoueurs extends Stage {
         titre2.setLayoutX(174);
         titre2.setLayoutY(140);
         //Bouton ajouter joueur
-        boutonAjouter = new Button("+");
+        boutonAjouter = new Button();
         boutonAjouter.setStyle(
-            "-fx-background-radius: 15em; " +
-            "-fx-min-width: 47px; " +
-            "-fx-min-height: 47px; " +
-            "-fx-max-width: 47px; " +
-            "-fx-max-height: 47px; " +
+            "-fx-background-radius: 12em; " +
+            "-fx-min-width: 40px; " +
+            "-fx-min-height: 40px; " +
+            "-fx-max-width: 40px; " +
+            "-fx-max-height: 40px; " +
             "-fx-background-color: GREEN;");
-        boutonAjouter.setFont(fontTradeWindsBoutons);
+        boutonAjouter.setLayoutX(202);
+        boutonAjouter.setLayoutY(10);
+        boutonAjouter.setOnAction(clicPlus);
         //Bouton supprimer joueur
-        boutonSupprimer = new Button("-");
+        boutonSupprimer = new Button();
         boutonSupprimer.setStyle(
-            "-fx-background-radius: 15em; " +
-            "-fx-min-width: 47px; " +
-            "-fx-min-height: 47px; " +
-            "-fx-max-width: 47px; " +
-            "-fx-max-height: 47px; " +
+            "-fx-background-radius: 12em; " +
+            "-fx-min-width: 40px; " +
+            "-fx-min-height: 40px; " +
+            "-fx-max-width: 40px; " +
+            "-fx-max-height: 40px; " +
             "-fx-background-color: RED;");
-        boutonSupprimer.setFont(fontTradeWindsBoutons);
+        boutonSupprimer.setLayoutX(12);
+        boutonSupprimer.setLayoutY(10);
+        boutonSupprimer.setOnAction(clicMoins);
+        //Texte boutons
+        plus = new Text("+");
+        plus.setFont(fontTradeWindsBoutons);
+        plus.setLayoutX(214);
+        plus.setLayoutY(40);
+        moins = new Text("-");
+        moins.setFont(fontTradeWindsBoutons);
+        moins.setLayoutX(25);
+        moins.setLayoutY(40);
+        //Texte nbJoueurs
+        nbJoueursTexte = new Text(String.valueOf(nbJoueurs));
+        nbJoueursTexte.setFont(fontTradeWindsTitre2);
+        nbJoueursTexte.setLayoutX(123);
+        nbJoueursTexte.setLayoutY(36);
         //Pane de boutons
-        paneBoutons = new BorderPane();
-        paneBoutons.setPrefWidth(256);
-        paneBoutons.setPrefHeight(61);
+        paneBoutons = new Pane();
+        paneBoutons.setPrefSize(256, 61);
         paneBoutons.setLayoutX(334);
         paneBoutons.setLayoutY(219);
         paneBoutons.setStyle("-fx-background-color: WHITE");
         paneBoutons.setEffect(new DropShadow(10, 3, 3, Color.BLACK));
-        paneBoutons.setRight(boutonAjouter);
-        paneBoutons.setLeft(boutonSupprimer);
+        paneBoutons.getChildren().addAll(boutonSupprimer, moins, nbJoueursTexte, boutonAjouter, plus);
+        //Input avatars
+        avatarVert = null;
+        avatarBleu = null;
+        avatarRose = null;
+        avatarRouge = null;
+        avatarJaune = null;
+        try {
+            avatarVert = new FileInputStream("ressources/images/images/avatar-VERT.png");
+            avatarBleu = new FileInputStream("ressources/images/images/avatar-BLEU.png");
+            avatarJaune = new FileInputStream("ressources/images/images/avatar-JAUNE.png");
+            avatarRouge = new FileInputStream("ressources/images/images/avatar-ROUGE.png");
+            avatarRose = new FileInputStream("ressources/images/images/avatar-ROSE.png");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //Joueur vert
+        joueurVert = new ImageView(new Image(avatarVert));
+        joueurVert.setFitHeight(136);
+        joueurVert.setFitWidth(108);
+        joueurVert.setLayoutX(91);
+        joueurVert.setLayoutY(337);
+        //Joueur bleu
+        joueurBleu = new ImageView(new Image(avatarBleu));
+        joueurBleu.setFitHeight(136);
+        joueurBleu.setFitWidth(108);
+        joueurBleu.setLayoutX(250);
+        joueurBleu.setLayoutY(337);
+        //Joueur jaune
+        joueurJaune = new ImageView(new Image(avatarJaune));
+        joueurJaune.setFitHeight(136);
+        joueurJaune.setFitWidth(108);
+        joueurJaune.setLayoutX(408);
+        joueurJaune.setLayoutY(337);
+        //Joueur rouge
+        joueurRouge = new ImageView(new Image(avatarRouge));
+        joueurRouge.setFitHeight(136);
+        joueurRouge.setFitWidth(108);
+        joueurRouge.setLayoutX(567);
+        joueurRouge.setLayoutY(337);
+        //Joueur rouge
+        joueurRose = new ImageView(new Image(avatarRose));
+        joueurRose.setFitHeight(136);
+        joueurRose.setFitWidth(108);
+        joueurRose.setLayoutX(726);
+        joueurRose.setLayoutY(337);
+        //Textfield vert
+        pseudoJoueurVert = new TextField();
+        pseudoJoueurVert.setLayoutX(104);
+        pseudoJoueurVert.setLayoutY(509);
         //Bouton jouer
         jouer = new Button("Jouer");
         jouer.setFont(fontTradeWindsTitre2);
         jouer.setLayoutY(590);
         jouer.setLayoutX(375);
-        jouer.setPrefHeight(42);
         jouer.setPrefSize(173, 42);
         jouer.setStyle("-fx-background-color: WHITE");
         jouer.setEffect(new DropShadow(5, 2, 2, Color.BLACK));
         //AddAll children
-        pane.getChildren().addAll(titre1, titre2, paneBoutons, jouer);
+        pane.getChildren().addAll(titre1, titre2, paneBoutons, joueurVert, pseudoJoueurVert, joueurBleu, joueurJaune, joueurRouge, joueurRose, jouer);
         //Scene
         scene = new Scene(pane);
         //Stage
