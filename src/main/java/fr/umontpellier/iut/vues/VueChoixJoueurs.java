@@ -4,8 +4,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -71,19 +69,6 @@ public class VueChoixJoueurs extends Stage {
     private Button boutonAjouter;
     private Button boutonSupprimer;
     private Button jouer;
-
-    private final EventHandler<ActionEvent> clicPlus = e -> {
-            if(nbJoueurs<5){
-                nbJoueurs++; 
-                nbJoueursTexte.setText(String.valueOf(nbJoueurs));
-            }
-        };
-    private final EventHandler<ActionEvent> clicMoins = e -> {
-        if(nbJoueurs>2){
-            nbJoueurs--; 
-            nbJoueursTexte.setText(String.valueOf(nbJoueurs));
-        }
-    };
     
     public ObservableList<String> nomsJoueursProperty() {
         return nomsJoueurs;
@@ -128,7 +113,12 @@ public class VueChoixJoueurs extends Stage {
             "-fx-background-color: GREEN;");
         boutonAjouter.setLayoutX(202);
         boutonAjouter.setLayoutY(10);
-        boutonAjouter.setOnAction(clicPlus);
+        boutonAjouter.setOnAction(e -> {
+            if(nbJoueurs<5){
+                nbJoueurs++; 
+                nbJoueursTexte.setText(String.valueOf(nbJoueurs));
+            }
+        });
         //Bouton supprimer joueur
         boutonSupprimer = new Button();
         boutonSupprimer.setStyle(
@@ -140,16 +130,33 @@ public class VueChoixJoueurs extends Stage {
             "-fx-background-color: RED;");
         boutonSupprimer.setLayoutX(12);
         boutonSupprimer.setLayoutY(10);
-        boutonSupprimer.setOnAction(clicMoins);
+        boutonSupprimer.setOnAction(e -> {
+            if(nbJoueurs>2){
+                nbJoueurs--; 
+                nbJoueursTexte.setText(String.valueOf(nbJoueurs));
+            }
+        });
         //Texte boutons
         plus = new Text("+");
         plus.setFont(fontTradeWindsBoutons);
         plus.setLayoutX(214);
         plus.setLayoutY(40);
+        plus.setOnMouseClicked(e -> {
+            if(nbJoueurs<5){
+                nbJoueurs++; 
+                nbJoueursTexte.setText(String.valueOf(nbJoueurs));
+            }
+        });
         moins = new Text("-");
         moins.setFont(fontTradeWindsBoutons);
         moins.setLayoutX(25);
         moins.setLayoutY(40);
+        moins.setOnMouseClicked(e -> {
+            if(nbJoueurs>2){
+                nbJoueurs--; 
+                nbJoueursTexte.setText(String.valueOf(nbJoueurs));
+            }
+        });
         //Texte nbJoueurs
         nbJoueursTexte = new Text(String.valueOf(nbJoueurs));
         nbJoueursTexte.setFont(fontTradeWindsTitre2);
@@ -164,11 +171,6 @@ public class VueChoixJoueurs extends Stage {
         paneBoutons.setEffect(new DropShadow(10, 3, 3, Color.BLACK));
         paneBoutons.getChildren().addAll(boutonSupprimer, moins, nbJoueursTexte, boutonAjouter, plus);
         //Input avatars
-        avatarVert = null;
-        avatarBleu = null;
-        avatarRose = null;
-        avatarRouge = null;
-        avatarJaune = null;
         try {
             avatarVert = new FileInputStream("ressources/images/images/avatar-VERT.png");
             avatarBleu = new FileInputStream("ressources/images/images/avatar-BLEU.png");
@@ -210,8 +212,29 @@ public class VueChoixJoueurs extends Stage {
         joueurRose.setLayoutY(337);
         //Textfield vert
         pseudoJoueurVert = new TextField();
-        pseudoJoueurVert.setLayoutX(104);
+        pseudoJoueurVert.setLayoutX(96);
         pseudoJoueurVert.setLayoutY(509);
+        pseudoJoueurVert.setMaxSize(100, 20);
+        //Textfield bleu
+        pseudoJoueurBleu = new TextField();
+        pseudoJoueurBleu.setLayoutX(253);
+        pseudoJoueurBleu.setLayoutY(509);
+        pseudoJoueurBleu.setMaxSize(100, 20);
+        //Textfield rose
+        pseudoJoueurRose = new TextField();
+        pseudoJoueurRose.setLayoutX(413);
+        pseudoJoueurRose.setLayoutY(509);
+        pseudoJoueurRose.setMaxSize(100, 20);
+        //Textfield rouge
+        pseudoJoueurRouge = new TextField();
+        pseudoJoueurRouge.setLayoutX(573);
+        pseudoJoueurRouge.setLayoutY(509);
+        pseudoJoueurRouge.setMaxSize(100, 20);
+        //Textfield jaune
+        pseudoJoueurJaune = new TextField();
+        pseudoJoueurJaune.setLayoutX(733);
+        pseudoJoueurJaune.setLayoutY(509);
+        pseudoJoueurJaune.setMaxSize(100, 20);
         //Bouton jouer
         jouer = new Button("Jouer");
         jouer.setFont(fontTradeWindsTitre2);
@@ -221,7 +244,7 @@ public class VueChoixJoueurs extends Stage {
         jouer.setStyle("-fx-background-color: WHITE");
         jouer.setEffect(new DropShadow(5, 2, 2, Color.BLACK));
         //AddAll children
-        pane.getChildren().addAll(titre1, titre2, paneBoutons, joueurVert, pseudoJoueurVert, joueurBleu, joueurJaune, joueurRouge, joueurRose, jouer);
+        pane.getChildren().addAll(titre1, titre2, paneBoutons, joueurVert, pseudoJoueurVert, joueurBleu, pseudoJoueurBleu, joueurJaune, pseudoJoueurJaune, joueurRouge, pseudoJoueurRouge, joueurRose, pseudoJoueurRose, jouer);
         //Scene
         scene = new Scene(pane);
         //Stage
