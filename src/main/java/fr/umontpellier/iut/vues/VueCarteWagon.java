@@ -17,7 +17,7 @@ public class VueCarteWagon extends Pane {
 
         this.couleurWagon = couleurWagon;
 
-         ChangeListener l = (observableValue, ancienneVal, nouvelleVal) -> {
+            ChangeListener l = (observableValue, ancienneVal, nouvelleVal) -> {
 
 
 
