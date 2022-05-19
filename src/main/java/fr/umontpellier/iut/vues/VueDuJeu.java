@@ -56,8 +56,6 @@ public class VueDuJeu extends Pane {
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
-        vueAutreJoueurs = new VueAutresJoueurs(jeu);
-        getChildren().add(vueAutreJoueurs);
         vuePlateau = new VuePlateau();
         vuePlateau.setEffect(dropShadow);
         vuePlateau = new VuePlateau();

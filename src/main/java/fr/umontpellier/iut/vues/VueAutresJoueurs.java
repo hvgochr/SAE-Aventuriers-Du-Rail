@@ -1,6 +1,9 @@
 package fr.umontpellier.iut.vues;
 
+import fr.umontpellier.iut.IJeu;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * Cette classe présente les éléments des joueurs autres que le joueur courant,
@@ -10,6 +13,6 @@ import javafx.scene.layout.Pane;
  */
 public class VueAutresJoueurs extends Pane {
 
-
+    private IJeu jeu;
 
 }
