@@ -41,7 +41,6 @@ public class VueDuJeu extends Pane {
     private boolean clique = false;
     private DropShadow dropShadow = new DropShadow();
     private VuePlateau vuePlateau;
-    private VueAutresJoueurs vueAutreJoueurs;
 
     private final EventHandler<MouseEvent> blanchir = actionEvent -> {
             if (!clique) {
@@ -57,37 +56,7 @@ public class VueDuJeu extends Pane {
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
         vuePlateau = new VuePlateau();
-        vuePlateau.setEffect(dropShadow);
-        vuePlateau = new VuePlateau();
         getChildren().add(vuePlateau);
-        Button coin = new Button();
-        coin.setShape(new Circle(0));
-        ImageView i1 = new ImageView();
-        FileInputStream lienToggle = null;
-        try {
-            lienToggle = new FileInputStream("ressources/images/images/toggle-button.png");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        i1.setImage(new Image(lienToggle));
-
-        dropShadow.setRadius(20.0);
-        dropShadow.setOffsetX(3.0);
-        dropShadow.setOffsetY(3.0);
-        dropShadow.setColor(Color.BLACK);
-        vuePlateau.setEffect(dropShadow);
-        i1.setFitHeight(60);
-        i1.setFitWidth(60);
-        coin.setStyle("-fx-background-color: BLACK");
-        coin.setGraphic(i1);
-
-        lighting.setDiffuseConstant(100.0);
-        lighting.setSpecularConstant(0.8);
-        lighting.setSpecularExponent(0.0);
-        lighting.setSurfaceScale(0.0);
-        lighting.setLight(new Light.Distant(30, 30, Color.WHITE));
-        getChildren().add(coin);
-        coin.setOnMouseClicked(blanchir);
     }
 
         public IJeu getJeu () {

@@ -2,14 +2,25 @@ package fr.umontpellier.iut.vues;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.LoadException;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -20,16 +31,51 @@ import java.io.IOException;
  */
 public class VuePlateau extends Pane {
 
+    private Lighting lighting;
+
+    private boolean clique;
+
+    private DropShadow dropShadow;
+
+    private Button boutonToggle;
+
+    private ImageView toggle;
+
+    private FileInputStream lienToggle;
+
     public VuePlateau() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/plateau.fxml"));
             loader.setRoot(this);
             loader.setController(this);
             loader.load();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //Lighting
+        lighting = new Lighting(new Light.Distant(30, 30, Color.WHITE));
+        lighting.setDiffuseConstant(100);
+        //Image
+        try {
+            lienToggle = new FileInputStream("ressources/images/images/toggle-button.png");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        toggle = new ImageView(new Image(lienToggle));
+        toggle.setFitHeight(40);
+        toggle.setFitWidth(40);
+        //Bouton
+        boutonToggle = new Button();
+        boutonToggle.setGraphic(toggle);
+        boutonToggle.setLayoutX(1);
+        boutonToggle.setLayoutY(5);
+        boutonToggle.setShape(new Circle(0));
+        //Ombre plateau
+        dropShadow = new DropShadow(20, Color.BLACK);
+        dropShadow.setOffsetX(3);
+        dropShadow.setOffsetY(3);
+        this.setEffect(dropShadow);
+        getChildren().add(boutonToggle);
     }
 
     @FXML

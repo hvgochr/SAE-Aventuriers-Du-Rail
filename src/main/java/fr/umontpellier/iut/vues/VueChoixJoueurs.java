@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -95,15 +97,11 @@ public class VueChoixJoueurs extends Stage {
         //Titre 1 "Aventuriers Du Rail - Version Europe"
         titre1 = new Text("Les Aventuriers Du Rail - Version Europe");
         titre1.setFont(fontTradeWindsTitre1);
-        //A voir si ombre ou non
-        //titre1.setEffect(new DropShadow(1, 1, 1, Color.BLACK));
         titre1.setLayoutX(191);
         titre1.setLayoutY(41);
         //Titre 2 "Veuillez choisir un nombre de joueurs et renseigner leurs noms."
         titre2 = new Text("Veuillez choisir un nombre de joueurs et renseigner leurs noms.");
         titre2.setFont(fontTradeWindsTitre2);
-        //A voir si ombre ou non
-        //titre2.setEffect(new DropShadow(1, 1, 1, Color.BLACK)); 
         titre2.setLayoutX(174);
         titre2.setLayoutY(140);
         //Texte nbJoueurs
@@ -258,12 +256,24 @@ public class VueChoixJoueurs extends Stage {
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
+                    joueurBleu.setLayoutX(408);
+                    joueurBleu.setLayoutY(337);
+                    pseudoJoueurBleu.setLayoutX(421);
+                    pseudoJoueurBleu.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurVert)){
                         pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
                     }
+                    joueurVert.setLayoutX(217);
+                    joueurVert.setLayoutY(337);
+                    pseudoJoueurVert.setLayoutX(230);
+                    pseudoJoueurVert.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurJaune)){
                         pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
                     }
+                    joueurJaune.setLayoutX(599);
+                    joueurJaune.setLayoutY(337);
+                    pseudoJoueurJaune.setLayoutX(615);
+                    pseudoJoueurJaune.setLayoutY(509);
                     if(pane.getChildren().contains(joueurRose)){
                         pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
                     }
@@ -274,17 +284,33 @@ public class VueChoixJoueurs extends Stage {
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
+                    joueurBleu.setLayoutX(307);
+                    joueurBleu.setLayoutY(337);
+                    pseudoJoueurBleu.setLayoutX(320);
+                    pseudoJoueurBleu.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurVert)){
                         pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
                     }
+                    joueurVert.setLayoutX(107);
+                    joueurVert.setLayoutY(337);
+                    pseudoJoueurVert.setLayoutX(120);
+                    pseudoJoueurVert.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurJaune)){
                         pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
                     }
-                    if(!pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().addAll(joueurRose, pseudoJoueurRose);
+                    joueurJaune.setLayoutX(507);
+                    joueurJaune.setLayoutY(337);
+                    pseudoJoueurJaune.setLayoutX(523);
+                    pseudoJoueurJaune.setLayoutY(509);
+                    if(!pane.getChildren().contains(joueurRouge)){
+                        pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
                     }
-                    if(pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
+                    joueurRouge.setLayoutX(707);
+                    joueurRouge.setLayoutY(337);
+                    pseudoJoueurRouge.setLayoutX(723);
+                    pseudoJoueurRouge.setLayoutY(509);
+                    if(pane.getChildren().contains(joueurRose)){
+                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
                     }
                 }else if(nbJoueurs==5){
                     if(!pane.getChildren().contains(joueurBleu)){
@@ -313,14 +339,14 @@ public class VueChoixJoueurs extends Stage {
                     }
                     joueurRose.setLayoutX(726);
                     joueurRose.setLayoutY(337);
-                    pseudoJoueurRose.setLayoutX(733);
+                    pseudoJoueurRose.setLayoutX(573);
                     pseudoJoueurRose.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurRouge)){
                         pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
                     }
-                    joueurRose.setLayoutX(726);
-                    joueurRose.setLayoutY(337);
-                    pseudoJoueurRouge.setLayoutX(573);
+                    joueurRouge.setLayoutX(567);
+                    joueurRouge.setLayoutY(337);
+                    pseudoJoueurRouge.setLayoutX(733);
                     pseudoJoueurRouge.setLayoutY(509);
                 }
             }
@@ -368,12 +394,24 @@ public class VueChoixJoueurs extends Stage {
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
+                    joueurBleu.setLayoutX(408);
+                    joueurBleu.setLayoutY(337);
+                    pseudoJoueurBleu.setLayoutX(421);
+                    pseudoJoueurBleu.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurVert)){
                         pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
                     }
+                    joueurVert.setLayoutX(217);
+                    joueurVert.setLayoutY(337);
+                    pseudoJoueurVert.setLayoutX(230);
+                    pseudoJoueurVert.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurJaune)){
                         pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
                     }
+                    joueurJaune.setLayoutX(599);
+                    joueurJaune.setLayoutY(337);
+                    pseudoJoueurJaune.setLayoutX(615);
+                    pseudoJoueurJaune.setLayoutY(509);
                     if(pane.getChildren().contains(joueurRose)){
                         pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
                     }
@@ -384,17 +422,33 @@ public class VueChoixJoueurs extends Stage {
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
+                    joueurBleu.setLayoutX(307);
+                    joueurBleu.setLayoutY(337);
+                    pseudoJoueurBleu.setLayoutX(320);
+                    pseudoJoueurBleu.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurVert)){
                         pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
                     }
+                    joueurVert.setLayoutX(107);
+                    joueurVert.setLayoutY(337);
+                    pseudoJoueurVert.setLayoutX(120);
+                    pseudoJoueurVert.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurJaune)){
                         pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
                     }
-                    if(!pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().addAll(joueurRose, pseudoJoueurRose);
+                    joueurJaune.setLayoutX(507);
+                    joueurJaune.setLayoutY(337);
+                    pseudoJoueurJaune.setLayoutX(523);
+                    pseudoJoueurJaune.setLayoutY(509);
+                    if(!pane.getChildren().contains(joueurRouge)){
+                        pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
                     }
-                    if(pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
+                    joueurRouge.setLayoutX(707);
+                    joueurRouge.setLayoutY(337);
+                    pseudoJoueurRouge.setLayoutX(723);
+                    pseudoJoueurRouge.setLayoutY(509);
+                    if(pane.getChildren().contains(joueurRose)){
+                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
                     }
                 }else if(nbJoueurs==5){
                     if(!pane.getChildren().contains(joueurBleu)){
@@ -423,14 +477,14 @@ public class VueChoixJoueurs extends Stage {
                     }
                     joueurRose.setLayoutX(726);
                     joueurRose.setLayoutY(337);
-                    pseudoJoueurRose.setLayoutX(733);
+                    pseudoJoueurRose.setLayoutX(573);
                     pseudoJoueurRose.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurRouge)){
                         pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
                     }
-                    joueurRose.setLayoutX(726);
-                    joueurRose.setLayoutY(337);
-                    pseudoJoueurRouge.setLayoutX(573);
+                    joueurRouge.setLayoutX(567);
+                    joueurRouge.setLayoutY(337);
+                    pseudoJoueurRouge.setLayoutX(733);
                     pseudoJoueurRouge.setLayoutY(509);
                 }
             }
@@ -472,12 +526,24 @@ public class VueChoixJoueurs extends Stage {
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
+                    joueurBleu.setLayoutX(408);
+                    joueurBleu.setLayoutY(337);
+                    pseudoJoueurBleu.setLayoutX(421);
+                    pseudoJoueurBleu.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurVert)){
                         pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
                     }
+                    joueurVert.setLayoutX(217);
+                    joueurVert.setLayoutY(337);
+                    pseudoJoueurVert.setLayoutX(230);
+                    pseudoJoueurVert.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurJaune)){
                         pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
                     }
+                    joueurJaune.setLayoutX(599);
+                    joueurJaune.setLayoutY(337);
+                    pseudoJoueurJaune.setLayoutX(615);
+                    pseudoJoueurJaune.setLayoutY(509);
                     if(pane.getChildren().contains(joueurRose)){
                         pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
                     }
@@ -488,17 +554,33 @@ public class VueChoixJoueurs extends Stage {
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
+                    joueurBleu.setLayoutX(307);
+                    joueurBleu.setLayoutY(337);
+                    pseudoJoueurBleu.setLayoutX(320);
+                    pseudoJoueurBleu.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurVert)){
                         pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
                     }
+                    joueurVert.setLayoutX(107);
+                    joueurVert.setLayoutY(337);
+                    pseudoJoueurVert.setLayoutX(120);
+                    pseudoJoueurVert.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurJaune)){
                         pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
                     }
-                    if(!pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().addAll(joueurRose, pseudoJoueurRose);
+                    joueurJaune.setLayoutX(507);
+                    joueurJaune.setLayoutY(337);
+                    pseudoJoueurJaune.setLayoutX(523);
+                    pseudoJoueurJaune.setLayoutY(509);
+                    if(!pane.getChildren().contains(joueurRouge)){
+                        pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
                     }
-                    if(pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
+                    joueurRouge.setLayoutX(707);
+                    joueurRouge.setLayoutY(337);
+                    pseudoJoueurRouge.setLayoutX(723);
+                    pseudoJoueurRouge.setLayoutY(509);
+                    if(pane.getChildren().contains(joueurRose)){
+                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
                     }
                 }else if(nbJoueurs==5){
                     if(!pane.getChildren().contains(joueurBleu)){
@@ -527,14 +609,14 @@ public class VueChoixJoueurs extends Stage {
                     }
                     joueurRose.setLayoutX(726);
                     joueurRose.setLayoutY(337);
-                    pseudoJoueurRose.setLayoutX(733);
+                    pseudoJoueurRose.setLayoutX(573);
                     pseudoJoueurRose.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurRouge)){
                         pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
                     }
-                    joueurRose.setLayoutX(726);
-                    joueurRose.setLayoutY(337);
-                    pseudoJoueurRouge.setLayoutX(573);
+                    joueurRouge.setLayoutX(567);
+                    joueurRouge.setLayoutY(337);
+                    pseudoJoueurRouge.setLayoutX(733);
                     pseudoJoueurRouge.setLayoutY(509);
                 }
             }
@@ -575,12 +657,24 @@ public class VueChoixJoueurs extends Stage {
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
+                    joueurBleu.setLayoutX(408);
+                    joueurBleu.setLayoutY(337);
+                    pseudoJoueurBleu.setLayoutX(421);
+                    pseudoJoueurBleu.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurVert)){
                         pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
                     }
+                    joueurVert.setLayoutX(217);
+                    joueurVert.setLayoutY(337);
+                    pseudoJoueurVert.setLayoutX(230);
+                    pseudoJoueurVert.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurJaune)){
                         pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
                     }
+                    joueurJaune.setLayoutX(599);
+                    joueurJaune.setLayoutY(337);
+                    pseudoJoueurJaune.setLayoutX(615);
+                    pseudoJoueurJaune.setLayoutY(509);
                     if(pane.getChildren().contains(joueurRose)){
                         pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
                     }
@@ -591,17 +685,33 @@ public class VueChoixJoueurs extends Stage {
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
+                    joueurBleu.setLayoutX(307);
+                    joueurBleu.setLayoutY(337);
+                    pseudoJoueurBleu.setLayoutX(320);
+                    pseudoJoueurBleu.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurVert)){
                         pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
                     }
+                    joueurVert.setLayoutX(107);
+                    joueurVert.setLayoutY(337);
+                    pseudoJoueurVert.setLayoutX(120);
+                    pseudoJoueurVert.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurJaune)){
                         pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
                     }
-                    if(!pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().addAll(joueurRose, pseudoJoueurRose);
+                    joueurJaune.setLayoutX(507);
+                    joueurJaune.setLayoutY(337);
+                    pseudoJoueurJaune.setLayoutX(523);
+                    pseudoJoueurJaune.setLayoutY(509);
+                    if(!pane.getChildren().contains(joueurRouge)){
+                        pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
                     }
-                    if(pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
+                    joueurRouge.setLayoutX(707);
+                    joueurRouge.setLayoutY(337);
+                    pseudoJoueurRouge.setLayoutX(723);
+                    pseudoJoueurRouge.setLayoutY(509);
+                    if(pane.getChildren().contains(joueurRose)){
+                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
                     }
                 }else if(nbJoueurs==5){
                     if(!pane.getChildren().contains(joueurBleu)){
@@ -630,14 +740,14 @@ public class VueChoixJoueurs extends Stage {
                     }
                     joueurRose.setLayoutX(726);
                     joueurRose.setLayoutY(337);
-                    pseudoJoueurRose.setLayoutX(733);
+                    pseudoJoueurRose.setLayoutX(573);
                     pseudoJoueurRose.setLayoutY(509);
                     if(!pane.getChildren().contains(joueurRouge)){
                         pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
                     }
-                    joueurRose.setLayoutX(726);
-                    joueurRose.setLayoutY(337);
-                    pseudoJoueurRouge.setLayoutX(573);
+                    joueurRouge.setLayoutX(567);
+                    joueurRouge.setLayoutY(337);
+                    pseudoJoueurRouge.setLayoutX(733);
                     pseudoJoueurRouge.setLayoutY(509);
                 }
             }
@@ -666,7 +776,15 @@ public class VueChoixJoueurs extends Stage {
      * Définit l'action à exécuter lorsque la liste des participants est correctement initialisée
      */
     public void setNomsDesJoueursDefinisListener(ListChangeListener<String> quandLesNomsDesJoueursSontDefinis) {
-
+        if(nbJoueurs==2){
+            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText());
+        }else if(nbJoueurs==3){
+            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText(), pseudoJoueurJaune.getText());
+        }else if(nbJoueurs==4){
+            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText(), pseudoJoueurJaune.getText(), pseudoJoueurRouge.getText());
+        }else if(nbJoueurs==5){
+            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText(), pseudoJoueurJaune.getText(), pseudoJoueurRouge.getText(), pseudoJoueurRose.getText());
+        }
     }
 
     /**
