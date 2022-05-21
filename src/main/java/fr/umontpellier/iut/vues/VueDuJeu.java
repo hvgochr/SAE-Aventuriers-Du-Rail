@@ -41,6 +41,7 @@ public class VueDuJeu extends Pane {
     private boolean clique = false;
     private DropShadow dropShadow = new DropShadow();
     private VuePlateau vuePlateau;
+    private VueJoueurCourant vueJoueurCourant;
 
     private final EventHandler<MouseEvent> blanchir = actionEvent -> {
             if (!clique) {
@@ -55,8 +56,15 @@ public class VueDuJeu extends Pane {
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
+        this.setPrefSize(1440, 1024);
         vuePlateau = new VuePlateau();
-        getChildren().add(vuePlateau);
+        vuePlateau.setLayoutX(66);
+        vuePlateau.setLayoutY(105);
+        vuePlateau.setPrefSize(957, 616);
+        vueJoueurCourant = new VueJoueurCourant(jeu);
+        vueJoueurCourant.setLayoutX(1044);
+        vueJoueurCourant.setLayoutY(377);
+        getChildren().addAll(vuePlateau, vueJoueurCourant);
     }
 
         public IJeu getJeu () {
