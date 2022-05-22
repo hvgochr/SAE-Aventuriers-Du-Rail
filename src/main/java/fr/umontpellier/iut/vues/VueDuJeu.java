@@ -23,6 +23,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 
 /**
@@ -36,6 +37,9 @@ import javafx.scene.text.Font;
  */
 public class VueDuJeu extends Pane {
 
+    private Text titre;
+
+    private Font fontTitre;
     private IJeu jeu;
     private Lighting lighting = new Lighting();
     private boolean clique = false;
@@ -57,14 +61,25 @@ public class VueDuJeu extends Pane {
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
         this.setPrefSize(1440, 1024);
+        //Font 
+        fontTitre = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 40);
+        //Titre
+        titre = new Text("Les Aventuriers Du Rail - Version Europe");
+        titre.setFont(fontTitre);
+        titre.setLayoutX(285);
+        titre.setLayoutY(58);
+        //Plateau
         vuePlateau = new VuePlateau();
         vuePlateau.setLayoutX(66);
         vuePlateau.setLayoutY(105);
         vuePlateau.setPrefSize(957, 616);
+        //Joueur Courant
         vueJoueurCourant = new VueJoueurCourant(jeu);
         vueJoueurCourant.setLayoutX(1044);
         vueJoueurCourant.setLayoutY(377);
-        getChildren().addAll(vuePlateau, vueJoueurCourant);
+        //This
+        this.setStyle("-fx-background-color: #F2EDBF");
+        getChildren().addAll(vuePlateau, vueJoueurCourant, titre);
     }
 
         public IJeu getJeu () {
