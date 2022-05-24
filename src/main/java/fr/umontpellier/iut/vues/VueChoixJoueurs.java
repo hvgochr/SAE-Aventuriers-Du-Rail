@@ -1,5 +1,7 @@
 package fr.umontpellier.iut.vues;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -44,7 +46,7 @@ public class VueChoixJoueurs extends Stage {
     private Text plus;
     private Text moins;
 
-    private int nbJoueurs = 5;
+    private IntegerProperty nbJoueurs;
 
     private Font fontTradeWindsTitre1;
     private Font fontTradeWindsTitre2;
@@ -84,6 +86,8 @@ public class VueChoixJoueurs extends Stage {
     }
 
     public VueChoixJoueurs() {
+        nbJoueurs = new SimpleIntegerProperty();
+        nbJoueurs.setValue(5);
         nomsJoueurs = FXCollections.observableArrayList();
         //Pane
         pane = new Pane();
@@ -105,7 +109,7 @@ public class VueChoixJoueurs extends Stage {
         titre2.setLayoutX(174);
         titre2.setLayoutY(140);
         //Texte nbJoueurs
-        nbJoueursTexte = new Text(String.valueOf(nbJoueurs));
+        nbJoueursTexte = new Text(String.valueOf(nbJoueurs.getValue()));
         nbJoueursTexte.setFont(fontTradeWindsTitre2);
         nbJoueursTexte.setLayoutX(123);
         nbJoueursTexte.setLayoutY(36);
@@ -225,10 +229,10 @@ public class VueChoixJoueurs extends Stage {
         boutonAjouter.setLayoutX(202);
         boutonAjouter.setLayoutY(10);
         boutonAjouter.setOnAction(e -> {
-            if(nbJoueurs<5){
-                nbJoueurs++; 
-                nbJoueursTexte.setText(String.valueOf(nbJoueurs));
-                if(nbJoueurs==2){
+            if(nbJoueurs.getValue()<5){
+                nbJoueurs.setValue(nbJoueurs.getValue()+1);
+                nbJoueursTexte.setText(String.valueOf(nbJoueurs.getValue()));
+                if(nbJoueurs.getValue()==2){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -252,7 +256,7 @@ public class VueChoixJoueurs extends Stage {
                     if(pane.getChildren().contains(joueurRouge)){
                         pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
                     }
-                }else if(nbJoueurs==3){
+                }else if(nbJoueurs.getValue()==3){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -280,7 +284,7 @@ public class VueChoixJoueurs extends Stage {
                     if(pane.getChildren().contains(joueurRouge)){
                         pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
                     }
-                }else if(nbJoueurs==4){
+                }else if(nbJoueurs.getValue()==4){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -312,7 +316,7 @@ public class VueChoixJoueurs extends Stage {
                     if(pane.getChildren().contains(joueurRose)){
                         pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
                     }
-                }else if(nbJoueurs==5){
+                }else if(nbJoueurs.getValue()==5){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -363,10 +367,10 @@ public class VueChoixJoueurs extends Stage {
         boutonSupprimer.setLayoutX(12);
         boutonSupprimer.setLayoutY(10);
         boutonSupprimer.setOnAction(e -> {
-            if(nbJoueurs>2){
-                nbJoueurs--; 
-                nbJoueursTexte.setText(String.valueOf(nbJoueurs));
-                if(nbJoueurs==2){
+            if(nbJoueurs.getValue()>2){
+                nbJoueurs.setValue(nbJoueurs.getValue()-1);
+                nbJoueursTexte.setText(String.valueOf(nbJoueurs.getValue()));
+                if(nbJoueurs.getValue()==2){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -390,7 +394,7 @@ public class VueChoixJoueurs extends Stage {
                     if(pane.getChildren().contains(joueurRouge)){
                         pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
                     }
-                }else if(nbJoueurs==3){
+                }else if(nbJoueurs.getValue()==3){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -418,7 +422,7 @@ public class VueChoixJoueurs extends Stage {
                     if(pane.getChildren().contains(joueurRouge)){
                         pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
                     }
-                }else if(nbJoueurs==4){
+                }else if(nbJoueurs.getValue()==4){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -450,7 +454,7 @@ public class VueChoixJoueurs extends Stage {
                     if(pane.getChildren().contains(joueurRose)){
                         pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
                     }
-                }else if(nbJoueurs==5){
+                }else if(nbJoueurs.getValue()==5){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -495,10 +499,10 @@ public class VueChoixJoueurs extends Stage {
         plus.setLayoutX(214);
         plus.setLayoutY(40);
         plus.setOnMouseClicked(e -> {
-            if(nbJoueurs<5){
-                nbJoueurs++; 
-                nbJoueursTexte.setText(String.valueOf(nbJoueurs));
-                if(nbJoueurs==2){
+            if(nbJoueurs.getValue()<5){
+                nbJoueurs.setValue(nbJoueurs.getValue()+1);
+                nbJoueursTexte.setText(String.valueOf(nbJoueurs.getValue()));
+                if(nbJoueurs.getValue()==2){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -522,7 +526,7 @@ public class VueChoixJoueurs extends Stage {
                     if(pane.getChildren().contains(joueurRouge)){
                         pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
                     }
-                }else if(nbJoueurs==3){
+                }else if(nbJoueurs.getValue()==3){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -550,7 +554,7 @@ public class VueChoixJoueurs extends Stage {
                     if(pane.getChildren().contains(joueurRouge)){
                         pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
                     }
-                }else if(nbJoueurs==4){
+                }else if(nbJoueurs.getValue()==4){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -582,7 +586,7 @@ public class VueChoixJoueurs extends Stage {
                     if(pane.getChildren().contains(joueurRose)){
                         pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
                     }
-                }else if(nbJoueurs==5){
+                }else if(nbJoueurs.getValue()==5){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -626,10 +630,10 @@ public class VueChoixJoueurs extends Stage {
         moins.setLayoutX(25);
         moins.setLayoutY(40);
         moins.setOnMouseClicked(e -> {
-            if(nbJoueurs>2){
-                nbJoueurs--; 
-                nbJoueursTexte.setText(String.valueOf(nbJoueurs));
-                if(nbJoueurs==2){
+            if(nbJoueurs.getValue()>2){
+                nbJoueurs.setValue(nbJoueurs.getValue()-1);
+                nbJoueursTexte.setText(String.valueOf(nbJoueurs.getValue()));
+                if(nbJoueurs.getValue()==2){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -653,7 +657,7 @@ public class VueChoixJoueurs extends Stage {
                     if(pane.getChildren().contains(joueurRouge)){
                         pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
                     }
-                }else if(nbJoueurs==3){
+                }else if(nbJoueurs.getValue()==3){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -681,7 +685,7 @@ public class VueChoixJoueurs extends Stage {
                     if(pane.getChildren().contains(joueurRouge)){
                         pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
                     }
-                }else if(nbJoueurs==4){
+                }else if(nbJoueurs.getValue()==4){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -713,7 +717,7 @@ public class VueChoixJoueurs extends Stage {
                     if(pane.getChildren().contains(joueurRose)){
                         pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
                     }
-                }else if(nbJoueurs==5){
+                }else if(nbJoueurs.getValue()==5){
                     if(!pane.getChildren().contains(joueurBleu)){
                         pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
                     }
@@ -776,15 +780,7 @@ public class VueChoixJoueurs extends Stage {
      * Définit l'action à exécuter lorsque la liste des participants est correctement initialisée
      */
     public void setNomsDesJoueursDefinisListener(ListChangeListener<String> quandLesNomsDesJoueursSontDefinis) {
-        if(nbJoueurs==2){
-            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText());
-        }else if(nbJoueurs==3){
-            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText(), pseudoJoueurJaune.getText());
-        }else if(nbJoueurs==4){
-            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText(), pseudoJoueurJaune.getText(), pseudoJoueurRouge.getText());
-        }else if(nbJoueurs==5){
-            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText(), pseudoJoueurJaune.getText(), pseudoJoueurRouge.getText(), pseudoJoueurRose.getText());
-        }
+        
     }
 
     /**
@@ -820,7 +816,7 @@ public class VueChoixJoueurs extends Stage {
      * Retourne le nombre de participants à la partie que l'utilisateur a renseigné
      */
     protected int getNombreDeJoueurs() {
-        return this.nomsJoueurs.size();
+        return this.nbJoueurs.getValue();
     }
 
     /**
