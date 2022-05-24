@@ -1,5 +1,7 @@
 package fr.umontpellier.iut.vues;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -8,6 +10,7 @@ import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -63,6 +66,15 @@ public class VuePlateau extends Pane {
         boutonToggle.setLayoutX(1);
         boutonToggle.setLayoutY(5);
         boutonToggle.setShape(new Circle(0));
+        boutonToggle.setOnAction(e -> {
+            if(!clique){
+                this.setEffect(lighting);
+                clique = true;
+            }else{
+                this.setEffect(dropShadow);
+                clique = false;
+            }
+        });
         //Ombre plateau
         dropShadow = new DropShadow(20, Color.BLACK);
         dropShadow.setOffsetX(3);
