@@ -577,4 +577,21 @@ public class Joueur implements IJoueur {
         ville.setProprietaire(this);
     }
 
+    public String convertirCouleurJoueur(){
+        switch(this.getCouleur()){
+            case JAUNE: 
+                return "FFDF73";
+            case BLEU:
+                return "BED1FF";
+            case VERT:
+                return "CEFFB7";
+            case ROUGE:
+                return "FFCBCA";
+            case ROSE:
+                return "E4C6FF";
+            default: 
+                return "WHITE";
+        }
+    }
+
 }
