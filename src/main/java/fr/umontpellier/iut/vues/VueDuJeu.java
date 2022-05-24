@@ -21,7 +21,7 @@ public class VueDuJeu extends Pane {
     private Text titre;
 
     private Font fontTitre;
-    
+
     private IJeu jeu;
 
     private VuePlateau vuePlateau;
@@ -46,11 +46,11 @@ public class VueDuJeu extends Pane {
         vuePlateau.setLayoutY(105);
         vuePlateau.setPrefSize(957, 616);
         //Joueur Courant
-        vueJoueurCourant = new VueJoueurCourant(jeu.getJoueurs().get(1));
+        vueJoueurCourant = new VueJoueurCourant(jeu.getJoueurs().get(3));
         vueJoueurCourant.setLayoutX(1044);
         vueJoueurCourant.setLayoutY(377);
         //Autre joueur
-        vueAutreJoueur = new VueAutresJoueurs(jeu);
+        vueAutreJoueur = new VueAutresJoueurs(jeu.getJoueurs().get(2));
         vueAutreJoueur.setLayoutX(1044);
         vueAutreJoueur.setLayoutY(287);
         //This

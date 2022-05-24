@@ -54,9 +54,9 @@ public class VueJoueurCourant extends Pane {
         score.setLayoutY(25);
         //File Input
         try {
-            lienAvatar = new FileInputStream("ressources/images/images/avatar-JAUNE.png");
-            lienWagon = new FileInputStream("ressources/images/images/image-wagon-JAUNE.png");
-            lienGare = new FileInputStream("ressources/images/images/gare-JAUNE.png");
+            lienAvatar = new FileInputStream("ressources/images/images/avatar-" + joueur.getCouleur().toString().toUpperCase() + ".png");
+            lienWagon = new FileInputStream("ressources/images/images/image-wagon-" + joueur.getCouleur().toString().toUpperCase() + ".png");
+            lienGare = new FileInputStream("ressources/images/images/gare-" + joueur.getCouleur().toString().toUpperCase() + ".png");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,7 +94,7 @@ public class VueJoueurCourant extends Pane {
         dropShadow.setOffsetY(3);
         this.setEffect(dropShadow);
         //This
-        this.setStyle("-fx-background-color: #FFDF73");
+        this.setStyle("-fx-background-color: #" + joueurCourant.convertirCouleurJoueur());
         this.setPrefSize(329, 240);
         getChildren().addAll(pseudoJoueur, avatarJoueur, gares, wagons, nbGares, nbWagons, score);
     }
