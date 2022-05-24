@@ -27,7 +27,6 @@ public class VueAutresJoueurs extends Pane {
         this.setPrefSize(329, 78);
         this.setStyle("-fx-background-color: #E4C6FF");
         this.setEffect(dropShadow);
-        this.setOnMouseDragOver(e -> {this.setStyle("-fx-background-color: BLACK;");});
     }
 
 }

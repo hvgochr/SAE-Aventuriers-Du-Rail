@@ -3,6 +3,7 @@ package fr.umontpellier.iut.vues;
 import java.io.FileInputStream;
 
 import fr.umontpellier.iut.IJeu;
+import fr.umontpellier.iut.IJoueur;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,18 +19,18 @@ import javafx.scene.text.Text;
  */
 public class VueJoueurCourant extends Pane {
 
-    private IJeu jeu;
+    private IJoueur joueurCourant;
 
     private Text pseudoJoueur;
     private Text score;
     private Text nbWagons;
     private Text nbGares;
 
-    private ImageView joueur;
+    private ImageView avatarJoueur;
     private ImageView gares;
     private ImageView wagons;
 
-    private FileInputStream avatarJoueur;
+    private FileInputStream lienAvatar;
     private FileInputStream lienGare;
     private FileInputStream lienWagon;
 
@@ -37,34 +38,34 @@ public class VueJoueurCourant extends Pane {
 
     private DropShadow dropShadow;
 
-    public VueJoueurCourant(IJeu jeu){
-        this.jeu = jeu;
+    public VueJoueurCourant(IJoueur joueur){
+        this.joueurCourant = joueur;
         //Font
         fontPseudo = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 14);
         //Pseudo
-        pseudoJoueur = new Text(jeu.getJoueurs().get(1).getNom());
+        pseudoJoueur = new Text(joueurCourant.getNom());
         pseudoJoueur.setLayoutX(65);
         pseudoJoueur.setLayoutY(25);
         pseudoJoueur.setFont(fontPseudo);
         //Score
-        score = new Text(String.valueOf(jeu.getJoueurs().get(1).getScore()));
+        score = new Text(String.valueOf(joueurCourant.getScore()));
         score.setFont(fontPseudo);
         score.setLayoutX(251);
         score.setLayoutY(25);
         //File Input
         try {
-            avatarJoueur = new FileInputStream("ressources/images/images/avatar-JAUNE.png");
+            lienAvatar = new FileInputStream("ressources/images/images/avatar-JAUNE.png");
             lienWagon = new FileInputStream("ressources/images/images/image-wagon-JAUNE.png");
             lienGare = new FileInputStream("ressources/images/images/gare-JAUNE.png");
         } catch (Exception e) {
             e.printStackTrace();
         }
         //Avatar
-        joueur = new ImageView(new Image(avatarJoueur));
-        joueur.setFitWidth(42);
-        joueur.setFitHeight(57);
-        joueur.setLayoutX(14);
-        joueur.setLayoutY(13);
+        avatarJoueur = new ImageView(new Image(lienAvatar));
+        avatarJoueur.setFitWidth(42);
+        avatarJoueur.setFitHeight(57);
+        avatarJoueur.setLayoutX(14);
+        avatarJoueur.setLayoutY(13);
         //Wagons
         wagons = new ImageView(new Image(lienWagon));
         wagons.setFitHeight(13);
@@ -72,7 +73,7 @@ public class VueJoueurCourant extends Pane {
         wagons.setLayoutX(61);
         wagons.setLayoutY(56);
         //NbWagons
-        nbWagons = new Text(String.valueOf(jeu.getJoueurs().get(1).getNbWagons()));
+        nbWagons = new Text(String.valueOf(joueurCourant.getNbWagons()));
         nbWagons.setFont(fontPseudo);
         nbWagons.setLayoutX(83);
         nbWagons.setLayoutY(67);
@@ -83,7 +84,7 @@ public class VueJoueurCourant extends Pane {
         gares.setLayoutX(64);
         gares.setLayoutY(34);
         //NbGares
-        nbGares = new Text(String.valueOf(jeu.getJoueurs().get(1).getNbGares()));
+        nbGares = new Text(String.valueOf(joueurCourant.getNbGares()));
         nbGares.setFont(fontPseudo);
         nbGares.setLayoutX(83);
         nbGares.setLayoutY(45);
@@ -95,7 +96,7 @@ public class VueJoueurCourant extends Pane {
         //This
         this.setStyle("-fx-background-color: #FFDF73");
         this.setPrefSize(329, 240);
-        getChildren().addAll(pseudoJoueur, joueur, gares, wagons, nbGares, nbWagons, score);
+        getChildren().addAll(pseudoJoueur, avatarJoueur, gares, wagons, nbGares, nbWagons, score);
     }
 
 }

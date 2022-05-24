@@ -2,13 +2,10 @@ package fr.umontpellier.iut.vues;
 
 import fr.umontpellier.iut.IJeu;
 
-import javafx.event.EventHandler;
 import javafx.scene.effect.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
 
 /**
  * Cette classe correspond à la fenêtre principale de l'application.
@@ -49,7 +46,7 @@ public class VueDuJeu extends Pane {
         vuePlateau.setLayoutY(105);
         vuePlateau.setPrefSize(957, 616);
         //Joueur Courant
-        vueJoueurCourant = new VueJoueurCourant(jeu);
+        vueJoueurCourant = new VueJoueurCourant(jeu.getJoueurs().get(1));
         vueJoueurCourant.setLayoutX(1044);
         vueJoueurCourant.setLayoutY(377);
         //Autre joueur
@@ -65,6 +62,8 @@ public class VueDuJeu extends Pane {
         return jeu;
     }
 
-    public void creerBindings () {}
+    public void creerBindings () {
 
     }
+
+}

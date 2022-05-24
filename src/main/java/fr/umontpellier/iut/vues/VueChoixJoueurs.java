@@ -73,6 +73,8 @@ public class VueChoixJoueurs extends Stage {
 
     private Pane paneBoutons;
 
+    private ChangeListener<IntegerProperty> quandLeNombreDeJoueursChange;
+
     private Button boutonAjouter;
     private Button boutonSupprimer;
     private Button jouer;
@@ -86,8 +88,7 @@ public class VueChoixJoueurs extends Stage {
     }
 
     public VueChoixJoueurs() {
-        nbJoueurs = new SimpleIntegerProperty();
-        nbJoueurs.setValue(5);
+        nbJoueurs = new SimpleIntegerProperty(5);
         nomsJoueurs = FXCollections.observableArrayList();
         //Pane
         pane = new Pane();
