@@ -1,27 +1,11 @@
 package fr.umontpellier.iut.vues;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
-import fr.umontpellier.iut.ICouleurWagon;
 import fr.umontpellier.iut.IJeu;
 
-import javafx.beans.binding.Bindings;
-import javafx.css.Style;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -40,23 +24,14 @@ public class VueDuJeu extends Pane {
     private Text titre;
 
     private Font fontTitre;
+    
     private IJeu jeu;
-    private Lighting lighting = new Lighting();
-    private boolean clique = false;
-    private DropShadow dropShadow = new DropShadow();
+
     private VuePlateau vuePlateau;
+
     private VueJoueurCourant vueJoueurCourant;
 
-    private final EventHandler<MouseEvent> blanchir = actionEvent -> {
-            if (!clique) {
-                vuePlateau.setEffect(lighting);
-                clique = true;
-            }
-            else {
-                vuePlateau.setEffect(dropShadow);
-                clique = false;
-            }
-    };
+    private VueAutresJoueurs vueAutreJoueur;
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
@@ -77,15 +52,19 @@ public class VueDuJeu extends Pane {
         vueJoueurCourant = new VueJoueurCourant(jeu);
         vueJoueurCourant.setLayoutX(1044);
         vueJoueurCourant.setLayoutY(377);
+        //Autre joueur
+        vueAutreJoueur = new VueAutresJoueurs(jeu);
+        vueAutreJoueur.setLayoutX(1044);
+        vueAutreJoueur.setLayoutY(287);
         //This
         this.setStyle("-fx-background-color: #F2EDBF");
-        getChildren().addAll(vuePlateau, vueJoueurCourant, titre);
+        getChildren().addAll(vuePlateau, vueAutreJoueur, vueJoueurCourant, titre);
     }
 
-        public IJeu getJeu () {
-            return jeu;
-        }
+    public IJeu getJeu () {
+        return jeu;
+    }
 
-        public void creerBindings () {}
+    public void creerBindings () {}
 
     }

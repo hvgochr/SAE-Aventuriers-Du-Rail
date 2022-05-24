@@ -1,6 +1,5 @@
 package fr.umontpellier.iut.vues;
 
-import java.io.File;
 import java.io.FileInputStream;
 
 import fr.umontpellier.iut.IJeu;
@@ -18,6 +17,8 @@ import javafx.scene.text.Text;
  * On y définit les bindings sur le joueur courant, ainsi que le listener à exécuter lorsque ce joueur change
  */
 public class VueJoueurCourant extends Pane {
+
+    private IJeu jeu;
 
     private Text pseudoJoueur;
     private Text score;
@@ -37,15 +38,16 @@ public class VueJoueurCourant extends Pane {
     private DropShadow dropShadow;
 
     public VueJoueurCourant(IJeu jeu){
+        this.jeu = jeu;
         //Font
         fontPseudo = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 14);
         //Pseudo
-        pseudoJoueur = new Text("Joueur 4");
+        pseudoJoueur = new Text(jeu.getJoueurs().get(1).getNom());
         pseudoJoueur.setLayoutX(65);
         pseudoJoueur.setLayoutY(25);
         pseudoJoueur.setFont(fontPseudo);
         //Score
-        score = new Text("Score: 9");
+        score = new Text(String.valueOf(jeu.getJoueurs().get(1).getScore()));
         score.setFont(fontPseudo);
         score.setLayoutX(251);
         score.setLayoutY(25);
@@ -70,7 +72,7 @@ public class VueJoueurCourant extends Pane {
         wagons.setLayoutX(61);
         wagons.setLayoutY(56);
         //NbWagons
-        nbWagons = new Text("45");
+        nbWagons = new Text(String.valueOf(jeu.getJoueurs().get(1).getNbWagons()));
         nbWagons.setFont(fontPseudo);
         nbWagons.setLayoutX(83);
         nbWagons.setLayoutY(67);
@@ -81,7 +83,7 @@ public class VueJoueurCourant extends Pane {
         gares.setLayoutX(64);
         gares.setLayoutY(34);
         //NbGares
-        nbGares = new Text("3");
+        nbGares = new Text(String.valueOf(jeu.getJoueurs().get(1).getNbGares()));
         nbGares.setFont(fontPseudo);
         nbGares.setLayoutX(83);
         nbGares.setLayoutY(45);
