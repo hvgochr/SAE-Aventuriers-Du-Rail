@@ -22,5 +22,6 @@ public interface IJoueur {
     Couleur getCouleur();
     int getNbGares();
     int getScore();
+    String convertirCouleurJoueur();
 
 }
