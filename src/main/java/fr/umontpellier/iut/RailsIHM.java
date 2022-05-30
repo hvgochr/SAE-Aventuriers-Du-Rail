@@ -32,6 +32,7 @@ public class RailsIHM extends Application {
             vueChoixJoueurs = new VueChoixJoueurs();
             vueChoixJoueurs.show();
             vueChoixJoueurs.jouer.setOnAction(e -> {
+                vueChoixJoueurs.setNomDesJoueurs();
                 vueChoixJoueurs.hide();
                 demarrerPartie();
             });

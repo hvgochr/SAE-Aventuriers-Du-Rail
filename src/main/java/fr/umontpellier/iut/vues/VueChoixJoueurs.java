@@ -268,9 +268,6 @@ public class VueChoixJoueurs extends Stage {
         jouer.setPrefSize(173, 42);
         jouer.setStyle("-fx-background-radius: 10 10 10 10;" + "-fx-background-color: WHITE;");
         jouer.setEffect(new DropShadow(5, 2, 2, Color.BLACK));
-        jouer.setOnAction(e -> {
-            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurJaune.getText(), pseudoJoueurRose.getText(), pseudoJoueurRouge.getText(), pseudoJoueurVert.getText());
-        });
         //AddAll children
         pane.getChildren().addAll(titre1, titre2, paneBoutons, jouer);
         //Scene
@@ -403,6 +400,18 @@ public class VueChoixJoueurs extends Stage {
             joueurRouge.setLayoutY(337);
             pseudoJoueurRouge.setLayoutX(573);
             pseudoJoueurRouge.setLayoutY(509);
+        }
+    }
+
+    public void setNomDesJoueurs(){
+        if(nbJoueurs.getValue() == 2){
+            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText());
+        }else if(nbJoueurs.getValue() == 3){
+            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText(), pseudoJoueurJaune.getText());
+        }else if(nbJoueurs.getValue() == 4){
+            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText(), pseudoJoueurJaune.getText(), pseudoJoueurRouge.getText());
+        }else{
+            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText(), pseudoJoueurJaune.getText(), pseudoJoueurRouge.getText(), pseudoJoueurRose.getText());
         }
     }
 

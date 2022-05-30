@@ -27,7 +27,10 @@ public class VueDuJeu extends Pane {
 
     private VueJoueurCourant vueJoueurCourant;
 
-    private VueAutresJoueurs vueAutreJoueur;
+    private VueAutresJoueurs vueAutreJoueur1;
+    private VueAutresJoueurs vueAutreJoueur2;
+    private VueAutresJoueurs vueAutreJoueur3;
+    private VueAutresJoueurs vueAutreJoueur4;
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
@@ -45,18 +48,28 @@ public class VueDuJeu extends Pane {
         vuePlateau.setLayoutY(105);
         vuePlateau.setPrefSize(957, 616);
         //Joueur Courant
-        /**
-        vueJoueurCourant = new VueJoueurCourant(jeu.getJoueurs().get(3));
+        vueJoueurCourant = new VueJoueurCourant(jeu.getJoueurs().get(0));
         vueJoueurCourant.setLayoutX(1044);
-        vueJoueurCourant.setLayoutY(377);
+        vueJoueurCourant.setLayoutY(106);
         //Autre joueur
-        vueAutreJoueur = new VueAutresJoueurs(jeu.getJoueurs().get(2));
-        vueAutreJoueur.setLayoutX(1044);
-        vueAutreJoueur.setLayoutY(287);
-        **/
+        vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
+        vueAutreJoueur1.setLayoutX(1044);
+        vueAutreJoueur1.setLayoutY(358);
+        //Autre Joueur
+        vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
+        vueAutreJoueur2.setLayoutX(1044);
+        vueAutreJoueur2.setLayoutY(449);
+        //Autre Joueur
+        vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
+        vueAutreJoueur3.setLayoutX(1044);
+        vueAutreJoueur3.setLayoutY(538);
+        //Autre Joueur
+        vueAutreJoueur4 = new VueAutresJoueurs(jeu.getJoueurs().get(4));
+        vueAutreJoueur4.setLayoutX(1044);
+        vueAutreJoueur4.setLayoutY(629);
         //This
         this.setStyle("-fx-background-color: #F2EDBF");
-        getChildren().addAll(vuePlateau, titre);
+        getChildren().addAll(vuePlateau, titre, vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4, vueJoueurCourant);
     }
 
     public IJeu getJeu () {
