@@ -1,7 +1,6 @@
 package fr.umontpellier.iut.vues;
 
 import fr.umontpellier.iut.IJeu;
-import javafx.scene.effect.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;

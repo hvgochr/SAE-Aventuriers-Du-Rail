@@ -2,7 +2,6 @@ package fr.umontpellier.iut.vues;
 
 import java.io.FileInputStream;
 
-import fr.umontpellier.iut.IJeu;
 import fr.umontpellier.iut.IJoueur;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
