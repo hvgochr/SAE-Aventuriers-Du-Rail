@@ -26,14 +26,12 @@ public class VueCarteWagon extends Pane {
 
 
 
-         };
+        };
 
     }
 
     public ICouleurWagon getCouleurWagon() {
         return couleurWagon;
     }
-
-
 
 }

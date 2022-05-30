@@ -1,7 +1,6 @@
 package fr.umontpellier.iut.vues;
 
 import fr.umontpellier.iut.IJeu;
-
 import javafx.scene.effect.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -46,6 +45,7 @@ public class VueDuJeu extends Pane {
         vuePlateau.setLayoutY(105);
         vuePlateau.setPrefSize(957, 616);
         //Joueur Courant
+        /**
         vueJoueurCourant = new VueJoueurCourant(jeu.getJoueurs().get(3));
         vueJoueurCourant.setLayoutX(1044);
         vueJoueurCourant.setLayoutY(377);
@@ -53,9 +53,10 @@ public class VueDuJeu extends Pane {
         vueAutreJoueur = new VueAutresJoueurs(jeu.getJoueurs().get(2));
         vueAutreJoueur.setLayoutX(1044);
         vueAutreJoueur.setLayoutY(287);
+        **/
         //This
         this.setStyle("-fx-background-color: #F2EDBF");
-        getChildren().addAll(vuePlateau, vueAutreJoueur, vueJoueurCourant, titre);
+        getChildren().addAll(vuePlateau, titre);
     }
 
     public IJeu getJeu () {

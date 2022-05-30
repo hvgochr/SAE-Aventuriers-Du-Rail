@@ -2,18 +2,12 @@ package fr.umontpellier.iut.vues;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Light;
-import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -73,11 +67,9 @@ public class VueChoixJoueurs extends Stage {
 
     private Pane paneBoutons;
 
-    private ChangeListener<IntegerProperty> quandLeNombreDeJoueursChange;
-
     private Button boutonAjouter;
     private Button boutonSupprimer;
-    private Button jouer;
+    public Button jouer;
 
     public ObservableList<String> nomsJoueursProperty() {
         return nomsJoueurs;
@@ -162,57 +154,47 @@ public class VueChoixJoueurs extends Stage {
         joueurRose.setLayoutX(726);
         joueurRose.setLayoutY(337);
         //Textfield vert
-        pseudoJoueurVert = new TextField("Saisir un nom: ");
+        pseudoJoueurVert = new TextField();
+        pseudoJoueurVert.setPromptText("Saisir un nom:");
         pseudoJoueurVert.setLayoutX(96);
         pseudoJoueurVert.setLayoutY(509);
         pseudoJoueurVert.setMaxSize(100, 20);
-        pseudoJoueurVert.setOnMouseClicked(e -> {
-            pseudoJoueurVert.setText("");
-        });
         pseudoJoueurVert.setStyle("-fx-background-radius: 0 0 0 0;" + "-fx-background-color: WHITE;");
         pseudoJoueurVert.setEffect(new DropShadow(5, 1, 1, Color.BLACK));
         pseudoJoueurVert.setFont(fontPseudos);
         //Textfield bleu
-        pseudoJoueurBleu = new TextField("Saisir un nom: ");
+        pseudoJoueurBleu = new TextField();
+        pseudoJoueurBleu.setPromptText("Saisir un nom:");
         pseudoJoueurBleu.setLayoutX(253);
         pseudoJoueurBleu.setLayoutY(509);
         pseudoJoueurBleu.setMaxSize(100, 20);
-        pseudoJoueurBleu.setOnMouseClicked(e -> {
-            pseudoJoueurBleu.setText("");
-        });
         pseudoJoueurBleu.setStyle("-fx-background-radius: 0 0 0 0;" + "-fx-background-color: WHITE;");
         pseudoJoueurBleu.setEffect(new DropShadow(5, 1, 1, Color.BLACK));
         pseudoJoueurBleu.setFont(fontPseudos);
         //Textfield rose
-        pseudoJoueurRose = new TextField("Saisir un nom: ");
+        pseudoJoueurRose = new TextField();
+        pseudoJoueurRose.setPromptText("Saisir un nom:");
         pseudoJoueurRose.setLayoutX(733);
         pseudoJoueurRose.setLayoutY(509);
         pseudoJoueurRose.setMaxSize(100, 20);
-        pseudoJoueurRose.setOnMouseClicked(e -> {
-            pseudoJoueurRose.setText("");
-        });
         pseudoJoueurRose.setStyle("-fx-background-radius: 0 0 0 0;" + "-fx-background-color: WHITE;");
         pseudoJoueurRose.setEffect(new DropShadow(5, 1, 1, Color.BLACK));
         pseudoJoueurRose.setFont(fontPseudos);
         //Textfield rouge
-        pseudoJoueurRouge = new TextField("Saisir un nom: ");
+        pseudoJoueurRouge = new TextField();
+        pseudoJoueurRouge.setPromptText("Saisir un nom:");
         pseudoJoueurRouge.setLayoutX(573);
         pseudoJoueurRouge.setLayoutY(509);
         pseudoJoueurRouge.setMaxSize(100, 20);
-        pseudoJoueurRouge.setOnMouseClicked(e -> {
-            pseudoJoueurRouge.setText("");
-        });
         pseudoJoueurRouge.setStyle("-fx-background-radius: 0 0 0 0;" + "-fx-background-color: WHITE;");
         pseudoJoueurRouge.setEffect(new DropShadow(5, 1, 1, Color.BLACK));
         pseudoJoueurRouge.setFont(fontPseudos);
         //Textfield jaune
-        pseudoJoueurJaune = new TextField("Saisir un nom: ");
+        pseudoJoueurJaune = new TextField();
+        pseudoJoueurJaune.setPromptText("Saisir un nom:");
         pseudoJoueurJaune.setLayoutX(413);
         pseudoJoueurJaune.setLayoutY(509);
         pseudoJoueurJaune.setMaxSize(100, 20);
-        pseudoJoueurJaune.setOnMouseClicked(e -> {
-            pseudoJoueurJaune.setText("");
-        });
         pseudoJoueurJaune.setStyle("-fx-background-radius: 0 0 0 0;" + "-fx-background-color: WHITE;");
         pseudoJoueurJaune.setEffect(new DropShadow(5, 1, 1, Color.BLACK));
         pseudoJoueurJaune.setFont(fontPseudos);
@@ -233,127 +215,7 @@ public class VueChoixJoueurs extends Stage {
             if(nbJoueurs.getValue()<5){
                 nbJoueurs.setValue(nbJoueurs.getValue()+1);
                 nbJoueursTexte.setText(String.valueOf(nbJoueurs.getValue()));
-                if(nbJoueurs.getValue()==2){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(321);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(334);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(494);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(510);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().removeAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    if(pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
-                    }
-                    if(pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                }else if(nbJoueurs.getValue()==3){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(408);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(421);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(217);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(230);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    joueurJaune.setLayoutX(599);
-                    joueurJaune.setLayoutY(337);
-                    pseudoJoueurJaune.setLayoutX(615);
-                    pseudoJoueurJaune.setLayoutY(509);
-                    if(pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
-                    }
-                    if(pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                }else if(nbJoueurs.getValue()==4){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(307);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(320);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(107);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(120);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    joueurJaune.setLayoutX(507);
-                    joueurJaune.setLayoutY(337);
-                    pseudoJoueurJaune.setLayoutX(523);
-                    pseudoJoueurJaune.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                    joueurRouge.setLayoutX(707);
-                    joueurRouge.setLayoutY(337);
-                    pseudoJoueurRouge.setLayoutX(723);
-                    pseudoJoueurRouge.setLayoutY(509);
-                    if(pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
-                    }
-                }else if(nbJoueurs.getValue()==5){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(250);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(253);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(91);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(96);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    joueurJaune.setLayoutX(408);
-                    joueurJaune.setLayoutY(337);
-                    pseudoJoueurJaune.setLayoutX(413);
-                    pseudoJoueurJaune.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().addAll(joueurRose, pseudoJoueurRose);
-                    }
-                    joueurRose.setLayoutX(726);
-                    joueurRose.setLayoutY(337);
-                    pseudoJoueurRose.setLayoutX(573);
-                    pseudoJoueurRose.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                    joueurRouge.setLayoutX(567);
-                    joueurRouge.setLayoutY(337);
-                    pseudoJoueurRouge.setLayoutX(733);
-                    pseudoJoueurRouge.setLayoutY(509);
-                }
+                changementNbJoueurs(nbJoueurs.getValue());
             }
         });
         //Bouton supprimer joueur
@@ -371,127 +233,7 @@ public class VueChoixJoueurs extends Stage {
             if(nbJoueurs.getValue()>2){
                 nbJoueurs.setValue(nbJoueurs.getValue()-1);
                 nbJoueursTexte.setText(String.valueOf(nbJoueurs.getValue()));
-                if(nbJoueurs.getValue()==2){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(321);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(334);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(494);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(510);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().removeAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    if(pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
-                    }
-                    if(pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                }else if(nbJoueurs.getValue()==3){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(408);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(421);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(217);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(230);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    joueurJaune.setLayoutX(599);
-                    joueurJaune.setLayoutY(337);
-                    pseudoJoueurJaune.setLayoutX(615);
-                    pseudoJoueurJaune.setLayoutY(509);
-                    if(pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
-                    }
-                    if(pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                }else if(nbJoueurs.getValue()==4){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(307);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(320);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(107);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(120);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    joueurJaune.setLayoutX(507);
-                    joueurJaune.setLayoutY(337);
-                    pseudoJoueurJaune.setLayoutX(523);
-                    pseudoJoueurJaune.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                    joueurRouge.setLayoutX(707);
-                    joueurRouge.setLayoutY(337);
-                    pseudoJoueurRouge.setLayoutX(723);
-                    pseudoJoueurRouge.setLayoutY(509);
-                    if(pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
-                    }
-                }else if(nbJoueurs.getValue()==5){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(250);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(253);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(91);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(96);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    joueurJaune.setLayoutX(408);
-                    joueurJaune.setLayoutY(337);
-                    pseudoJoueurJaune.setLayoutX(413);
-                    pseudoJoueurJaune.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().addAll(joueurRose, pseudoJoueurRose);
-                    }
-                    joueurRose.setLayoutX(726);
-                    joueurRose.setLayoutY(337);
-                    pseudoJoueurRose.setLayoutX(573);
-                    pseudoJoueurRose.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                    joueurRouge.setLayoutX(567);
-                    joueurRouge.setLayoutY(337);
-                    pseudoJoueurRouge.setLayoutX(733);
-                    pseudoJoueurRouge.setLayoutY(509);
-                }
+                changementNbJoueurs(nbJoueurs.getValue());
             }
         });
         //Texte boutons
@@ -503,127 +245,7 @@ public class VueChoixJoueurs extends Stage {
             if(nbJoueurs.getValue()<5){
                 nbJoueurs.setValue(nbJoueurs.getValue()+1);
                 nbJoueursTexte.setText(String.valueOf(nbJoueurs.getValue()));
-                if(nbJoueurs.getValue()==2){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(321);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(334);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(494);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(510);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().removeAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    if(pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
-                    }
-                    if(pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                }else if(nbJoueurs.getValue()==3){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(408);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(421);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(217);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(230);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    joueurJaune.setLayoutX(599);
-                    joueurJaune.setLayoutY(337);
-                    pseudoJoueurJaune.setLayoutX(615);
-                    pseudoJoueurJaune.setLayoutY(509);
-                    if(pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
-                    }
-                    if(pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                }else if(nbJoueurs.getValue()==4){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(307);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(320);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(107);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(120);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    joueurJaune.setLayoutX(507);
-                    joueurJaune.setLayoutY(337);
-                    pseudoJoueurJaune.setLayoutX(523);
-                    pseudoJoueurJaune.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                    joueurRouge.setLayoutX(707);
-                    joueurRouge.setLayoutY(337);
-                    pseudoJoueurRouge.setLayoutX(723);
-                    pseudoJoueurRouge.setLayoutY(509);
-                    if(pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
-                    }
-                }else if(nbJoueurs.getValue()==5){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(250);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(253);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(91);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(96);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    joueurJaune.setLayoutX(408);
-                    joueurJaune.setLayoutY(337);
-                    pseudoJoueurJaune.setLayoutX(413);
-                    pseudoJoueurJaune.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().addAll(joueurRose, pseudoJoueurRose);
-                    }
-                    joueurRose.setLayoutX(726);
-                    joueurRose.setLayoutY(337);
-                    pseudoJoueurRose.setLayoutX(573);
-                    pseudoJoueurRose.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                    joueurRouge.setLayoutX(567);
-                    joueurRouge.setLayoutY(337);
-                    pseudoJoueurRouge.setLayoutX(733);
-                    pseudoJoueurRouge.setLayoutY(509);
-                }
+                changementNbJoueurs(nbJoueurs.getValue());
             }
         });
         moins = new Text("-");
@@ -634,127 +256,7 @@ public class VueChoixJoueurs extends Stage {
             if(nbJoueurs.getValue()>2){
                 nbJoueurs.setValue(nbJoueurs.getValue()-1);
                 nbJoueursTexte.setText(String.valueOf(nbJoueurs.getValue()));
-                if(nbJoueurs.getValue()==2){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(321);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(334);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(494);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(510);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().removeAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    if(pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
-                    }
-                    if(pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                }else if(nbJoueurs.getValue()==3){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(408);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(421);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(217);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(230);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    joueurJaune.setLayoutX(599);
-                    joueurJaune.setLayoutY(337);
-                    pseudoJoueurJaune.setLayoutX(615);
-                    pseudoJoueurJaune.setLayoutY(509);
-                    if(pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
-                    }
-                    if(pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                }else if(nbJoueurs.getValue()==4){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(307);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(320);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(107);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(120);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    joueurJaune.setLayoutX(507);
-                    joueurJaune.setLayoutY(337);
-                    pseudoJoueurJaune.setLayoutX(523);
-                    pseudoJoueurJaune.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                    joueurRouge.setLayoutX(707);
-                    joueurRouge.setLayoutY(337);
-                    pseudoJoueurRouge.setLayoutX(723);
-                    pseudoJoueurRouge.setLayoutY(509);
-                    if(pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
-                    }
-                }else if(nbJoueurs.getValue()==5){
-                    if(!pane.getChildren().contains(joueurBleu)){
-                        pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
-                    }
-                    joueurBleu.setLayoutX(250);
-                    joueurBleu.setLayoutY(337);
-                    pseudoJoueurBleu.setLayoutX(253);
-                    pseudoJoueurBleu.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurVert)){
-                        pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
-                    }
-                    joueurVert.setLayoutX(91);
-                    joueurVert.setLayoutY(337);
-                    pseudoJoueurVert.setLayoutX(96);
-                    pseudoJoueurVert.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurJaune)){
-                        pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
-                    }
-                    joueurJaune.setLayoutX(408);
-                    joueurJaune.setLayoutY(337);
-                    pseudoJoueurJaune.setLayoutX(413);
-                    pseudoJoueurJaune.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurRose)){
-                        pane.getChildren().addAll(joueurRose, pseudoJoueurRose);
-                    }
-                    joueurRose.setLayoutX(726);
-                    joueurRose.setLayoutY(337);
-                    pseudoJoueurRose.setLayoutX(573);
-                    pseudoJoueurRose.setLayoutY(509);
-                    if(!pane.getChildren().contains(joueurRouge)){
-                        pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
-                    }
-                    joueurRouge.setLayoutX(567);
-                    joueurRouge.setLayoutY(337);
-                    pseudoJoueurRouge.setLayoutX(733);
-                    pseudoJoueurRouge.setLayoutY(509);
-                }
+                changementNbJoueurs(nbJoueurs.getValue());
             }
         });
         paneBoutons.getChildren().addAll(boutonSupprimer, moins, nbJoueursTexte, boutonAjouter, plus);
@@ -766,6 +268,9 @@ public class VueChoixJoueurs extends Stage {
         jouer.setPrefSize(173, 42);
         jouer.setStyle("-fx-background-radius: 10 10 10 10;" + "-fx-background-color: WHITE;");
         jouer.setEffect(new DropShadow(5, 2, 2, Color.BLACK));
+        jouer.setOnAction(e -> {
+            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurJaune.getText(), pseudoJoueurRose.getText(), pseudoJoueurRouge.getText(), pseudoJoueurVert.getText());
+        });
         //AddAll children
         pane.getChildren().addAll(titre1, titre2, paneBoutons, jouer);
         //Scene
@@ -777,18 +282,128 @@ public class VueChoixJoueurs extends Stage {
         setScene(scene);
     }
 
-    /**
-     * Définit l'action à exécuter lorsque la liste des participants est correctement initialisée
-     */
-    public void setNomsDesJoueursDefinisListener(ListChangeListener<String> quandLesNomsDesJoueursSontDefinis) {
-        
-    }
-
-    /**
-     * Définit l'action à exécuter lorsque le nombre de participants change
-     */
-    protected void setChangementDuNombreDeJoueursListener(ChangeListener<Integer> quandLeNombreDeJoueursChange) {
-        
+    public void changementNbJoueurs(int nbJoueurs){
+        if(nbJoueurs==2){
+            if(!pane.getChildren().contains(joueurBleu)){
+                pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
+            }
+            joueurBleu.setLayoutX(494);
+            joueurBleu.setLayoutY(337);
+            pseudoJoueurBleu.setLayoutX(510);
+            pseudoJoueurBleu.setLayoutY(509);
+            if(!pane.getChildren().contains(joueurVert)){
+                pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
+            }
+            joueurVert.setLayoutX(321);
+            joueurVert.setLayoutY(337);
+            pseudoJoueurVert.setLayoutX(334);
+            pseudoJoueurVert.setLayoutY(509);
+            if(pane.getChildren().contains(joueurJaune)){
+                pane.getChildren().removeAll(joueurJaune, pseudoJoueurJaune);
+            }
+            if(pane.getChildren().contains(joueurRose)){
+                pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
+            }
+            if(pane.getChildren().contains(joueurRouge)){
+                pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
+            }
+        }else if(nbJoueurs==3){
+            if(!pane.getChildren().contains(joueurBleu)){
+                pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
+            }
+            joueurBleu.setLayoutX(408);
+            joueurBleu.setLayoutY(337);
+            pseudoJoueurBleu.setLayoutX(421);
+            pseudoJoueurBleu.setLayoutY(509);
+            if(!pane.getChildren().contains(joueurVert)){
+                pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
+            }
+            joueurVert.setLayoutX(217);
+            joueurVert.setLayoutY(337);
+            pseudoJoueurVert.setLayoutX(230);
+            pseudoJoueurVert.setLayoutY(509);
+            if(!pane.getChildren().contains(joueurJaune)){
+                pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
+            }
+            joueurJaune.setLayoutX(599);
+            joueurJaune.setLayoutY(337);
+            pseudoJoueurJaune.setLayoutX(615);
+            pseudoJoueurJaune.setLayoutY(509);
+            if(pane.getChildren().contains(joueurRose)){
+                pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
+            }
+            if(pane.getChildren().contains(joueurRouge)){
+                pane.getChildren().removeAll(joueurRouge, pseudoJoueurRouge);
+            }
+        }else if(nbJoueurs==4){
+            if(!pane.getChildren().contains(joueurBleu)){
+                pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
+            }
+            joueurBleu.setLayoutX(307);
+            joueurBleu.setLayoutY(337);
+            pseudoJoueurBleu.setLayoutX(320);
+            pseudoJoueurBleu.setLayoutY(509);
+            if(!pane.getChildren().contains(joueurVert)){
+                pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
+            }
+            joueurVert.setLayoutX(107);
+            joueurVert.setLayoutY(337);
+            pseudoJoueurVert.setLayoutX(120);
+            pseudoJoueurVert.setLayoutY(509);
+            if(!pane.getChildren().contains(joueurJaune)){
+                pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
+            }
+            joueurJaune.setLayoutX(507);
+            joueurJaune.setLayoutY(337);
+            pseudoJoueurJaune.setLayoutX(523);
+            pseudoJoueurJaune.setLayoutY(509);
+            if(!pane.getChildren().contains(joueurRouge)){
+                pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
+            }
+            joueurRouge.setLayoutX(707);
+            joueurRouge.setLayoutY(337);
+            pseudoJoueurRouge.setLayoutX(723);
+            pseudoJoueurRouge.setLayoutY(509);
+            if(pane.getChildren().contains(joueurRose)){
+                pane.getChildren().removeAll(joueurRose, pseudoJoueurRose);
+            }
+        }else if(nbJoueurs==5){
+            if(!pane.getChildren().contains(joueurBleu)){
+                pane.getChildren().addAll(joueurBleu, pseudoJoueurBleu);
+            }
+            joueurBleu.setLayoutX(250);
+            joueurBleu.setLayoutY(337);
+            pseudoJoueurBleu.setLayoutX(253);
+            pseudoJoueurBleu.setLayoutY(509);
+            if(!pane.getChildren().contains(joueurVert)){
+                pane.getChildren().addAll(joueurVert, pseudoJoueurVert);
+            }
+            joueurVert.setLayoutX(91);
+            joueurVert.setLayoutY(337);
+            pseudoJoueurVert.setLayoutX(96);
+            pseudoJoueurVert.setLayoutY(509);
+            if(!pane.getChildren().contains(joueurJaune)){
+                pane.getChildren().addAll(joueurJaune, pseudoJoueurJaune);
+            }
+            joueurJaune.setLayoutX(408);
+            joueurJaune.setLayoutY(337);
+            pseudoJoueurJaune.setLayoutX(413);
+            pseudoJoueurJaune.setLayoutY(509);
+            if(!pane.getChildren().contains(joueurRose)){
+                pane.getChildren().addAll(joueurRose, pseudoJoueurRose);
+            }
+            joueurRose.setLayoutX(726);
+            joueurRose.setLayoutY(337);
+            pseudoJoueurRose.setLayoutX(733);
+            pseudoJoueurRose.setLayoutY(509);
+            if(!pane.getChildren().contains(joueurRouge)){
+                pane.getChildren().addAll(joueurRouge, pseudoJoueurRouge);
+            }
+            joueurRouge.setLayoutX(567);
+            joueurRouge.setLayoutY(337);
+            pseudoJoueurRouge.setLayoutX(573);
+            pseudoJoueurRouge.setLayoutY(509);
+        }
     }
 
     /**
