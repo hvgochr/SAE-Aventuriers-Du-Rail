@@ -1,9 +1,9 @@
 package fr.umontpellier.iut.vues;
 
+import fr.umontpellier.iut.ICouleurWagon;
 import fr.umontpellier.iut.IDestination;
 import fr.umontpellier.iut.IJeu;
 import fr.umontpellier.iut.RailsIHM;
-import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
@@ -40,6 +40,7 @@ public class VueDuJeu extends Pane {
     private VBox boxJoueurs;
 
     private HBox boxChoix;
+    private HBox carteWagonPosee;
 
     private Button passer;
     private Button regles;
@@ -54,6 +55,8 @@ public class VueDuJeu extends Pane {
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
         this.setPrefSize(1440, 1024);
+        //BoxCarteWagon
+        carteWagonPosee = new HBox();
         //BoxJoueurs
         boxJoueurs = new VBox();
         boxJoueurs.setPrefSize(329, 618);
@@ -130,7 +133,7 @@ public class VueDuJeu extends Pane {
             boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4);
         }
         //This
-        this.getChildren().addAll(vuePlateau, titre, boxJoueurs, passer, boxChoix, regles);
+        this.getChildren().addAll(vuePlateau, titre, boxJoueurs, passer, boxChoix, regles, carteWagonPosee);
         this.setStyle("-fx-background-color: #F2EDBF");
     }
 
@@ -140,6 +143,7 @@ public class VueDuJeu extends Pane {
 
     public void creerBindings () {
         this.getJeu().destinationsInitialesProperty().addListener(destinationsSontPiocheesListener);
+        this.getJeu().cartesWagonVisiblesProperty().addListener(listeCarte);
         passer.setOnAction(e -> {
             jeu.passerAEteChoisi();
         });
@@ -172,6 +176,21 @@ public class VueDuJeu extends Pane {
         });
     };
 
+    private final ListChangeListener<ICouleurWagon> listeCarte = action -> Platform.runLater(() -> {
+        while (action.next()) {
+            if (action.wasAdded()) {
+                for (ICouleurWagon couleurWagon : action.getAddedSubList()) {
+                    carteWagonPosee.getChildren().add(new Label(couleurWagon.toString()));
+                }
+            }
+            else if (action.wasRemoved()) {
+                for (ICouleurWagon couleurWagon : action.getRemoved()) {
+                    carteWagonPosee.getChildren().remove(trouveCarte(couleurWagon));
+                }
+            }
+        }
+    });
+
     private Button trouveButtonDestination(IDestination d){
         for(Node n : boxChoix.getChildren()){
             Button buttonDestination = (Button) n;
@@ -180,6 +199,17 @@ public class VueDuJeu extends Pane {
             }
         }
         return null;
+    }
+
+    private Label trouveCarte(ICouleurWagon i) {
+        Label res = null;
+        for (Node n : carteWagonPosee.getChildren()) {
+            Label l = (Label) n;
+            if (l.getText().equals(i.toString())){
+                res = l;
+            }
+        }
+        return res;
     }
 
 }
