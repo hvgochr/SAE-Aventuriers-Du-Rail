@@ -47,28 +47,41 @@ public class VueDuJeu extends Pane {
         vuePlateau.setLayoutY(105);
         vuePlateau.setPrefSize(957, 616);
         //Joueur Courant
+
         vueJoueurCourant = new VueJoueurCourant(jeu.getJoueurs().get(0));
         vueJoueurCourant.setLayoutX(1044);
         vueJoueurCourant.setLayoutY(106);
         //Autre joueur
-        vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
-        vueAutreJoueur1.setLayoutX(1044);
-        vueAutreJoueur1.setLayoutY(358);
+        if (jeu.getJoueurs().size() == 2) {
+            vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
+            vueAutreJoueur1.setLayoutX(1044);
+            vueAutreJoueur1.setLayoutY(358);
+        }
+
         //Autre Joueur
-        vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
-        vueAutreJoueur2.setLayoutX(1044);
-        vueAutreJoueur2.setLayoutY(449);
+
+        if (jeu.getJoueurs().size() == 3) {
+            vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
+            vueAutreJoueur2.setLayoutX(1044);
+            vueAutreJoueur2.setLayoutY(449);
+            getChildren().addAll(vuePlateau, titre,vueAutreJoueur2, vueJoueurCourant);
+        }
         //Autre Joueur
-        vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
-        vueAutreJoueur3.setLayoutX(1044);
-        vueAutreJoueur3.setLayoutY(538);
+        else if (jeu.getJoueurs().size() == 4) {
+            vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
+            vueAutreJoueur3.setLayoutX(1044);
+            vueAutreJoueur3.setLayoutY(538);
+            getChildren().addAll(vuePlateau, titre,vueAutreJoueur3, vueJoueurCourant);
+        }
         //Autre Joueur
-        vueAutreJoueur4 = new VueAutresJoueurs(jeu.getJoueurs().get(4));
-        vueAutreJoueur4.setLayoutX(1044);
-        vueAutreJoueur4.setLayoutY(629);
+        else if (jeu.getJoueurs().size() == 5) {
+            vueAutreJoueur4 = new VueAutresJoueurs(jeu.getJoueurs().get(4));
+            vueAutreJoueur4.setLayoutX(1044);
+            vueAutreJoueur4.setLayoutY(629);
+            getChildren().addAll(vuePlateau, titre,vueAutreJoueur4, vueJoueurCourant);
+        }
         //This
         this.setStyle("-fx-background-color: #F2EDBF");
-        getChildren().addAll(vuePlateau, titre, vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4, vueJoueurCourant);
     }
 
     public IJeu getJeu () {

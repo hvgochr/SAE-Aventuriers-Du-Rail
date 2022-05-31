@@ -33,7 +33,8 @@ public class RailsIHM extends Application {
             vueChoixJoueurs.show();
             vueChoixJoueurs.jouer.setOnAction(e -> {
                 vueChoixJoueurs.setNomDesJoueurs();
-                vueChoixJoueurs.hide();
+                System.out.println(vueChoixJoueurs.getNomsJoueurs());
+                vueChoixJoueurs.close();
                 demarrerPartie();
             });
         } else {
@@ -43,8 +44,10 @@ public class RailsIHM extends Application {
 
     public void demarrerPartie() {
         List<String> nomsJoueurs;
-        if (avecVueChoixJoueurs)
+        if (avecVueChoixJoueurs){
             nomsJoueurs = vueChoixJoueurs.getNomsJoueurs();
+            System.out.println(nomsJoueurs);
+        }
         else {
             nomsJoueurs = new ArrayList<>();
             nomsJoueurs.add("Hichem");

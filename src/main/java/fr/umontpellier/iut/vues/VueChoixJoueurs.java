@@ -3,6 +3,7 @@ package fr.umontpellier.iut.vues;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -436,7 +437,9 @@ public class VueChoixJoueurs extends Stage {
             nomsJoueurs.addAll(tempNamesList);
         }
     }
+    public void setNomsDesJoueursDefinisListener(ListChangeListener<String> quandLesNomsDesJoueursSontDefinis){
 
+    }
     /**
      * Retourne le nombre de participants à la partie que l'utilisateur a renseigné
      */
