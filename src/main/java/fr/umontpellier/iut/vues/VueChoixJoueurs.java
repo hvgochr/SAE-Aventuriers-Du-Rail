@@ -406,13 +406,13 @@ public class VueChoixJoueurs extends Stage {
 
     public void setNomDesJoueurs(){
         if(nbJoueurs.getValue() == 2){
-            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText());
+            nomsJoueurs.addAll(pseudoJoueurVert.getText(), pseudoJoueurBleu.getText());
         }else if(nbJoueurs.getValue() == 3){
-            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText(), pseudoJoueurJaune.getText());
+            nomsJoueurs.addAll(pseudoJoueurVert.getText(), pseudoJoueurBleu.getText(), pseudoJoueurJaune.getText());
         }else if(nbJoueurs.getValue() == 4){
-            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText(), pseudoJoueurJaune.getText(), pseudoJoueurRouge.getText());
+            nomsJoueurs.addAll(pseudoJoueurVert.getText(), pseudoJoueurBleu.getText(), pseudoJoueurJaune.getText(), pseudoJoueurRouge.getText());
         }else{
-            nomsJoueurs.addAll(pseudoJoueurBleu.getText(), pseudoJoueurVert.getText(), pseudoJoueurJaune.getText(), pseudoJoueurRouge.getText(), pseudoJoueurRose.getText());
+            nomsJoueurs.addAll(pseudoJoueurVert.getText(), pseudoJoueurBleu.getText(), pseudoJoueurJaune.getText(), pseudoJoueurRouge.getText(), pseudoJoueurRose.getText());
         }
     }
 

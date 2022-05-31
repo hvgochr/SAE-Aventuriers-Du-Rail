@@ -33,7 +33,6 @@ public class RailsIHM extends Application {
             vueChoixJoueurs.show();
             vueChoixJoueurs.jouer.setOnAction(e -> {
                 vueChoixJoueurs.setNomDesJoueurs();
-                System.out.println(vueChoixJoueurs.getNomsJoueurs());
                 vueChoixJoueurs.close();
                 demarrerPartie();
             });
@@ -46,7 +45,6 @@ public class RailsIHM extends Application {
         List<String> nomsJoueurs;
         if (avecVueChoixJoueurs){
             nomsJoueurs = vueChoixJoueurs.getNomsJoueurs();
-            System.out.println(nomsJoueurs);
         }
         else {
             nomsJoueurs = new ArrayList<>();

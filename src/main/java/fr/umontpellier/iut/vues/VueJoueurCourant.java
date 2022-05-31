@@ -88,9 +88,9 @@ public class VueJoueurCourant extends Pane {
         nbGares.setLayoutX(83);
         nbGares.setLayoutY(45);
         //Shadow
-        dropShadow = new DropShadow(20, Color.BLACK);
-        dropShadow.setOffsetX(3);
-        dropShadow.setOffsetY(3);
+        dropShadow = new DropShadow(10, Color.BLACK);
+        dropShadow.setOffsetX(2);
+        dropShadow.setOffsetY(2);
         this.setEffect(dropShadow);
         //This
         this.setStyle("-fx-background-color: #" + joueurCourant.convertirCouleurJoueur());

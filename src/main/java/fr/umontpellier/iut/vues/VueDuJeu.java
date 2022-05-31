@@ -1,7 +1,10 @@
 package fr.umontpellier.iut.vues;
 
 import fr.umontpellier.iut.IJeu;
+import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -18,11 +21,18 @@ public class VueDuJeu extends Pane {
 
     private Text titre;
 
+    private DropShadow dropShadow;
+
     private Font fontTitre;
+    private Font fontPasser;
 
     private IJeu jeu;
 
     private VuePlateau vuePlateau;
+
+    private VBox boxJoueurs;
+
+    private Button passer;
 
     private VueJoueurCourant vueJoueurCourant;
 
@@ -33,9 +43,20 @@ public class VueDuJeu extends Pane {
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
+        boxJoueurs = new VBox();
+        boxJoueurs.setPrefSize(329, 618);
+        boxJoueurs.setSpacing(13);
+        boxJoueurs.setStyle("-fx-background-color: #F2EDBF");
+        boxJoueurs.setLayoutX(1044);
+        boxJoueurs.setLayoutY(104);
         this.setPrefSize(1440, 1024);
+        //DropShadow
+        dropShadow = new DropShadow(10, Color.BLACK);
+        dropShadow.setOffsetX(2);
+        dropShadow.setOffsetY(2);
         //Font 
         fontTitre = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 40);
+        fontPasser = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 15);
         //Titre
         titre = new Text("Les Aventuriers Du Rail - Version Europe");
         titre.setFont(fontTitre);
@@ -47,40 +68,43 @@ public class VueDuJeu extends Pane {
         vuePlateau.setLayoutY(105);
         vuePlateau.setPrefSize(957, 616);
         //Joueur Courant
-
         vueJoueurCourant = new VueJoueurCourant(jeu.getJoueurs().get(0));
-        vueJoueurCourant.setLayoutX(1044);
-        vueJoueurCourant.setLayoutY(106);
+        //Passer
+        passer = new Button("Passer");
+        passer.setPrefSize(108, 33);
+        passer.setLayoutX(899);
+        passer.setLayoutY(742);
+        passer.setStyle("-fx-background-color: #FBF8DC;");
+        passer.setFont(fontPasser);
+        passer.setEffect(dropShadow);
         //Autre joueur
         if (jeu.getJoueurs().size() == 2) {
             vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
-            vueAutreJoueur1.setLayoutX(1044);
-            vueAutreJoueur1.setLayoutY(358);
+            boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1);
         }
-
         //Autre Joueur
-
         if (jeu.getJoueurs().size() == 3) {
+            vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
             vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
-            vueAutreJoueur2.setLayoutX(1044);
-            vueAutreJoueur2.setLayoutY(449);
-            getChildren().addAll(vuePlateau, titre,vueAutreJoueur2, vueJoueurCourant);
+            boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2);
         }
         //Autre Joueur
         else if (jeu.getJoueurs().size() == 4) {
+            vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
+            vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
             vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
-            vueAutreJoueur3.setLayoutX(1044);
-            vueAutreJoueur3.setLayoutY(538);
-            getChildren().addAll(vuePlateau, titre,vueAutreJoueur3, vueJoueurCourant);
+            boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3);
         }
         //Autre Joueur
         else if (jeu.getJoueurs().size() == 5) {
+            vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
+            vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
+            vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
             vueAutreJoueur4 = new VueAutresJoueurs(jeu.getJoueurs().get(4));
-            vueAutreJoueur4.setLayoutX(1044);
-            vueAutreJoueur4.setLayoutY(629);
-            getChildren().addAll(vuePlateau, titre,vueAutreJoueur4, vueJoueurCourant);
+            boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4);
         }
         //This
+        this.getChildren().addAll(vuePlateau, titre, boxJoueurs, passer);
         this.setStyle("-fx-background-color: #F2EDBF");
     }
 
@@ -89,7 +113,9 @@ public class VueDuJeu extends Pane {
     }
 
     public void creerBindings () {
-
+        passer.setOnAction(e -> {
+            jeu.passerAEteChoisi();
+        });
     }
 
 }

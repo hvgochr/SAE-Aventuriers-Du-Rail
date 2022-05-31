@@ -43,9 +43,9 @@ public class VueAutresJoueurs extends Pane {
         //Font
         fontPseudo = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 14);
         //Shadow
-        dropShadow = new DropShadow(20, Color.BLACK);
-        dropShadow.setOffsetX(3);
-        dropShadow.setOffsetY(3);
+        dropShadow = new DropShadow(10, Color.BLACK);
+        dropShadow.setOffsetX(2);
+        dropShadow.setOffsetY(2);
         //Pseudo
         pseudoJoueur = new Text(joueur.getNom());
         pseudoJoueur.setLayoutX(65);

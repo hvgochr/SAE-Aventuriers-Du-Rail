@@ -51,6 +51,7 @@ public class VuePlateau extends Pane {
         //Lighting
         lighting = new Lighting(new Light.Distant(30, 30, Color.WHITE));
         lighting.setDiffuseConstant(100);
+        lighting.setContentInput(dropShadow);
         //Image
         try {
             lienToggle = new FileInputStream("ressources/images/images/toggle-button.png");
