@@ -1,7 +1,14 @@
 package fr.umontpellier.iut.vues;
 
+import fr.umontpellier.iut.IDestination;
 import fr.umontpellier.iut.IJeu;
+import fr.umontpellier.iut.RailsIHM;
+import javafx.application.HostServices;
+import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -32,7 +39,10 @@ public class VueDuJeu extends Pane {
 
     private VBox boxJoueurs;
 
+    private HBox boxChoix;
+
     private Button passer;
+    private Button regles;
 
     private VueJoueurCourant vueJoueurCourant;
 
@@ -43,13 +53,21 @@ public class VueDuJeu extends Pane {
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
+        this.setPrefSize(1440, 1024);
+        //BoxJoueurs
         boxJoueurs = new VBox();
         boxJoueurs.setPrefSize(329, 618);
         boxJoueurs.setSpacing(13);
         boxJoueurs.setStyle("-fx-background-color: #F2EDBF");
         boxJoueurs.setLayoutX(1044);
         boxJoueurs.setLayoutY(104);
-        this.setPrefSize(1440, 1024);
+        //BoxChoix
+        boxChoix = new HBox();
+        boxChoix.setSpacing(10);
+        boxChoix.setPrefSize(798, 33);
+        boxChoix.setLayoutX(66);
+        boxChoix.setLayoutY(742);
+        boxChoix.setStyle("-fx-background-color: #F2EDBF");
         //DropShadow
         dropShadow = new DropShadow(10, Color.BLACK);
         dropShadow.setOffsetX(2);
@@ -67,8 +85,6 @@ public class VueDuJeu extends Pane {
         vuePlateau.setLayoutX(66);
         vuePlateau.setLayoutY(105);
         vuePlateau.setPrefSize(957, 616);
-        //Joueur Courant
-        vueJoueurCourant = new VueJoueurCourant(jeu.getJoueurs().get(0));
         //Passer
         passer = new Button("Passer");
         passer.setPrefSize(108, 33);
@@ -77,13 +93,23 @@ public class VueDuJeu extends Pane {
         passer.setStyle("-fx-background-color: #FBF8DC;");
         passer.setFont(fontPasser);
         passer.setEffect(dropShadow);
-        //Autre joueur
+        //Button Règles
+        regles = new Button("Règles");
+        regles.setPrefSize(108, 33);
+        regles.setLayoutX(110);
+        regles.setLayoutY(36);
+        regles.setOnAction(e -> {
+           new RailsIHM().openRules();
+        });
+        //Joueur Courant
+        vueJoueurCourant = new VueJoueurCourant(jeu.getJoueurs().get(0));
+        //Autres joueur
         if (jeu.getJoueurs().size() == 2) {
             vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
             boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1);
         }
         //Autre Joueur
-        if (jeu.getJoueurs().size() == 3) {
+        else if (jeu.getJoueurs().size() == 3) {
             vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
             vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
             boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2);
@@ -104,7 +130,7 @@ public class VueDuJeu extends Pane {
             boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4);
         }
         //This
-        this.getChildren().addAll(vuePlateau, titre, boxJoueurs, passer);
+        this.getChildren().addAll(vuePlateau, titre, boxJoueurs, passer, boxChoix, regles);
         this.setStyle("-fx-background-color: #F2EDBF");
     }
 
@@ -113,9 +139,47 @@ public class VueDuJeu extends Pane {
     }
 
     public void creerBindings () {
+        this.getJeu().destinationsInitialesProperty().addListener(destinationsSontPiocheesListener);
         passer.setOnAction(e -> {
             jeu.passerAEteChoisi();
         });
+    }
+
+    private final ListChangeListener<IDestination> destinationsSontPiocheesListener = change -> {
+        Platform.runLater(() -> {
+            while(change.next()){
+                if(change.wasAdded()){
+                    for(IDestination d : change.getAddedSubList()){
+                        Button b = new Button(d.getNom());
+                        b.setStyle("-fx-background-color: #FBF8DC");
+                        b.setPrefHeight(33);
+                        b.setFont(fontPasser);
+                        b.setEffect(dropShadow);
+                        b.setOnAction(e -> {
+                            if(boxChoix.getChildren().size() > 2){
+                                boxChoix.getChildren().remove(b);
+                            }
+                            jeu.uneDestinationAEteChoisie(d.getNom());
+                        });
+                        boxChoix.getChildren().add(b);
+                    }
+                }else if(change.wasRemoved()){
+                    for(IDestination d : change.getRemoved()){
+                        boxChoix.getChildren().remove(trouveButtonDestination(d));
+                    }
+                }
+            }
+        });
+    };
+
+    private Button trouveButtonDestination(IDestination d){
+        for(Node n : boxChoix.getChildren()){
+            Button buttonDestination = (Button) n;
+            if(buttonDestination.getText().equals(d.getNom())){
+                return buttonDestination;
+            }
+        }
+        return null;
     }
 
 }

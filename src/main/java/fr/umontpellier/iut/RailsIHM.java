@@ -5,6 +5,7 @@ import fr.umontpellier.iut.vues.VueChoixJoueurs;
 import fr.umontpellier.iut.vues.VueDuJeu;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.application.HostServices;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Worker;
 import javafx.scene.Scene;
@@ -12,6 +13,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -95,6 +99,11 @@ public class RailsIHM extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void openRules(){
+        HostServices host = getHostServices();
+        host.showDocument("/Users/hugo/Documents/IUT/BUT Informatique/Semestre 2/IHM/railsihm/src/main/resources/images/rules.pdf");
     }
 
 }
