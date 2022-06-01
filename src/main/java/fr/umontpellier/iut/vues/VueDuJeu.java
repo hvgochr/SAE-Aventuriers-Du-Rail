@@ -24,7 +24,7 @@ import javafx.scene.text.Text;
  * (le joueur courant, les 5 cartes Wagons visibles, les destinations lors de l'étape d'initialisation de la partie, ...)
  * ainsi que les listeners à exécuter lorsque ces éléments changent
  */
-public class VueDuJeu extends Pane {
+public class VueDuJeu extends BorderPane {
 
     private Text titre;
 
@@ -37,10 +37,14 @@ public class VueDuJeu extends Pane {
 
     private VuePlateau vuePlateau;
 
+    private BorderPane choix;
+
     private VBox boxJoueurs;
+    private VBox bot;
 
     private HBox boxChoix;
     private HBox carteWagonPosee;
+    private HBox top;
 
     private Button passer;
     private Button regles;
@@ -62,15 +66,14 @@ public class VueDuJeu extends Pane {
         boxJoueurs.setPrefSize(329, 618);
         boxJoueurs.setSpacing(13);
         boxJoueurs.setStyle("-fx-background-color: #F2EDBF");
-        boxJoueurs.setLayoutX(1044);
-        boxJoueurs.setLayoutY(104);
+        //Choix
+        choix = new BorderPane();
         //BoxChoix
         boxChoix = new HBox();
         boxChoix.setSpacing(10);
         boxChoix.setPrefSize(798, 33);
-        boxChoix.setLayoutX(66);
-        boxChoix.setLayoutY(742);
         boxChoix.setStyle("-fx-background-color: #F2EDBF");
+        choix.setLeft(boxChoix);
         //DropShadow
         dropShadow = new DropShadow(10, Color.BLACK);
         dropShadow.setOffsetX(2);
@@ -78,32 +81,29 @@ public class VueDuJeu extends Pane {
         //Font 
         fontTitre = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 40);
         fontPasser = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 15);
+        //BoxTop
+        top = new HBox();
+        top.setSpacing(100);
         //Titre
         titre = new Text("Les Aventuriers Du Rail - Version Europe");
         titre.setFont(fontTitre);
-        titre.setLayoutX(285);
-        titre.setLayoutY(58);
         //Plateau
         vuePlateau = new VuePlateau();
-        vuePlateau.setLayoutX(66);
-        vuePlateau.setLayoutY(105);
         vuePlateau.setPrefSize(957, 616);
         //Passer
         passer = new Button("Passer");
         passer.setPrefSize(108, 33);
-        passer.setLayoutX(899);
-        passer.setLayoutY(742);
         passer.setStyle("-fx-background-color: #FBF8DC;");
         passer.setFont(fontPasser);
         passer.setEffect(dropShadow);
+        choix.setRight(passer);
         //Button Règles
         regles = new Button("Règles");
         regles.setPrefSize(108, 33);
-        regles.setLayoutX(110);
-        regles.setLayoutY(36);
         regles.setOnAction(e -> {
            new RailsIHM().openRules();
         });
+        top.getChildren().addAll(regles, titre);
         //Joueur Courant
         vueJoueurCourant = new VueJoueurCourant(jeu.getJoueurs().get(0));
         //Autres joueur
@@ -132,8 +132,15 @@ public class VueDuJeu extends Pane {
             vueAutreJoueur4 = new VueAutresJoueurs(jeu.getJoueurs().get(4));
             boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4);
         }
+        //Bot
+        bot = new VBox();
+        bot.setSpacing(15);
+        bot.getChildren().addAll(choix, carteWagonPosee);
         //This
-        this.getChildren().addAll(vuePlateau, titre, boxJoueurs, passer, boxChoix, regles, carteWagonPosee);
+        this.setTop(top);
+        this.setCenter(vuePlateau);
+        this.setRight(boxJoueurs);
+        this.setBottom(bot);
         this.setStyle("-fx-background-color: #F2EDBF");
     }
 
