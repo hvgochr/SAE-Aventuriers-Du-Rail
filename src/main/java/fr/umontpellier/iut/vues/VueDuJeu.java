@@ -6,8 +6,10 @@ import java.io.FileNotFoundException;
 import fr.umontpellier.iut.ICouleurWagon;
 import fr.umontpellier.iut.IDestination;
 import fr.umontpellier.iut.IJeu;
+import fr.umontpellier.iut.IJoueur;
 import fr.umontpellier.iut.RailsIHM;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -157,6 +159,7 @@ public class VueDuJeu extends BorderPane {
     public void creerBindings () {
         this.getJeu().destinationsInitialesProperty().addListener(destinationsSontPiocheesListener);
         this.getJeu().cartesWagonVisiblesProperty().addListener(listeCarte);
+        this.getJeu().joueurCourantProperty().addListener(joueurChangeListener);
         passer.setOnAction(e -> {
             jeu.passerAEteChoisi();
         });
@@ -217,6 +220,14 @@ public class VueDuJeu extends BorderPane {
             }
         }
     );
+
+    private final ChangeListener<IJoueur> joueurChangeListener = (observableValue, ancienJoueur, nouveauJoueur) -> {
+        Platform.runLater(() -> {
+            this.vueJoueurCourant = new VueJoueurCourant(nouveauJoueur);
+            boxJoueurs.getChildren().clear();
+            boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4, vueJoueurCourant);
+        });
+    };
 
     private Button trouveButtonDestination(IDestination d){
         for(Node n : boxChoix.getChildren()){
