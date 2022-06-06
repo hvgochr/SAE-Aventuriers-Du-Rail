@@ -7,13 +7,12 @@ import fr.umontpellier.iut.ICouleurWagon;
 import fr.umontpellier.iut.IDestination;
 import fr.umontpellier.iut.IJeu;
 import fr.umontpellier.iut.IJoueur;
-import fr.umontpellier.iut.RailsIHM;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -54,7 +53,6 @@ public class VueDuJeu extends BorderPane {
     private HBox top;
 
     private Button passer;
-    private Button regles;
 
     private VueJoueurCourant vueJoueurCourant;
 
@@ -92,12 +90,13 @@ public class VueDuJeu extends BorderPane {
         //BoxTop
         top = new HBox();
         top.setSpacing(100);
+        top.setPrefHeight(80);
         //Titre
         titre = new Text("Les Aventuriers Du Rail - Version Europe");
         titre.setFont(fontTitre);
         //Plateau
         vuePlateau = new VuePlateau();
-        vuePlateau.setPrefSize(957, 616);
+        vuePlateau.setPrefSize(900, 600);
         //Passer
         passer = new Button("Passer");
         passer.setPrefSize(108, 33);
@@ -105,13 +104,8 @@ public class VueDuJeu extends BorderPane {
         passer.setFont(fontPasser);
         passer.setEffect(dropShadow);
         choix.setRight(passer);
-        //Button Règles
-        regles = new Button("Règles");
-        regles.setPrefSize(108, 33);
-        regles.setOnAction(e -> {
-           new RailsIHM().openRules();
-        });
-        top.getChildren().addAll(regles, titre);
+        top.getChildren().addAll(titre);
+        top.setAlignment(Pos.CENTER);
         //Bot
         bot = new VBox();
         bot.setSpacing(15);
@@ -241,6 +235,16 @@ public class VueDuJeu extends BorderPane {
             if(numJoueurCourant==0){
                 vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
                 vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
+                //Test hover autre joueur
+                /**
+                vueAutreJoueur1.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                    if (newValue) {
+                        vueAutreJoueur1.setPrefHeight(200);
+                    } else {
+                        vueAutreJoueur1.setPrefHeight(78);
+                    }
+                });
+                **/
                 boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2);
             }else if(numJoueurCourant==1){
                 vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(0));
@@ -252,7 +256,7 @@ public class VueDuJeu extends BorderPane {
                 boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueJoueurCourant);
             }
         }
-        //Autre Joueur
+        //NbJoueurs = 4
         else if (jeu.getJoueurs().size() == 4) {
             if(numJoueurCourant==0){
                 vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
@@ -277,7 +281,7 @@ public class VueDuJeu extends BorderPane {
                 boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueJoueurCourant);
             }
         }
-        //Autre Joueur
+        //NbJoueurs = 5
         else if (jeu.getJoueurs().size() == 5) {
             if(numJoueurCourant==0){
                 vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
