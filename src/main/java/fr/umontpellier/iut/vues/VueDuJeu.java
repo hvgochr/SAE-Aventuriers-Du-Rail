@@ -232,7 +232,7 @@ public class VueDuJeu extends BorderPane {
         for (Node n : carteWagonPosee.getChildren()) {
             ImageView c = (ImageView) n;
             try {
-                if (c.getImage().equals(new Image(new FileInputStream("ressources/images/images/carte-wagon-" + i.toString().toUpperCase() + ".png")))){
+                if(c.getImage().equals(new Image(new FileInputStream("ressources/images/images/carte-wagon-" + i.toString().toUpperCase() + ".png")))){
                     return c;
                 }
             } catch (FileNotFoundException e) {
