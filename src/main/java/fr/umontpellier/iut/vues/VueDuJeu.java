@@ -112,34 +112,6 @@ public class VueDuJeu extends BorderPane {
            new RailsIHM().openRules();
         });
         top.getChildren().addAll(regles, titre);
-        //Joueur Courant
-        vueJoueurCourant = new VueJoueurCourant(jeu.getJoueurs().get(0));
-        //Autres joueur
-        if (jeu.getJoueurs().size() == 2) {
-            vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
-            boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1);
-        }
-        //Autre Joueur
-        else if (jeu.getJoueurs().size() == 3) {
-            vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
-            vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
-            boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2);
-        }
-        //Autre Joueur
-        else if (jeu.getJoueurs().size() == 4) {
-            vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
-            vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
-            vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
-            boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3);
-        }
-        //Autre Joueur
-        else if (jeu.getJoueurs().size() == 5) {
-            vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
-            vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
-            vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
-            vueAutreJoueur4 = new VueAutresJoueurs(jeu.getJoueurs().get(4));
-            boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4);
-        }
         //Bot
         bot = new VBox();
         bot.setSpacing(15);
@@ -225,17 +197,7 @@ public class VueDuJeu extends BorderPane {
         Platform.runLater(() -> {
             this.vueJoueurCourant = new VueJoueurCourant(nouveauJoueur);
             boxJoueurs.getChildren().clear();
-            if(nouveauJoueur.getOrdreJoueur()==0){
-                boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4);
-            }else if(nouveauJoueur.getOrdreJoueur()==1){
-                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueJoueurCourant, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4);
-            }else if(nouveauJoueur.getOrdreJoueur()==2){
-                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueJoueurCourant, vueAutreJoueur3, vueAutreJoueur4);
-            }else if(nouveauJoueur.getOrdreJoueur()==3){
-                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueJoueurCourant, vueAutreJoueur4);
-            }else if(nouveauJoueur.getOrdreJoueur()==4){
-                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4, vueJoueurCourant);
-            }
+            changementOrdreDesJoueurs(nouveauJoueur.getOrdreJoueur());
         });
     };
 
@@ -261,6 +223,94 @@ public class VueDuJeu extends BorderPane {
             }
         }
         return null;
+    }
+
+    public void changementOrdreDesJoueurs(int numJoueurCourant){
+        //NbJoueurs = 2
+        if (jeu.getJoueurs().size() == 2) {
+            if(numJoueurCourant==0){
+                vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
+                boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1);
+            }else if(numJoueurCourant==1){
+                vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(0));
+                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueJoueurCourant);
+            }
+        }
+        //NbJoueurs = 3
+        else if (jeu.getJoueurs().size() == 3) {
+            if(numJoueurCourant==0){
+                vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
+                vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
+                boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2);
+            }else if(numJoueurCourant==1){
+                vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(0));
+                vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
+                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueJoueurCourant, vueAutreJoueur2);
+            }else if(numJoueurCourant==2){
+                vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(0));
+                vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
+                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueJoueurCourant);
+            }
+        }
+        //Autre Joueur
+        else if (jeu.getJoueurs().size() == 4) {
+            if(numJoueurCourant==0){
+                vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
+                vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
+                vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
+                boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3);
+            }else if(numJoueurCourant==1){
+                vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(0));
+                vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
+                vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
+                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueJoueurCourant, vueAutreJoueur2, vueAutreJoueur3);
+            }else if(numJoueurCourant==2){
+                vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(0));
+                vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
+                vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
+                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueJoueurCourant, vueAutreJoueur3);
+            }
+            else if(numJoueurCourant==3){
+                vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(0));
+                vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
+                vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
+                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueJoueurCourant);
+            }
+        }
+        //Autre Joueur
+        else if (jeu.getJoueurs().size() == 5) {
+            if(numJoueurCourant==0){
+                vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
+                vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
+                vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
+                vueAutreJoueur4 = new VueAutresJoueurs(jeu.getJoueurs().get(4));
+                boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4);
+            }else if(numJoueurCourant==1){
+                vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(0));
+                vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
+                vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
+                vueAutreJoueur4 = new VueAutresJoueurs(jeu.getJoueurs().get(4));
+                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueJoueurCourant, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4);
+            }else if(numJoueurCourant==2){
+                vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(0));
+                vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
+                vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
+                vueAutreJoueur4 = new VueAutresJoueurs(jeu.getJoueurs().get(4));
+                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueJoueurCourant, vueAutreJoueur3, vueAutreJoueur4);
+            }else if(numJoueurCourant==3){
+                vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(0));
+                vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
+                vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
+                vueAutreJoueur4 = new VueAutresJoueurs(jeu.getJoueurs().get(4));
+                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueJoueurCourant, vueAutreJoueur4);
+            }else if(numJoueurCourant==4){
+                vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(0));
+                vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
+                vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
+                vueAutreJoueur4 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
+                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4, vueJoueurCourant);
+            }
+        }
     }
 
 }

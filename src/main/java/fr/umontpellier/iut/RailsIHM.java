@@ -24,7 +24,7 @@ public class RailsIHM extends Application {
     private Stage primaryStage;
     private ServiceDuJeu serviceDuJeu;
 
-    private boolean avecVueChoixJoueurs = true;
+    private boolean avecVueChoixJoueurs = false;
 
     @Override
     public void start(Stage primaryStage) {
@@ -49,11 +49,11 @@ public class RailsIHM extends Application {
         }
         else {
             nomsJoueurs = new ArrayList<>();
-            nomsJoueurs.add("Hichem");
-            nomsJoueurs.add("Babar");
-            nomsJoueurs.add("Geoffrey");
-            nomsJoueurs.add("Pierre");
-            nomsJoueurs.add("Hugo");
+            nomsJoueurs.add("Joueur 1");
+            nomsJoueurs.add("Joueur 2");
+            nomsJoueurs.add("Joueur 3");
+            nomsJoueurs.add("Joueur 4");
+            nomsJoueurs.add("Joueur 5");
         }
     
         serviceDuJeu = new ServiceDuJeu(nomsJoueurs.toArray(new String[0]));
