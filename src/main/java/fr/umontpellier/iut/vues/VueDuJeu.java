@@ -172,13 +172,13 @@ public class VueDuJeu extends BorderPane {
                         b.setPrefHeight(33);
                         b.setFont(fontPasser);
                         b.setEffect(dropShadow);
+                        boxChoix.getChildren().add(b);
                         b.setOnAction(e -> {
                             if(boxChoix.getChildren().size() > 2){
                                 boxChoix.getChildren().remove(b);
                             }
                             jeu.uneDestinationAEteChoisie(d.getNom());
                         });
-                        boxChoix.getChildren().add(b);
                     }
                 }else if(change.wasRemoved()){
                     for(IDestination d : change.getRemoved()){
@@ -200,11 +200,11 @@ public class VueDuJeu extends BorderPane {
                             carte.setFitHeight(90);
                             carte.setFitWidth(140);
                             carte.setEffect(dropShadow);
+                            carteWagonPosee.getChildren().add(carte);
                             carte.setOnMouseClicked(e -> {
                                 carteWagonPosee.getChildren().remove(carte);
                                 jeu.uneCarteWagonAEteChoisie(couleurWagon);
                             });
-                            carteWagonPosee.getChildren().add(carte);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
@@ -231,8 +231,12 @@ public class VueDuJeu extends BorderPane {
     private ImageView trouveCarte(ICouleurWagon i) {
         for (Node n : carteWagonPosee.getChildren()) {
             ImageView c = (ImageView) n;
-            if (c.getImage().equals("?")){ /* a compléter */
-                return c;
+            try {
+                if (c.getImage().equals(new Image(new FileInputStream("ressources/images/images/carte-wagon-" + i.toString().toUpperCase() + ".png")))){
+                    return c;
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
         }
         return null;
