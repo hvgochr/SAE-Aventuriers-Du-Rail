@@ -1,5 +1,8 @@
 package fr.umontpellier.iut.vues;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import fr.umontpellier.iut.ICouleurWagon;
 import fr.umontpellier.iut.IDestination;
 import fr.umontpellier.iut.IJeu;
@@ -10,6 +13,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -61,6 +66,7 @@ public class VueDuJeu extends BorderPane {
         this.setPrefSize(1440, 1024);
         //BoxCarteWagon
         carteWagonPosee = new HBox();
+        carteWagonPosee.setSpacing(26);
         //BoxJoueurs
         boxJoueurs = new VBox();
         boxJoueurs.setPrefSize(329, 618);
@@ -183,20 +189,34 @@ public class VueDuJeu extends BorderPane {
         });
     };
 
-    private final ListChangeListener<ICouleurWagon> listeCarte = action -> Platform.runLater(() -> {
-        while (action.next()) {
-            if (action.wasAdded()) {
-                for (ICouleurWagon couleurWagon : action.getAddedSubList()) {
-                    carteWagonPosee.getChildren().add(new Label(couleurWagon.toString()));
-                }
-            }
-            else if (action.wasRemoved()) {
-                for (ICouleurWagon couleurWagon : action.getRemoved()) {
-                    carteWagonPosee.getChildren().remove(trouveCarte(couleurWagon));
+    private final ListChangeListener<ICouleurWagon> listeCarte = action -> 
+        Platform.runLater(() -> {
+            while (action.next()) {
+                if (action.wasAdded()) {
+                    for (ICouleurWagon couleurWagon : action.getAddedSubList()) {
+                        try {
+                            ImageView carte = new ImageView();
+                            carte.setImage(new Image(new FileInputStream("ressources/images/images/carte-wagon-" + couleurWagon.toString().toUpperCase() + ".png")));
+                            carte.setFitHeight(90);
+                            carte.setFitWidth(140);
+                            carte.setEffect(dropShadow);
+                            carte.setOnMouseClicked(e -> {
+                                carteWagonPosee.getChildren().remove(carte);
+                                jeu.uneCarteWagonAEteChoisie(couleurWagon);
+                            });
+                            carteWagonPosee.getChildren().add(carte);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }else if (action.wasRemoved()) {
+                    for (ICouleurWagon couleurWagon : action.getRemoved()) {
+                        carteWagonPosee.getChildren().remove(trouveCarte(couleurWagon));
+                    }
                 }
             }
         }
-    });
+    );
 
     private Button trouveButtonDestination(IDestination d){
         for(Node n : boxChoix.getChildren()){
@@ -208,15 +228,14 @@ public class VueDuJeu extends BorderPane {
         return null;
     }
 
-    private Label trouveCarte(ICouleurWagon i) {
-        Label res = null;
+    private ImageView trouveCarte(ICouleurWagon i) {
         for (Node n : carteWagonPosee.getChildren()) {
-            Label l = (Label) n;
-            if (l.getText().equals(i.toString())){
-                res = l;
+            ImageView c = (ImageView) n;
+            if (c.getImage().equals("?")){ /* a compléter */
+                return c;
             }
         }
-        return res;
+        return null;
     }
 
 }

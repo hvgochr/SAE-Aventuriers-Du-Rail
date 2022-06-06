@@ -3,10 +3,14 @@ package fr.umontpellier.iut.vues;
 import java.io.FileInputStream;
 
 import fr.umontpellier.iut.IJoueur;
+import fr.umontpellier.iut.rails.CouleurWagon;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -35,12 +39,16 @@ public class VueJoueurCourant extends Pane {
 
     private Font fontPseudo;
 
+    private VBox cartesJoueur;
+
     private DropShadow dropShadow;
 
     public VueJoueurCourant(IJoueur joueur){
         this.joueurCourant = joueur;
         //Font
         fontPseudo = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 14);
+        //Cartes joueur
+        cartesJoueur = new VBox();
         //Pseudo
         pseudoJoueur = new Text(joueurCourant.getNom());
         pseudoJoueur.setLayoutX(65);
@@ -95,7 +103,20 @@ public class VueJoueurCourant extends Pane {
         //This
         this.setStyle("-fx-background-color: #" + joueurCourant.convertirCouleurJoueur());
         this.setPrefSize(329, 240);
-        getChildren().addAll(pseudoJoueur, avatarJoueur, gares, wagons, nbGares, nbWagons, score);
+        getChildren().addAll(pseudoJoueur, avatarJoueur, gares, wagons, nbGares, nbWagons, score, cartesJoueur);
+    }
+
+    public void creerBindings(){
+        ChangeListener<IJoueur> joueurChangeListener = (observableValue, ancienJoueur, nouveauJoueur) -> {
+            Platform.runLater(() -> {
+                pseudoJoueur.setText(nouveauJoueur.getNom());
+                cartesJoueur.getChildren().clear();
+                for(CouleurWagon c : nouveauJoueur.getCartesWagon()){
+                    cartesJoueur.getChildren().addAll(new VueCarteWagon(c));
+                }
+            });
+        };
+        ((VueDuJeu) getScene().getRoot()).getJeu().joueurCourantProperty().addListener(joueurChangeListener);
     }
 
 }
