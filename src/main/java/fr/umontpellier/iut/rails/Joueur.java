@@ -594,4 +594,13 @@ public class Joueur implements IJoueur {
         }
     }
 
+    public int getOrdreJoueur(){
+        for(int i=0; i<jeu.getJoueurs().size(); i++){
+            if(jeu.getJoueurs().get(i).equals(this)){
+                return i;
+            }
+        }
+        return (Integer) null;
+    }
+
 }

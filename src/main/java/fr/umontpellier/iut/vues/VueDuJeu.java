@@ -225,7 +225,17 @@ public class VueDuJeu extends BorderPane {
         Platform.runLater(() -> {
             this.vueJoueurCourant = new VueJoueurCourant(nouveauJoueur);
             boxJoueurs.getChildren().clear();
-            boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4, vueJoueurCourant);
+            if(nouveauJoueur.getOrdreJoueur()==0){
+                boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4);
+            }else if(nouveauJoueur.getOrdreJoueur()==1){
+                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueJoueurCourant, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4);
+            }else if(nouveauJoueur.getOrdreJoueur()==2){
+                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueJoueurCourant, vueAutreJoueur3, vueAutreJoueur4);
+            }else if(nouveauJoueur.getOrdreJoueur()==3){
+                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueJoueurCourant, vueAutreJoueur4);
+            }else if(nouveauJoueur.getOrdreJoueur()==4){
+                boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4, vueJoueurCourant);
+            }
         });
     };
 

@@ -106,17 +106,4 @@ public class VueJoueurCourant extends Pane {
         getChildren().addAll(pseudoJoueur, avatarJoueur, gares, wagons, nbGares, nbWagons, score, cartesJoueur);
     }
 
-    public void creerBindings(){
-        ChangeListener<IJoueur> joueurChangeListener = (observableValue, ancienJoueur, nouveauJoueur) -> {
-            Platform.runLater(() -> {
-                pseudoJoueur.setText(nouveauJoueur.getNom());
-                cartesJoueur.getChildren().clear();
-                for(CouleurWagon c : nouveauJoueur.getCartesWagon()){
-                    cartesJoueur.getChildren().addAll(new VueCarteWagon(c));
-                }
-            });
-        };
-        ((VueDuJeu) getScene().getRoot()).getJeu().joueurCourantProperty().addListener(joueurChangeListener);
-    }
-
 }

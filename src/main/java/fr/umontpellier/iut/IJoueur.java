@@ -2,6 +2,7 @@ package fr.umontpellier.iut;
 
 import fr.umontpellier.iut.rails.CouleurWagon;
 import fr.umontpellier.iut.rails.Destination;
+import fr.umontpellier.iut.rails.Joueur;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.Rectangle;
 
@@ -17,6 +18,7 @@ public interface IJoueur {
 
     List<CouleurWagon> getCartesWagon();
     List<Destination> getDestinations();
+    int getOrdreJoueur();
     int getNbWagons();
     String getNom();
     Couleur getCouleur();
