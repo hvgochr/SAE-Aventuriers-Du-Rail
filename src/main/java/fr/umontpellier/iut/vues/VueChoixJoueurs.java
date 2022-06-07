@@ -440,6 +440,7 @@ public class VueChoixJoueurs extends Stage {
     public void setNomsDesJoueursDefinisListener(ListChangeListener<String> quandLesNomsDesJoueursSontDefinis){
 
     }
+    
     /**
      * Retourne le nombre de participants à la partie que l'utilisateur a renseigné
      */

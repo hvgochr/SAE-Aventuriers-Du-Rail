@@ -10,6 +10,7 @@ import fr.umontpellier.iut.IJoueur;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -71,22 +72,20 @@ public class VueDuJeu extends BorderPane {
         boxJoueurs = new VBox();
         boxJoueurs.setPrefSize(250, 469);
         boxJoueurs.setSpacing(9);
-        boxJoueurs.setStyle("-fx-background-color: #F2EDBF");
         //Choix
         choix = new BorderPane();
         //BoxChoix
         boxChoix = new HBox();
         boxChoix.setSpacing(10);
         boxChoix.setPrefSize(798, 33);
-        boxChoix.setStyle("-fx-background-color: #F2EDBF");
         choix.setLeft(boxChoix);
         //DropShadow
         dropShadow = new DropShadow(10, Color.BLACK);
         dropShadow.setOffsetX(2);
         dropShadow.setOffsetY(2);
         //Font 
-        fontTitre = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 40);
-        fontPasser = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 15);
+        fontTitre = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 30);
+        fontPasser = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 11);
         //BoxTop
         top = new HBox();
         top.setSpacing(100);
@@ -96,7 +95,6 @@ public class VueDuJeu extends BorderPane {
         titre.setFont(fontTitre);
         //Plateau
         vuePlateau = new VuePlateau();
-        vuePlateau.setPrefSize(728, 469);
         //Passer
         passer = new Button("Passer");
         passer.setPrefSize(108, 33);
@@ -112,13 +110,10 @@ public class VueDuJeu extends BorderPane {
         bot.getChildren().addAll(choix, carteWagonPosee);
         //This
         this.setTop(top);
-        VBox test = new VBox();
-        test.setStyle("-fx-background-color: BLACK");
-        test.setPrefSize(100, 400);
-        this.setLeft(null);
         this.setCenter(vuePlateau);
         this.setRight(boxJoueurs);
         this.setBottom(bot);
+        VueDuJeu.setMargin(boxJoueurs, new Insets(0, 58, 0, 0));
         this.setStyle("-fx-background-color: #F2EDBF");
     }
 

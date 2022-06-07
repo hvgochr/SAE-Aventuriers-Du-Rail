@@ -37,6 +37,7 @@ public class VuePlateau extends Pane {
     private FileInputStream lienToggle;
 
     public VuePlateau() {
+        this.setPrefSize(728, 469);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/plateau.fxml"));
             loader.setRoot(this);
