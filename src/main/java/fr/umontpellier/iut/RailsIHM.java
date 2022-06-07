@@ -5,7 +5,6 @@ import fr.umontpellier.iut.vues.VueChoixJoueurs;
 import fr.umontpellier.iut.vues.VueDuJeu;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.application.HostServices;
 import javafx.collections.ListChangeListener;
 import javafx.concurrent.Worker;
 import javafx.scene.Scene;
@@ -24,7 +23,7 @@ public class RailsIHM extends Application {
     private Stage primaryStage;
     private ServiceDuJeu serviceDuJeu;
 
-    private boolean avecVueChoixJoueurs = false;
+    private boolean avecVueChoixJoueurs = true;
 
     @Override
     public void start(Stage primaryStage) {
@@ -96,11 +95,6 @@ public class RailsIHM extends Application {
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    public void openRules(){
-        HostServices host = getHostServices();
-        host.showDocument("/Users/hugo/Documents/IUT/BUT Informatique/Semestre 2/IHM/railsihm/src/main/resources/images/rules.pdf");
     }
 
 }

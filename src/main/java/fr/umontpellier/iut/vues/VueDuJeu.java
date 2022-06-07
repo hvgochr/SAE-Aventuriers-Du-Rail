@@ -63,14 +63,14 @@ public class VueDuJeu extends BorderPane {
 
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
-        this.setPrefSize(1440, 1024);
+        this.setPrefSize(1280, 720);
         //BoxCarteWagon
         carteWagonPosee = new HBox();
         carteWagonPosee.setSpacing(26);
         //BoxJoueurs
         boxJoueurs = new VBox();
-        boxJoueurs.setPrefSize(329, 618);
-        boxJoueurs.setSpacing(13);
+        boxJoueurs.setPrefSize(250, 469);
+        boxJoueurs.setSpacing(9);
         boxJoueurs.setStyle("-fx-background-color: #F2EDBF");
         //Choix
         choix = new BorderPane();
@@ -96,7 +96,7 @@ public class VueDuJeu extends BorderPane {
         titre.setFont(fontTitre);
         //Plateau
         vuePlateau = new VuePlateau();
-        vuePlateau.setPrefSize(900, 600);
+        vuePlateau.setPrefSize(728, 469);
         //Passer
         passer = new Button("Passer");
         passer.setPrefSize(108, 33);
@@ -112,6 +112,10 @@ public class VueDuJeu extends BorderPane {
         bot.getChildren().addAll(choix, carteWagonPosee);
         //This
         this.setTop(top);
+        VBox test = new VBox();
+        test.setStyle("-fx-background-color: BLACK");
+        test.setPrefSize(100, 400);
+        this.setLeft(null);
         this.setCenter(vuePlateau);
         this.setRight(boxJoueurs);
         this.setBottom(bot);
@@ -242,6 +246,13 @@ public class VueDuJeu extends BorderPane {
                         vueAutreJoueur1.setPrefHeight(200);
                     } else {
                         vueAutreJoueur1.setPrefHeight(78);
+                    }
+                });
+                vueAutreJoueur2.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                    if (newValue) {
+                        vueAutreJoueur2.setPrefHeight(200);
+                    } else {
+                        vueAutreJoueur2.setPrefHeight(78);
                     }
                 });
                 **/

@@ -1,7 +1,6 @@
 package fr.umontpellier.iut.vues;
 
 import fr.umontpellier.iut.ICouleurWagon;
-import javafx.beans.value.ChangeListener;
 import javafx.scene.layout.Pane;
 
 /**
@@ -14,20 +13,7 @@ public class VueCarteWagon extends Pane {
     private ICouleurWagon couleurWagon;
 
     public VueCarteWagon(ICouleurWagon couleurWagon) {
-
         this.couleurWagon = couleurWagon;
-
-            ChangeListener l = (observableValue, ancienneVal, nouvelleVal) -> {
-
-
-
-
-
-
-
-
-        };
-
     }
 
     public ICouleurWagon getCouleurWagon() {

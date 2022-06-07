@@ -98,7 +98,7 @@ public class VueAutresJoueurs extends Pane {
         dropShadow.setOffsetY(3);
         //This
         this.setEffect(dropShadow);
-        this.setPrefSize(329, 78);
+        this.setPrefSize(250, 59);
         this.setStyle("-fx-background-color: #" + this.joueur.convertirCouleurJoueur());
         getChildren().addAll(pseudoJoueur, avatarJoueur, gares, wagons, nbGares, nbWagons, score);
     }

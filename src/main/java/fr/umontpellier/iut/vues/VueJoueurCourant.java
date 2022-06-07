@@ -3,9 +3,7 @@ package fr.umontpellier.iut.vues;
 import java.io.FileInputStream;
 
 import fr.umontpellier.iut.IJoueur;
-import fr.umontpellier.iut.rails.CouleurWagon;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -40,15 +38,26 @@ public class VueJoueurCourant extends Pane {
     private Font fontPseudo;
 
     private VBox cartesJoueur;
+    private VBox destinationsJoueur;
 
     private DropShadow dropShadow;
 
     public VueJoueurCourant(IJoueur joueur){
         this.joueurCourant = joueur;
         //Font
-        fontPseudo = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 14);
+        fontPseudo = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 10);
         //Cartes joueur
         cartesJoueur = new VBox();
+        //Destinations joueur
+        destinationsJoueur = new VBox();
+        destinationsJoueur.setLayoutX(14);
+        destinationsJoueur.setLayoutY(81);
+        for(int i=0; i<joueur.getDestinations().size(); i++){
+            Text destination = new Text();
+            destination.setFont(fontPseudo);
+            destination.setText(joueur.getDestinations().get(i).toString());
+            destinationsJoueur.getChildren().add(destination);
+        }
         //Pseudo
         pseudoJoueur = new Text(joueurCourant.getNom());
         pseudoJoueur.setLayoutX(65);
@@ -102,8 +111,8 @@ public class VueJoueurCourant extends Pane {
         this.setEffect(dropShadow);
         //This
         this.setStyle("-fx-background-color: #" + joueurCourant.convertirCouleurJoueur());
-        this.setPrefSize(329, 240);
-        getChildren().addAll(pseudoJoueur, avatarJoueur, gares, wagons, nbGares, nbWagons, score, cartesJoueur);
+        this.setPrefSize(250, 182);
+        getChildren().addAll(pseudoJoueur, avatarJoueur, gares, wagons, nbGares, nbWagons, score, cartesJoueur, destinationsJoueur);
     }
 
 }
