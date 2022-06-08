@@ -21,7 +21,7 @@ public class VueJoueurCourant extends VBox {
 
     private Font fontPseudo;
 
-    private GridPane cartesJoueur;
+    private VBox cartesJoueur;
     private VBox destinationsJoueur;
 
     private DropShadow dropShadow;
@@ -31,7 +31,7 @@ public class VueJoueurCourant extends VBox {
         //Font
         fontPseudo = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 10);
         //Cartes joueur
-        cartesJoueur = new GridPane();
+        cartesJoueur = new VBox();
         //A changer
         for(int i=0; i<joueur.getCartesWagon().size(); i++){
             Text couleur = new Text();
@@ -59,6 +59,7 @@ public class VueJoueurCourant extends VBox {
         this.setStyle("-fx-background-color: #" + joueurCourant.convertirCouleurJoueur());
         this.setPrefSize(250, 182);
         VueJoueurCourant.setMargin(destinationsJoueur, new Insets(-8, 0, 0, 5));
+        VueJoueurCourant.setMargin(cartesJoueur, new Insets(0, 0, 0, 5));
         getChildren().addAll(vueJoueur, destinationsJoueur, cartesJoueur);
     }
 
