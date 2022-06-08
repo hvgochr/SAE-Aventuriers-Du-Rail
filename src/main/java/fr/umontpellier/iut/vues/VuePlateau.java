@@ -8,6 +8,7 @@ import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -37,7 +38,7 @@ public class VuePlateau extends Pane {
     private FileInputStream lienToggle;
 
     public VuePlateau() {
-        this.setPrefSize(728, 469);
+        this.setPrefSize(726, 468);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/plateau.fxml"));
             loader.setRoot(this);
@@ -83,8 +84,7 @@ public class VuePlateau extends Pane {
     }
 
     @FXML
-    public void choixRouteOuVille() {
+    public void choixRouteOuVille(MouseEvent e) {
     }
 
-    
 }

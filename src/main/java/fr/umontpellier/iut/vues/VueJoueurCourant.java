@@ -3,7 +3,7 @@ package fr.umontpellier.iut.vues;
 import fr.umontpellier.iut.IJoueur;
 import javafx.geometry.Insets;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -21,7 +21,7 @@ public class VueJoueurCourant extends VBox {
 
     private Font fontPseudo;
 
-    private VBox cartesJoueur;
+    private GridPane cartesJoueur;
     private VBox destinationsJoueur;
 
     private DropShadow dropShadow;
@@ -31,7 +31,8 @@ public class VueJoueurCourant extends VBox {
         //Font
         fontPseudo = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 10);
         //Cartes joueur
-        cartesJoueur = new VBox();
+        cartesJoueur = new GridPane();
+        //A changer
         for(int i=0; i<joueur.getCartesWagon().size(); i++){
             Text couleur = new Text();
             couleur.setFont(fontPseudo);
@@ -57,7 +58,6 @@ public class VueJoueurCourant extends VBox {
         //This
         this.setStyle("-fx-background-color: #" + joueurCourant.convertirCouleurJoueur());
         this.setPrefSize(250, 182);
-        //VueJoueurCourant.setMargin(vueJoueur, new Insets(-5, 0, 0, 0));
         VueJoueurCourant.setMargin(destinationsJoueur, new Insets(-8, 0, 0, 5));
         getChildren().addAll(vueJoueur, destinationsJoueur, cartesJoueur);
     }

@@ -48,9 +48,13 @@ public class VueDuJeu extends BorderPane {
 
     private VBox boxJoueurs;
     private VBox bot;
+    private VBox carteWagonVisibles;
+    private VBox left;
+
+    private ImageView piocheWagon;
+    private ImageView piocheDestination;
 
     private HBox boxChoix;
-    private HBox carteWagonPosee;
     private HBox top;
 
     private Button passer;
@@ -66,8 +70,8 @@ public class VueDuJeu extends BorderPane {
         this.jeu = jeu;
         this.setPrefSize(1280, 720);
         //BoxCarteWagon
-        carteWagonPosee = new HBox();
-        carteWagonPosee.setSpacing(26);
+        carteWagonVisibles = new VBox();
+        carteWagonVisibles.setSpacing(6);
         //BoxJoueurs
         boxJoueurs = new VBox();
         boxJoueurs.setPrefSize(250, 469);
@@ -90,9 +94,15 @@ public class VueDuJeu extends BorderPane {
         top = new HBox();
         top.setSpacing(100);
         top.setPrefHeight(80);
+        //BoxLeft
+        left = new VBox();
+        left.setSpacing(20);
+        left.getChildren().addAll(carteWagonVisibles);
         //Titre
         titre = new Text("Les Aventuriers Du Rail - Version Europe");
         titre.setFont(fontTitre);
+        top.getChildren().add(titre);
+        top.setAlignment(Pos.CENTER);
         //Plateau
         vuePlateau = new VuePlateau();
         //Passer
@@ -102,18 +112,19 @@ public class VueDuJeu extends BorderPane {
         passer.setFont(fontPasser);
         passer.setEffect(dropShadow);
         choix.setRight(passer);
-        top.getChildren().addAll(titre);
-        top.setAlignment(Pos.CENTER);
         //Bot
         bot = new VBox();
         bot.setSpacing(15);
-        bot.getChildren().addAll(choix, carteWagonPosee);
+        bot.getChildren().addAll(choix);
         //This
         this.setTop(top);
+        this.setLeft(carteWagonVisibles);
         this.setCenter(vuePlateau);
         this.setRight(boxJoueurs);
         this.setBottom(bot);
         VueDuJeu.setMargin(boxJoueurs, new Insets(0, 58, 0, 0));
+        VueDuJeu.setMargin(carteWagonVisibles, new Insets(0, 0, 0, 58));
+        VueDuJeu.setMargin(vuePlateau, new Insets(-140, 0, 0, 0));
         this.setStyle("-fx-background-color: #F2EDBF");
     }
 
@@ -165,12 +176,12 @@ public class VueDuJeu extends BorderPane {
                         try {
                             ImageView carte = new ImageView();
                             carte.setImage(new Image(new FileInputStream("ressources/images/images/carte-wagon-" + couleurWagon.toString().toUpperCase() + ".png")));
-                            carte.setFitHeight(90);
-                            carte.setFitWidth(140);
+                            carte.setFitHeight(61);
+                            carte.setFitWidth(99);
                             carte.setEffect(dropShadow);
-                            carteWagonPosee.getChildren().add(carte);
+                            carteWagonVisibles.getChildren().add(carte);
                             carte.setOnMouseClicked(e -> {
-                                carteWagonPosee.getChildren().remove(carte);
+                                carteWagonVisibles.getChildren().remove(carte);
                                 jeu.uneCarteWagonAEteChoisie(couleurWagon);
                             });
                         } catch (FileNotFoundException e) {
@@ -179,7 +190,7 @@ public class VueDuJeu extends BorderPane {
                     }
                 }else if (action.wasRemoved()) {
                     for (ICouleurWagon couleurWagon : action.getRemoved()) {
-                        carteWagonPosee.getChildren().remove(trouveCarte(couleurWagon));
+                        carteWagonVisibles.getChildren().remove(trouveCarte(couleurWagon));
                     }
                 }
             }
@@ -205,7 +216,7 @@ public class VueDuJeu extends BorderPane {
     }
 
     private ImageView trouveCarte(ICouleurWagon i) {
-        for (Node n : carteWagonPosee.getChildren()) {
+        for (Node n : carteWagonVisibles.getChildren()) {
             ImageView c = (ImageView) n;
             try {
                 if(c.getImage().equals(new Image(new FileInputStream("ressources/images/images/carte-wagon-" + i.toString().toUpperCase() + ".png")))){
