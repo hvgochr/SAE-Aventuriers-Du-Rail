@@ -49,13 +49,13 @@ public class VueDuJeu extends BorderPane {
     private VBox boxJoueurs;
     private VBox bot;
     private VBox carteWagonVisibles;
-    private VBox left;
 
     private ImageView piocheWagon;
     private ImageView piocheDestination;
 
     private HBox boxChoix;
     private HBox top;
+    private VBox left;
 
     private Button passer;
 
@@ -87,17 +87,28 @@ public class VueDuJeu extends BorderPane {
         dropShadow = new DropShadow(10, Color.BLACK);
         dropShadow.setOffsetX(2);
         dropShadow.setOffsetY(2);
-        //Font 
+        //Font
         fontTitre = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 30);
         fontPasser = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 11);
         //BoxTop
         top = new HBox();
         top.setSpacing(100);
         top.setPrefHeight(80);
+        //Pioches
+        try {
+            piocheWagon = new ImageView(new Image(new FileInputStream("ressources/images/images/carte-wagon.png")));
+            piocheDestination = new ImageView(new Image(new FileInputStream("ressources/images/images/eu_TicketBack.png")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        piocheDestination.setFitHeight(61);
+        piocheDestination.setFitWidth(99);
+        piocheWagon.setFitHeight(61);
+        piocheWagon.setFitWidth(99);
         //BoxLeft
         left = new VBox();
         left.setSpacing(20);
-        left.getChildren().addAll(carteWagonVisibles);
+        left.getChildren().addAll(carteWagonVisibles, piocheWagon, piocheDestination);
         //Titre
         titre = new Text("Les Aventuriers Du Rail - Version Europe");
         titre.setFont(fontTitre);
@@ -118,7 +129,7 @@ public class VueDuJeu extends BorderPane {
         bot.getChildren().addAll(choix);
         //This
         this.setTop(top);
-        this.setLeft(carteWagonVisibles);
+        this.setLeft(left);
         this.setCenter(vuePlateau);
         this.setRight(boxJoueurs);
         this.setBottom(bot);
@@ -173,20 +184,20 @@ public class VueDuJeu extends BorderPane {
             while (action.next()) {
                 if (action.wasAdded()) {
                     for (ICouleurWagon couleurWagon : action.getAddedSubList()) {
+                        ImageView carte = new ImageView();
                         try {
-                            ImageView carte = new ImageView();
                             carte.setImage(new Image(new FileInputStream("ressources/images/images/carte-wagon-" + couleurWagon.toString().toUpperCase() + ".png")));
-                            carte.setFitHeight(61);
-                            carte.setFitWidth(99);
-                            carte.setEffect(dropShadow);
-                            carteWagonVisibles.getChildren().add(carte);
-                            carte.setOnMouseClicked(e -> {
-                                carteWagonVisibles.getChildren().remove(carte);
-                                jeu.uneCarteWagonAEteChoisie(couleurWagon);
-                            });
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
+                        carte.setFitHeight(61);
+                        carte.setFitWidth(99);
+                        carte.setEffect(dropShadow);
+                        carteWagonVisibles.getChildren().add(carte);
+                        carte.setOnMouseClicked(e -> {
+                            carteWagonVisibles.getChildren().remove(carte);
+                            jeu.uneCarteWagonAEteChoisie(couleurWagon);
+                        });
                     }
                 }else if (action.wasRemoved()) {
                     for (ICouleurWagon couleurWagon : action.getRemoved()) {
@@ -246,12 +257,12 @@ public class VueDuJeu extends BorderPane {
                 vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
                 vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
                 //Test hover autre joueur
-                /**
+                /** 
                 vueAutreJoueur1.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                     if (newValue) {
                         vueAutreJoueur1.setPrefHeight(200);
                     } else {
-                        vueAutreJoueur1.setPrefHeight(78);
+                        vueAutreJoueur1.setPrefHeight(59);
                     }
                 });
                 vueAutreJoueur2.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
