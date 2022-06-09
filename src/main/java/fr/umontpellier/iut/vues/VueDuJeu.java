@@ -103,8 +103,16 @@ public class VueDuJeu extends BorderPane {
         }
         piocheDestination.setFitHeight(61);
         piocheDestination.setFitWidth(99);
+        piocheDestination.setEffect(dropShadow);
+        piocheDestination.setOnMouseClicked(e -> {
+            this.getJeu().uneDestinationAEtePiochee();
+        });
         piocheWagon.setFitHeight(61);
         piocheWagon.setFitWidth(99);
+        piocheWagon.setEffect(dropShadow);
+        piocheWagon.setOnMouseClicked(e -> {
+            this.getJeu().uneCarteWagonAEtePiochee();
+        });
         //BoxLeft
         left = new VBox();
         left.setSpacing(20);
@@ -134,7 +142,7 @@ public class VueDuJeu extends BorderPane {
         this.setRight(boxJoueurs);
         this.setBottom(bot);
         VueDuJeu.setMargin(boxJoueurs, new Insets(0, 58, 0, 0));
-        VueDuJeu.setMargin(carteWagonVisibles, new Insets(0, 0, 0, 58));
+        VueDuJeu.setMargin(left, new Insets(0, 0, 0, 58));
         VueDuJeu.setMargin(vuePlateau, new Insets(-140, 0, 0, 0));
         this.setStyle("-fx-background-color: #F2EDBF");
     }
