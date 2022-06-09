@@ -72,6 +72,9 @@ public class VueJoueurCourant extends VBox {
         cartesJoueur.add(this.carteWagonPlusIndice("rose"), 3, 1);
         cartesJoueur.add(this.carteWagonPlusIndice("rouge"), 3, 0);
         cartesJoueur.add(this.carteWagonPlusIndice("vert"), 2, 0);
+        GridPane.setMargin(this.getNodeByRowColumnIndex(2, 1), new Insets(0, 0, 0, 29));
+        GridPane.setMargin(this.getNodeByRowColumnIndex(1, 2), new Insets(0, 0, 0, -29));
+        GridPane.setMargin(this.getNodeByRowColumnIndex(0, 2), new Insets(0, 0, 0, -29));
         //Destinations joueur
         destinationsJoueur = new VBox();
         for(int i=0; i<joueur.getDestinations().size(); i++){
@@ -104,9 +107,50 @@ public class VueJoueurCourant extends VBox {
         Platform.runLater(() -> {
             while(e.next()){
                 if(e.wasAdded()){
-                    
+                    for(CouleurWagon c : e.getAddedSubList()){
+                        if(c.toString().toUpperCase().equals("BLANC")){
+                            nbBlanc.setValue(nbBlanc.getValue()+1);
+                        }else if(c.toString().toUpperCase().equals("ORANGE")){
+                            nbOrange.setValue(nbOrange.getValue()+1);
+                        }else if(c.toString().toUpperCase().equals("VERT")){
+                            nbVert.setValue(nbVert.getValue()+1);
+                        }else if(c.toString().toUpperCase().equals("ROUGE")){
+                            nbRouge.setValue(nbRouge.getValue()+1);
+                        }else if(c.toString().toUpperCase().equals("BLEU")){
+                            nbBleu.setValue(nbBleu.getValue()+1);
+                        }else if(c.toString().toUpperCase().equals("NOIR")){
+                            nbNoir.setValue(nbNoir.getValue()+1);
+                        }else if(c.toString().toUpperCase().equals("JAUNE")){
+                            nbJaune.setValue(nbJaune.getValue()+1);
+                            System.out.println("JAUNE: " + String.valueOf(nbJaune.get()));
+                        }else if(c.toString().toUpperCase().equals("ROSE")){
+                            nbRose.setValue(nbRose.getValue()+1);
+                        }else if(c.toString().toUpperCase().equals("LOCOMOTIVE")){
+                            nbLocomotive.setValue(nbLocomotive.getValue()+1);
+                        }
+                    }
                 }else if(e.wasRemoved()){
-
+                    for(CouleurWagon c : e.getRemoved()){
+                        if(c.toString().toUpperCase().equals("BLANC")){
+                            nbBlanc.setValue(nbBlanc.getValue()-1);
+                        }else if(c.toString().toUpperCase().equals("ORANGE")){
+                            nbOrange.setValue(nbOrange.getValue()-1);
+                        }else if(c.toString().toUpperCase().equals("VERT")){
+                            nbVert.setValue(nbVert.getValue()-1);
+                        }else if(c.toString().toUpperCase().equals("ROUGE")){
+                            nbRouge.setValue(nbRouge.getValue()-1);
+                        }else if(c.toString().toUpperCase().equals("BLEU")){
+                            nbBleu.setValue(nbBleu.getValue()-1);
+                        }else if(c.toString().toUpperCase().equals("NOIR")){
+                            nbNoir.setValue(nbNoir.getValue()-1);
+                        }else if(c.toString().toUpperCase().equals("JAUNE")){
+                            nbJaune.setValue(nbJaune.getValue()-1);
+                        }else if(c.toString().toUpperCase().equals("ROSE")){
+                            nbRose.setValue(nbRose.getValue()-1);
+                        }else if(c.toString().toUpperCase().equals("LOCOMOTIVE")){
+                            nbLocomotive.setValue(nbLocomotive.getValue()-1);
+                        }
+                    }
                 }
             }
         });
@@ -176,6 +220,8 @@ public class VueJoueurCourant extends VBox {
         cercle.setLayoutX(50);
         cercle.setLayoutY(32);
         cercle.setFill(Color.valueOf("#D9D9D9"));
+        cercle.setStroke(Color.BLACK);
+        cercle.setStrokeWidth(0.3);
         indice.setFont(Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 6));
         indice.setLayoutX(48);
         indice.setLayoutY(34);
