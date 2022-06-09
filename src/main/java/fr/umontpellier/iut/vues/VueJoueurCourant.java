@@ -3,11 +3,14 @@ package fr.umontpellier.iut.vues;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import fr.umontpellier.iut.ICouleurWagon;
 import fr.umontpellier.iut.IJoueur;
 import fr.umontpellier.iut.rails.CouleurWagon;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -103,11 +106,11 @@ public class VueJoueurCourant extends VBox {
         this.joueurCourant.cartesWagonProperty().addListener(listeCarte);
     }
 
-    private final ListChangeListener<CouleurWagon> listeCarte = e -> {
+    private final ListChangeListener<ICouleurWagon> listeCarte = e -> {
         Platform.runLater(() -> {
             while(e.next()){
                 if(e.wasAdded()){
-                    for(CouleurWagon c : e.getAddedSubList()){
+                    for(ICouleurWagon c : e.getAddedSubList()){
                         if(c.toString().toUpperCase().equals("BLANC")){
                             nbBlanc.setValue(nbBlanc.getValue()+1);
                         }else if(c.toString().toUpperCase().equals("ORANGE")){
@@ -122,7 +125,6 @@ public class VueJoueurCourant extends VBox {
                             nbNoir.setValue(nbNoir.getValue()+1);
                         }else if(c.toString().toUpperCase().equals("JAUNE")){
                             nbJaune.setValue(nbJaune.getValue()+1);
-                            System.out.println("JAUNE: " + String.valueOf(nbJaune.get()));
                         }else if(c.toString().toUpperCase().equals("ROSE")){
                             nbRose.setValue(nbRose.getValue()+1);
                         }else if(c.toString().toUpperCase().equals("LOCOMOTIVE")){
@@ -130,7 +132,7 @@ public class VueJoueurCourant extends VBox {
                         }
                     }
                 }else if(e.wasRemoved()){
-                    for(CouleurWagon c : e.getRemoved()){
+                    for(ICouleurWagon c : e.getRemoved()){
                         if(c.toString().toUpperCase().equals("BLANC")){
                             nbBlanc.setValue(nbBlanc.getValue()-1);
                         }else if(c.toString().toUpperCase().equals("ORANGE")){
@@ -195,25 +197,35 @@ public class VueJoueurCourant extends VBox {
         res.setPrefSize(56, 37);
         ImageView carte = new ImageView();
         Circle cercle = new Circle(5);
+        StringProperty stringIndice = new SimpleStringProperty();
         Text indice = new Text();
         if(couleur.toUpperCase().equals("BLANC")){
-            indice.setText(String.valueOf(nbBlanc.getValue()));
+            stringIndice.set(String.valueOf(nbBlanc.getValue()));
+            indice.setText(stringIndice.get());
         }else if(couleur.toUpperCase().equals("ORANGE")){
-            indice.setText(String.valueOf(nbOrange.getValue()));
+            stringIndice.set(String.valueOf(nbOrange.getValue()));
+            indice.setText(stringIndice.get());
         }else if(couleur.toUpperCase().equals("VERT")){
-            indice.setText(String.valueOf(nbVert.getValue()));
+            stringIndice.set(String.valueOf(nbVert.getValue()));
+            indice.setText(stringIndice.get());
         }else if(couleur.toUpperCase().equals("ROUGE")){
-            indice.setText(String.valueOf(nbRouge.getValue()));
+            stringIndice.set(String.valueOf(nbRouge.getValue()));
+            indice.setText(stringIndice.get());
         }else if(couleur.toUpperCase().equals("BLEU")){
-            indice.setText(String.valueOf(nbBleu.getValue()));
+            stringIndice.set(String.valueOf(nbBleu.getValue()));
+            indice.setText(stringIndice.get());
         }else if(couleur.toUpperCase().equals("NOIR")){
-            indice.setText(String.valueOf(nbNoir.getValue()));
+            stringIndice.set(String.valueOf(nbNoir.getValue()));
+            indice.setText(stringIndice.get());
         }else if(couleur.toUpperCase().equals("JAUNE")){
-            indice.setText(String.valueOf(nbJaune.getValue()));
+            stringIndice.set(String.valueOf(nbJaune.getValue()));
+            indice.setText(stringIndice.get());
         }else if(couleur.toUpperCase().equals("ROSE")){
-            indice.setText(String.valueOf(nbRose.getValue()));
+            stringIndice.set(String.valueOf(nbRose.getValue()));
+            indice.setText(stringIndice.get());
         }else if(couleur.toUpperCase().equals("LOCOMOTIVE")){
-            indice.setText(String.valueOf(nbLocomotive.getValue()));
+            stringIndice.set(String.valueOf(nbLocomotive.getValue()));
+            indice.setText(stringIndice.get());
         }
         carte.setLayoutX(0);
         carte.setLayoutY(0);
