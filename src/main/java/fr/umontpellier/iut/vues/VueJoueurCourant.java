@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 
 import fr.umontpellier.iut.ICouleurWagon;
 import fr.umontpellier.iut.IJoueur;
-import fr.umontpellier.iut.rails.CouleurWagon;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -37,6 +36,7 @@ public class VueJoueurCourant extends VBox {
     private IJoueur joueurCourant;
 
     private Font fontPseudo;
+    private Font fontDestinations;
 
     private VBox destinationsJoueur;
 
@@ -59,6 +59,7 @@ public class VueJoueurCourant extends VBox {
         this.creerBindings();
         //Font
         fontPseudo = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 10);
+        fontDestinations = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 8);
         //Cartes joueur
         cartesJoueur = new GridPane();
         this.initIndicesNbCartes();
@@ -96,7 +97,8 @@ public class VueJoueurCourant extends VBox {
         this.setEffect(dropShadow);
         //This
         this.setStyle("-fx-background-color: #" + joueurCourant.convertirCouleurJoueur());
-        this.setPrefSize(250, 182);
+        this.setPrefSize(250, 240);
+        this.setMaxSize(250, 240);
         VueJoueurCourant.setMargin(destinationsJoueur, new Insets(0, 0, 0, 5));
         VueJoueurCourant.setMargin(cartesJoueur, new Insets(0, 0, 5, 5));
         getChildren().addAll(vueJoueur, destinationsJoueur, cartesJoueur);
@@ -195,7 +197,7 @@ public class VueJoueurCourant extends VBox {
     private Pane carteWagonPlusIndice(String couleur){
         Pane res = new Pane();
         res.setPrefSize(56, 37);
-        ImageView carte = new ImageView();
+        ImageView carte = new ImageView(new Image("images/cartesWagons/carte-wagon-" + couleur.toString().toUpperCase() + ".png"));
         Circle cercle = new Circle(5);
         StringProperty stringIndice = new SimpleStringProperty();
         Text indice = new Text();
@@ -237,11 +239,6 @@ public class VueJoueurCourant extends VBox {
         indice.setFont(Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 6));
         indice.setLayoutX(48);
         indice.setLayoutY(34);
-        try {
-            carte.setImage(new Image(new FileInputStream("ressources/images/images/carte-wagon-" + couleur.toUpperCase() + ".png")));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
         carte.setFitHeight(33);
         carte.setFitWidth(52);
         res.getChildren().addAll(carte, cercle, indice);

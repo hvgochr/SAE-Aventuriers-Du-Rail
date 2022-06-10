@@ -2,11 +2,14 @@ package fr.umontpellier.iut.vues;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import fr.umontpellier.iut.ICouleurWagon;
 import fr.umontpellier.iut.IDestination;
 import fr.umontpellier.iut.IJeu;
 import fr.umontpellier.iut.IJoueur;
+import fr.umontpellier.iut.rails.CouleurWagon;
+import javafx.animation.Animation;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
@@ -14,6 +17,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -47,12 +51,14 @@ public class VueDuJeu extends BorderPane {
     private BorderPane choix;
 
     private VBox boxJoueurs;
-    private VBox bot;
     private VBox carteWagonVisibles;
 
     private ImageView piocheWagon;
     private ImageView piocheDestination;
 
+    private Label instructions;
+
+    private HBox bot;
     private HBox boxChoix;
     private HBox top;
     private VBox left;
@@ -69,15 +75,24 @@ public class VueDuJeu extends BorderPane {
     public VueDuJeu(IJeu jeu) {
         this.jeu = jeu;
         this.setPrefSize(1280, 720);
+        //Font
+        fontTitre = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 30);
+        fontPasser = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 9);
         //BoxCarteWagon
         carteWagonVisibles = new VBox();
         carteWagonVisibles.setSpacing(6);
         //BoxJoueurs
         boxJoueurs = new VBox();
-        boxJoueurs.setPrefSize(250, 469);
+        boxJoueurs.setPrefSize(250, 512);
+        boxJoueurs.setMaxSize(250, 512);
         boxJoueurs.setSpacing(9);
         //Choix
         choix = new BorderPane();
+        //Instructions
+        instructions = new Label(this.getJeu().instructionProperty().get());
+        instructions.setFont(fontPasser);
+        choix.setTop(instructions);
+        BorderPane.setMargin(instructions, new Insets(0, 0, 10, 0));
         //BoxChoix
         boxChoix = new HBox();
         boxChoix.setSpacing(10);
@@ -87,9 +102,6 @@ public class VueDuJeu extends BorderPane {
         dropShadow = new DropShadow(10, Color.BLACK);
         dropShadow.setOffsetX(2);
         dropShadow.setOffsetY(2);
-        //Font
-        fontTitre = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 30);
-        fontPasser = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 11);
         //BoxTop
         top = new HBox();
         top.setSpacing(100);
@@ -132,7 +144,7 @@ public class VueDuJeu extends BorderPane {
         passer.setEffect(dropShadow);
         choix.setRight(passer);
         //Bot
-        bot = new VBox();
+        bot = new HBox();
         bot.setSpacing(15);
         bot.getChildren().addAll(choix);
         //This
@@ -141,9 +153,10 @@ public class VueDuJeu extends BorderPane {
         this.setCenter(vuePlateau);
         this.setRight(boxJoueurs);
         this.setBottom(bot);
+        VueDuJeu.setMargin(bot, new Insets(0, 300, 100, 210));
         VueDuJeu.setMargin(boxJoueurs, new Insets(0, 58, 0, 0));
         VueDuJeu.setMargin(left, new Insets(0, 0, 0, 58));
-        VueDuJeu.setMargin(vuePlateau, new Insets(-140, 0, 0, 0));
+        VueDuJeu.setMargin(vuePlateau, new Insets(0, 0, 0, 0));
         this.setStyle("-fx-background-color: #F2EDBF");
     }
 
@@ -152,6 +165,7 @@ public class VueDuJeu extends BorderPane {
     }
 
     public void creerBindings () {
+        instructions.textProperty().bind(this.getJeu().instructionProperty());
         this.getJeu().destinationsInitialesProperty().addListener(destinationsSontPiocheesListener);
         this.getJeu().cartesWagonVisiblesProperty().addListener(listeCarte);
         this.getJeu().joueurCourantProperty().addListener(joueurChangeListener);
@@ -167,7 +181,7 @@ public class VueDuJeu extends BorderPane {
                     for(IDestination d : change.getAddedSubList()){
                         Button b = new Button(d.getNom());
                         b.setStyle("-fx-background-color: #FBF8DC");
-                        b.setPrefHeight(33);
+                        b.setPrefHeight(25);
                         b.setFont(fontPasser);
                         b.setEffect(dropShadow);
                         boxChoix.getChildren().add(b);
@@ -192,12 +206,7 @@ public class VueDuJeu extends BorderPane {
             while (action.next()) {
                 if (action.wasAdded()) {
                     for (ICouleurWagon couleurWagon : action.getAddedSubList()) {
-                        ImageView carte = new ImageView();
-                        try {
-                            carte.setImage(new Image(new FileInputStream("ressources/images/images/carte-wagon-" + couleurWagon.toString().toUpperCase() + ".png")));
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
+                        ImageView carte = new ImageView(new Image("images/cartesWagons/carte-wagon-" + couleurWagon.toString().toUpperCase() + ".png"));
                         carte.setFitHeight(61);
                         carte.setFitWidth(99);
                         carte.setEffect(dropShadow);
@@ -265,22 +274,7 @@ public class VueDuJeu extends BorderPane {
                 vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
                 vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
                 //Test hover autre joueur
-                /** 
-                vueAutreJoueur1.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
-                    if (newValue) {
-                        vueAutreJoueur1.setPrefHeight(200);
-                    } else {
-                        vueAutreJoueur1.setPrefHeight(59);
-                    }
-                });
-                vueAutreJoueur2.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
-                    if (newValue) {
-                        vueAutreJoueur2.setPrefHeight(200);
-                    } else {
-                        vueAutreJoueur2.setPrefHeight(78);
-                    }
-                });
-                **/
+
                 boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2);
             }else if(numJoueurCourant==1){
                 vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(0));
