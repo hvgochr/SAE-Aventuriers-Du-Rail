@@ -145,6 +145,7 @@ public class VueDuJeu extends BorderPane {
         choix.setRight(passer);
         //Bot
         bot = new HBox();
+        bot.setAlignment(Pos.CENTER);
         bot.setSpacing(15);
         bot.getChildren().addAll(choix);
         //This
@@ -153,7 +154,6 @@ public class VueDuJeu extends BorderPane {
         this.setCenter(vuePlateau);
         this.setRight(boxJoueurs);
         this.setBottom(bot);
-        VueDuJeu.setMargin(bot, new Insets(0, 300, 100, 210));
         VueDuJeu.setMargin(boxJoueurs, new Insets(0, 58, 0, 0));
         VueDuJeu.setMargin(left, new Insets(0, 0, 0, 58));
         VueDuJeu.setMargin(vuePlateau, new Insets(0, 0, 0, 0));
@@ -203,8 +203,16 @@ public class VueDuJeu extends BorderPane {
 
     private final ListChangeListener<ICouleurWagon> listeCarte = action -> 
         Platform.runLater(() -> {
+            System.out.println(this.getNbLocomotives());
+            if(this.getNbLocomotives()==3){
+                System.out.println("CLEAR");
+                carteWagonVisibles.getChildren().clear();
+            }
             while (action.next()) {
                 if (action.wasAdded()) {
+                    while(carteWagonVisibles.getChildren().size()>5){
+                        carteWagonVisibles.getChildren().remove(0);
+                    }
                     for (ICouleurWagon couleurWagon : action.getAddedSubList()) {
                         ImageView carte = new ImageView(new Image("images/cartesWagons/carte-wagon-" + couleurWagon.toString().toUpperCase() + ".png"));
                         carte.setFitHeight(61);
@@ -217,6 +225,9 @@ public class VueDuJeu extends BorderPane {
                         });
                     }
                 }else if (action.wasRemoved()) {
+                    while(carteWagonVisibles.getChildren().size()>5){
+                        carteWagonVisibles.getChildren().remove(0);
+                    }
                     for (ICouleurWagon couleurWagon : action.getRemoved()) {
                         carteWagonVisibles.getChildren().remove(trouveCarte(couleurWagon));
                     }
@@ -345,6 +356,16 @@ public class VueDuJeu extends BorderPane {
                 boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4, vueJoueurCourant);
             }
         }
+    }
+
+    public int getNbLocomotives(){
+        int res=0;
+        for(int i=0; i<this.getJeu().cartesWagonVisiblesProperty().size(); i++){
+            if(this.getJeu().cartesWagonVisiblesProperty().get(i).equals(CouleurWagon.LOCOMOTIVE)){
+                res ++;
+            }
+        }
+        return res;
     }
 
 }
