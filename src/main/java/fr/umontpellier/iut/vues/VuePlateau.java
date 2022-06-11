@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
@@ -35,8 +36,13 @@ import fr.umontpellier.iut.rails.Ville;
 public class VuePlateau extends Pane {
 
     private DropShadow dropShadow;
+    private ColorAdjust lighting;
 
-    public boolean listener = false;
+    private boolean listener = false;
+
+    private Circle boutonToggle;
+
+    private boolean clique = false;
 
     public VuePlateau() {
         this.setPrefSize(726, 468);
@@ -48,11 +54,33 @@ public class VuePlateau extends Pane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //Lighting
+        lighting = new ColorAdjust();
+        lighting.setBrightness(0.6);
+        //Bouton toggle
+        boutonToggle = new Circle(10);
+        boutonToggle.setLayoutX(13);
+        boutonToggle.setLayoutY(13);
+        try {
+            boutonToggle.setFill(new ImagePattern(new Image(new FileInputStream("ressources/images/images/toggle-button.png"))));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        boutonToggle.setOnMouseClicked(e -> {
+            if(!clique){
+                image.setEffect(lighting);
+                clique = true;
+            }else{
+                image.setEffect(dropShadow);
+                clique = false;
+            }
+        });
         //Ombre plateau
         dropShadow = new DropShadow(20, Color.BLACK);
         dropShadow.setOffsetX(3);
         dropShadow.setOffsetY(3);
         this.setEffect(dropShadow);
+        this.getChildren().add(boutonToggle);
     }
 
     @FXML
