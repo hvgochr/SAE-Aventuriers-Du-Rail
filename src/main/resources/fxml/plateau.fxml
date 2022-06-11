@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Rectangle?>
 
 <fx:root type="javafx.scene.layout.Pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.419" prefWidth="726.327" stylesheets="@../css/style.css"  xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-    <ImageView fitHeight="468.419" fitWidth="726.327" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="image" fitHeight="468.419" fitWidth="726.327" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@../images/euMap.jpg" />
         </image>
