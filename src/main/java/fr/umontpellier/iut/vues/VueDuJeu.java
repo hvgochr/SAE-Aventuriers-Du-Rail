@@ -276,14 +276,13 @@ public class VueDuJeu extends BorderPane {
                 vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(0));
                 boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueJoueurCourant);
             }
+            hoverProperties(2);
         }
         //NbJoueurs = 3
         else if (jeu.getJoueurs().size() == 3) {
             if(numJoueurCourant==0){
                 vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
                 vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
-                //Test hover autre joueur
-
                 boxJoueurs.getChildren().addAll(vueJoueurCourant, vueAutreJoueur1, vueAutreJoueur2);
             }else if(numJoueurCourant==1){
                 vueAutreJoueur1 = new VueAutresJoueurs(jeu.getJoueurs().get(0));
@@ -294,6 +293,7 @@ public class VueDuJeu extends BorderPane {
                 vueAutreJoueur2 = new VueAutresJoueurs(jeu.getJoueurs().get(1));
                 boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueJoueurCourant);
             }
+            hoverProperties(3);
         }
         //NbJoueurs = 4
         else if (jeu.getJoueurs().size() == 4) {
@@ -319,6 +319,7 @@ public class VueDuJeu extends BorderPane {
                 vueAutreJoueur3 = new VueAutresJoueurs(jeu.getJoueurs().get(2));
                 boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueJoueurCourant);
             }
+            hoverProperties(4);
         }
         //NbJoueurs = 5
         else if (jeu.getJoueurs().size() == 5) {
@@ -353,6 +354,7 @@ public class VueDuJeu extends BorderPane {
                 vueAutreJoueur4 = new VueAutresJoueurs(jeu.getJoueurs().get(3));
                 boxJoueurs.getChildren().addAll(vueAutreJoueur1, vueAutreJoueur2, vueAutreJoueur3, vueAutreJoueur4, vueJoueurCourant);
             }
+            hoverProperties(5);
         }
     }
 
@@ -364,6 +366,86 @@ public class VueDuJeu extends BorderPane {
             }
         }
         return res;
+    }
+
+    public void hoverProperties(int nbJoueurs){
+        if(nbJoueurs == 2){
+            vueAutreJoueur1.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                if (newValue) {
+                    vueAutreJoueur1.expand();
+                    vueJoueurCourant.shrink();
+                } else {
+                    vueJoueurCourant.expand();
+                    vueAutreJoueur1.shrink();
+                }
+            });
+        }else if(nbJoueurs == 3){
+            vueAutreJoueur1.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                if (newValue) {
+                    vueAutreJoueur1.setPrefHeight(200);
+                } else {
+                    vueAutreJoueur1.setPrefHeight(59);
+                }
+            });
+            vueAutreJoueur2.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                if (newValue) {
+                    vueAutreJoueur1.setPrefHeight(200);
+                } else {
+                    vueAutreJoueur1.setPrefHeight(59);
+                }
+            });
+        }else if(nbJoueurs == 4){
+            vueAutreJoueur1.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                if (newValue) {
+                    vueAutreJoueur1.setPrefHeight(200);
+                } else {
+                    vueAutreJoueur1.setPrefHeight(59);
+                }
+            });
+            vueAutreJoueur2.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                if (newValue) {
+                    vueAutreJoueur1.setPrefHeight(200);
+                } else {
+                    vueAutreJoueur1.setPrefHeight(59);
+                }
+            });
+            vueAutreJoueur3.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                if (newValue) {
+                    vueAutreJoueur1.setPrefHeight(200);
+                } else {
+                    vueAutreJoueur1.setPrefHeight(59);
+                }
+            });
+        }else if(nbJoueurs == 5){
+            vueAutreJoueur1.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                if (newValue) {
+                    vueAutreJoueur1.setPrefHeight(200);
+                } else {
+                    vueAutreJoueur1.setPrefHeight(59);
+                }
+            });
+            vueAutreJoueur2.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                if (newValue) {
+                    vueAutreJoueur1.setPrefHeight(200);
+                } else {
+                    vueAutreJoueur1.setPrefHeight(59);
+                }
+            });
+            vueAutreJoueur3.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                if (newValue) {
+                    vueAutreJoueur1.setPrefHeight(200);
+                } else {
+                    vueAutreJoueur1.setPrefHeight(59);
+                }
+            });
+            vueAutreJoueur4.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+                if (newValue) {
+                    vueAutreJoueur1.setPrefHeight(200);
+                } else {
+                    vueAutreJoueur1.setPrefHeight(59);
+                }
+            });
+        }
     }
 
 }

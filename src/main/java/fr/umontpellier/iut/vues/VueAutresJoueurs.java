@@ -3,14 +3,21 @@ package fr.umontpellier.iut.vues;
 import java.io.FileInputStream;
 
 import fr.umontpellier.iut.IJoueur;
+import fr.umontpellier.iut.rails.CouleurWagon;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -20,12 +27,13 @@ import javafx.scene.text.Text;
  * 
  * On y définit les bindings sur le joueur courant, ainsi que le listener à exécuter lorsque ce joueur change
  */
-public class VueAutresJoueurs extends HBox {
+public class VueAutresJoueurs extends VBox {
 
     private IJoueur joueur;
 
     private VBox vBoxInfos;
 
+    private HBox vue;
     private HBox hBoxGares;
     private HBox hBoxWagons;
 
@@ -50,6 +58,9 @@ public class VueAutresJoueurs extends HBox {
 
     public VueAutresJoueurs(IJoueur joueur){
         this.joueur = joueur;
+        vue = new HBox();
+        vue.setPrefSize(250, 59);
+        vue.setSpacing(10);
         //Font
         fontPseudo = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 11);
         //Shadow
@@ -108,13 +119,120 @@ public class VueAutresJoueurs extends HBox {
         dropShadow.setOffsetY(3);
         //This
         this.setEffect(dropShadow);
-        this.setPrefSize(250, 59);
         this.setStyle("-fx-background-color: #" + this.joueur.convertirCouleurJoueur());
-        this.setSpacing(10);
-        VueAutresJoueurs.setMargin(vBoxInfos, new Insets(5, 0, 0, 0));
-        VueAutresJoueurs.setMargin(avatarJoueur, new Insets(5, 0, 0, 10));
-        VueAutresJoueurs.setMargin(score, new Insets(5, 0, 0, 0));
-        getChildren().addAll(avatarJoueur, vBoxInfos, vide, score);
+        HBox.setMargin(vBoxInfos, new Insets(5, 0, 0, 0));
+        HBox.setMargin(avatarJoueur, new Insets(5, 0, 0, 10));
+        HBox.setMargin(score, new Insets(5, 0, 0, 0));
+        vue.getChildren().addAll(avatarJoueur, vBoxInfos, vide, score);
+        this.setPrefSize(250, 59);
+        this.getChildren().add(vue);
+    }
+
+    private Pane carteWagonPlusIndice(String couleur){
+        Pane res = new Pane();
+        res.setPrefSize(56, 37);
+        ImageView carte = new ImageView(new Image("images/cartesWagons/carte-wagon-" + couleur.toString().toUpperCase() + ".png"));
+        Circle cercle = new Circle(5);
+        StringProperty stringIndice = new SimpleStringProperty();
+        Text indice = new Text();
+        if(couleur.toUpperCase().equals("BLANC")){
+            stringIndice.set(String.valueOf(this.joueur.getNbCarteWagons(CouleurWagon.BLANC)));
+            indice.setText(stringIndice.get());
+        }else if(couleur.toUpperCase().equals("ORANGE")){
+            stringIndice.set(String.valueOf(this.joueur.getNbCarteWagons(CouleurWagon.ORANGE)));
+            indice.setText(stringIndice.get());
+        }else if(couleur.toUpperCase().equals("VERT")){
+            stringIndice.set(String.valueOf(this.joueur.getNbCarteWagons(CouleurWagon.VERT)));
+            indice.setText(stringIndice.get());
+        }else if(couleur.toUpperCase().equals("ROUGE")){
+            stringIndice.set(String.valueOf(this.joueur.getNbCarteWagons(CouleurWagon.ROUGE)));
+            indice.setText(stringIndice.get());
+        }else if(couleur.toUpperCase().equals("BLEU")){
+            stringIndice.set(String.valueOf(this.joueur.getNbCarteWagons(CouleurWagon.BLEU)));
+            indice.setText(stringIndice.get());
+        }else if(couleur.toUpperCase().equals("NOIR")){
+            stringIndice.set(String.valueOf(this.joueur.getNbCarteWagons(CouleurWagon.NOIR)));
+            indice.setText(stringIndice.get());
+        }else if(couleur.toUpperCase().equals("JAUNE")){
+            stringIndice.set(String.valueOf(CouleurWagon.JAUNE));
+            indice.setText(stringIndice.get());
+        }else if(couleur.toUpperCase().equals("ROSE")){
+            stringIndice.set(String.valueOf(this.joueur.getNbCarteWagons(CouleurWagon.ROSE)));
+            indice.setText(stringIndice.get());
+        }else if(couleur.toUpperCase().equals("LOCOMOTIVE")){
+            stringIndice.set(String.valueOf(this.joueur.getNbCarteWagons(CouleurWagon.LOCOMOTIVE)));
+            indice.setText(stringIndice.get());
+        }
+        carte.setLayoutX(0);
+        carte.setLayoutY(0);
+        cercle.setLayoutX(50);
+        cercle.setLayoutY(32);
+        cercle.setFill(Color.valueOf("#D9D9D9"));
+        cercle.setStroke(Color.BLACK);
+        cercle.setStrokeWidth(0.3);
+        indice.setFont(Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 7));
+        indice.setLayoutX(48);
+        indice.setLayoutY(34);
+        carte.setFitHeight(33);
+        carte.setFitWidth(52);
+        res.getChildren().addAll(carte, cercle, indice);
+        return res;
+    }
+
+    public Node getNodeByRowColumnIndex (int row, int column, GridPane grid) {
+        ObservableList<Node> children = grid.getChildren();
+        for (Node node : children) {
+            if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+    public GridPane gridCarteWagons(){
+        GridPane res = new GridPane();
+        res.setPrefSize(233, 112);
+        res.setHgap(6);
+        res.setVgap(5);
+        res.add(this.carteWagonPlusIndice("blanc"), 1, 0);
+        res.add(this.carteWagonPlusIndice("bleu"), 0, 1);
+        res.add(this.carteWagonPlusIndice("jaune"), 2, 1);
+        res.add(this.carteWagonPlusIndice("locomotive"), 1, 2);
+        res.add(this.carteWagonPlusIndice("noir"), 1, 1);
+        res.add(this.carteWagonPlusIndice("orange"), 0, 0);
+        res.add(this.carteWagonPlusIndice("rose"), 3, 1);
+        res.add(this.carteWagonPlusIndice("rouge"), 3, 0);
+        res.add(this.carteWagonPlusIndice("vert"), 2, 0);
+        GridPane.setMargin(this.getNodeByRowColumnIndex(2, 1, res), new Insets(0, 0, 0, 29));
+        GridPane.setMargin(this.getNodeByRowColumnIndex(1, 2, res), new Insets(0, 0, 0, -29));
+        GridPane.setMargin(this.getNodeByRowColumnIndex(0, 2, res), new Insets(0, 0, 0, -29));
+        return res;
+    }
+
+    public VBox destinationsJoueur(){
+        VBox res = new VBox();
+        for(int i=0; i<joueur.getDestinations().size(); i++){
+            Text destination = new Text();
+            destination.setFont(fontPseudo);
+            destination.setText(joueur.getDestinations().get(i).toString());
+            res.getChildren().add(destination);
+        }
+        return res;
+    }
+
+    public void expand() {
+        this.setPrefSize(250, 240);
+        VBox destinations = this.destinationsJoueur();
+        GridPane cartes = this.gridCarteWagons();
+        VueAutresJoueurs.setMargin(destinations, new Insets(0, 0, 0, 5));
+        VueAutresJoueurs.setMargin(cartes, new Insets(0, 0, 5, 5));
+        this.getChildren().addAll(destinations, cartes);
+    }
+
+    public void shrink() {
+        this.setPrefSize(250, 59);
+        this.getChildren().clear();
+        this.getChildren().add(vue);
     }
 
 }

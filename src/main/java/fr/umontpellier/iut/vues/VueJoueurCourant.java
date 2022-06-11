@@ -231,13 +231,23 @@ public class VueJoueurCourant extends VBox {
         cercle.setFill(Color.valueOf("#D9D9D9"));
         cercle.setStroke(Color.BLACK);
         cercle.setStrokeWidth(0.3);
-        indice.setFont(Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 6));
+        indice.setFont(Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 7));
         indice.setLayoutX(48);
         indice.setLayoutY(34);
         carte.setFitHeight(33);
         carte.setFitWidth(52);
         res.getChildren().addAll(carte, cercle, indice);
         return res;
+    }
+
+    public void shrink(){
+        this.getChildren().removeAll(destinationsJoueur, cartesJoueur);
+        this.setPrefHeight(59);
+    }
+
+    public void expand(){
+        this.setPrefHeight(240);
+        this.getChildren().addAll(destinationsJoueur, cartesJoueur);
     }
 
 }
