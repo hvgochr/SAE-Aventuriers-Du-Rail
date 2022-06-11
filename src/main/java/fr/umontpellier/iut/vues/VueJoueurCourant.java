@@ -1,8 +1,5 @@
 package fr.umontpellier.iut.vues;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
 import fr.umontpellier.iut.ICouleurWagon;
 import fr.umontpellier.iut.IJoueur;
 import javafx.application.Platform;
@@ -36,7 +33,6 @@ public class VueJoueurCourant extends VBox {
     private IJoueur joueurCourant;
 
     private Font fontPseudo;
-    private Font fontDestinations;
 
     private VBox destinationsJoueur;
 
@@ -59,7 +55,6 @@ public class VueJoueurCourant extends VBox {
         this.creerBindings();
         //Font
         fontPseudo = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 10);
-        fontDestinations = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 8);
         //Cartes joueur
         cartesJoueur = new GridPane();
         this.initIndicesNbCartes();
