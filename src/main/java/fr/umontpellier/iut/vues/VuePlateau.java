@@ -14,12 +14,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import fr.umontpellier.iut.IJeu;
+import fr.umontpellier.iut.rails.Route;
+import fr.umontpellier.iut.rails.Ville;
 
 /**
  * Cette classe présente les routes et les villes sur le plateau.
@@ -40,6 +45,8 @@ public class VuePlateau extends Pane {
     private ImageView toggle;
 
     private FileInputStream lienToggle;
+
+    public boolean listener = false;
 
     public VuePlateau() {
         this.setPrefSize(726, 468);
@@ -88,15 +95,64 @@ public class VuePlateau extends Pane {
     }
 
     @FXML
-    public void choixRouteOuVille(MouseEvent e) {
-    }
+    ImageView image;
 
     @FXML
-    ImageView image;
-    @FXML
     private Group villes;
+
     @FXML
     private Group routes;
+
+    @FXML
+    public void choixRouteOuVille(MouseEvent e) {
+        IJeu jeu = ((VueDuJeu) getScene().getRoot()).getJeu();
+        String source = String.valueOf(e.getSource());
+        if (source.startsWith("Group")) {
+            source = source.substring(9);
+            source = source.replace(source.substring(source.length() - 1), "");
+            jeu.uneVilleOuUneRouteAEteChoisie(source);
+        } else {
+            jeu.uneVilleOuUneRouteAEteChoisie(e.getPickResult().getIntersectedNode().getId());
+        }
+        if(!listener){
+            for(int i=0; i<jeu.getRoutes().size(); i++){
+                Route r = (Route) jeu.getRoutes().get(i);
+                if(r.getProprietaire() == null){
+                    r.proprietaireProperty().addListener(e1 -> {
+                        for (Node n : routes.getChildren()) {
+                            Group gRoute = (Group) n;
+                            String stringRoute = String.valueOf(n);
+                            if (stringRoute.startsWith("Group")) {
+                                stringRoute = stringRoute.substring(9);
+                                stringRoute = stringRoute.replace(stringRoute.substring(stringRoute.length() - 1), "");
+                            }
+                            if(stringRoute.toUpperCase().equals(r.getNom().toUpperCase())){
+                                for (Node nR : gRoute.getChildren()) {
+                                    Rectangle rect = (Rectangle) nR;
+                                    rect.setFill(new ImagePattern(new Image("images/wagons/image-wagon-" + r.getProprietaire().getCouleur().toString().toUpperCase() + ".png")));
+                                }
+                            }
+
+                        }
+                    });
+                }
+            }
+            for(int i=0; i<jeu.getVilles().size(); i++){
+                Ville v = (Ville) jeu.getVilles().get(i);
+                if(v.getProprietaire() == null){
+                    v.proprietaireProperty().addListener(e1 -> {
+                        for (Node n : villes.getChildren()) {
+                            if(n.getId().equals(v.getNom())){
+                                Circle ville = (Circle) n;
+                                ville.setFill(new ImagePattern(new Image("images/gares/gare-" + v.getProprietaire().getCouleur().toString().toUpperCase() + ".png")));
+                            }
+                        }
+                    });
+                }
+            }
+            listener = true;
+        }
+    }
 
     public void creerBindings() {
         bindRedimensionPlateau();
@@ -111,13 +167,60 @@ public class VuePlateau extends Pane {
     }
 
     private void bindRectangle(Rectangle rect, double layoutX, double layoutY) {
-//        Liste des propriétés à lier
-//        rect.widthProperty()
-//        rect.heightProperty()
-//        rect.layoutXProperty()
-//        rect.xProperty()
-//        rect.layoutYProperty()
-//        rect.yProperty()
+        rect.layoutXProperty().bind(new DoubleBinding() {
+            {
+                super.bind(image.fitWidthProperty(), image.fitHeightProperty());
+            }
+            @Override
+            protected double computeValue() {
+                return layoutX * image.getLayoutBounds().getWidth()/ DonneesPlateau.largeurInitialePlateau;
+            }
+        });
+        rect.layoutYProperty().bind(new DoubleBinding() {
+            {
+                super.bind(image.fitWidthProperty(), image.fitHeightProperty());
+            }
+            @Override
+            protected double computeValue() {
+                return layoutY * image.getLayoutBounds().getHeight()/ DonneesPlateau.hauteurInitialePlateau;
+            }
+        });
+        rect.widthProperty().bind(new DoubleBinding() {
+            {
+                super.bind(image.fitWidthProperty(), image.fitHeightProperty());
+            }
+            @Override
+            protected double computeValue() {
+                return DonneesPlateau.largeurRectangle * image.getLayoutBounds().getWidth() / DonneesPlateau.largeurInitialePlateau;
+            }
+        });
+        rect.heightProperty().bind(new DoubleBinding() {
+            {
+                super.bind(image.fitWidthProperty(), image.fitHeightProperty());
+            }
+            @Override
+            protected double computeValue() {
+                return DonneesPlateau.hauteurRectangle * image.getLayoutBounds().getHeight() / DonneesPlateau.hauteurInitialePlateau;
+            }
+        });
+        rect.xProperty().bind(new DoubleBinding() {
+            {
+                super.bind(image.fitWidthProperty(), image.fitHeightProperty());
+            }
+            @Override
+            protected double computeValue() {
+                return DonneesPlateau.xInitial * image.getLayoutBounds().getWidth() / DonneesPlateau.largeurInitialePlateau;
+            }
+        });
+        rect.yProperty().bind(new DoubleBinding() {
+            {
+                super.bind(image.fitWidthProperty(), image.fitHeightProperty());
+            }
+            @Override
+            protected double computeValue() {
+                return DonneesPlateau.yInitial * image.getLayoutBounds().getHeight() / DonneesPlateau.hauteurInitialePlateau;
+            }
+        });
     }
 
     private void bindRoutes() {
