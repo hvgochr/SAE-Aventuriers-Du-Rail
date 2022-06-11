@@ -166,6 +166,7 @@ public class VueDuJeu extends BorderPane {
 
     public void creerBindings () {
         instructions.textProperty().bind(this.getJeu().instructionProperty());
+        vuePlateau.creerBindings();
         this.getJeu().destinationsInitialesProperty().addListener(destinationsSontPiocheesListener);
         this.getJeu().cartesWagonVisiblesProperty().addListener(listeCarte);
         this.getJeu().joueurCourantProperty().addListener(joueurChangeListener);
@@ -205,7 +206,6 @@ public class VueDuJeu extends BorderPane {
         Platform.runLater(() -> {
             System.out.println(this.getNbLocomotives());
             if(this.getNbLocomotives()==3){
-                System.out.println("CLEAR");
                 carteWagonVisibles.getChildren().clear();
             }
             while (action.next()) {
