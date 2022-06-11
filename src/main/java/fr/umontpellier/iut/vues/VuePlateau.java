@@ -34,17 +34,7 @@ import fr.umontpellier.iut.rails.Ville;
  */
 public class VuePlateau extends Pane {
 
-    private Lighting lighting;
-
-    private boolean clique;
-
     private DropShadow dropShadow;
-
-    private Button boutonToggle;
-
-    private ImageView toggle;
-
-    private FileInputStream lienToggle;
 
     public boolean listener = false;
 
@@ -58,40 +48,11 @@ public class VuePlateau extends Pane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //Lighting
-        lighting = new Lighting(new Light.Distant(30, 30, Color.WHITE));
-        lighting.setDiffuseConstant(100);
-        lighting.setContentInput(dropShadow);
-        //Image
-        try {
-            lienToggle = new FileInputStream("ressources/images/images/toggle-button.png");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        toggle = new ImageView(new Image(lienToggle));
-        toggle.setFitHeight(40);
-        toggle.setFitWidth(40);
-        //Bouton
-        boutonToggle = new Button();
-        boutonToggle.setGraphic(toggle);
-        boutonToggle.setLayoutX(1);
-        boutonToggle.setLayoutY(5);
-        boutonToggle.setShape(new Circle(0));
-        boutonToggle.setOnAction(e -> {
-            if(!clique){
-                this.setEffect(lighting);
-                clique = true;
-            }else{
-                this.setEffect(dropShadow);
-                clique = false;
-            }
-        });
         //Ombre plateau
         dropShadow = new DropShadow(20, Color.BLACK);
         dropShadow.setOffsetX(3);
         dropShadow.setOffsetY(3);
         this.setEffect(dropShadow);
-        getChildren().add(boutonToggle);
     }
 
     @FXML
@@ -162,8 +123,8 @@ public class VuePlateau extends Pane {
         bindRoutes();
         bindVilles();
 //        Les dimensions de l'image varient avec celle de la scène
-        image.fitWidthProperty().bind(getScene().widthProperty());
-        image.fitHeightProperty().bind(getScene().heightProperty());
+        image.fitWidthProperty().bind(getScene().widthProperty().multiply(0.65));
+        image.fitHeightProperty().bind(getScene().heightProperty().multiply(0.65));
     }
 
     private void bindRectangle(Rectangle rect, double layoutX, double layoutY) {
