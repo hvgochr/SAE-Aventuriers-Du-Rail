@@ -13,7 +13,7 @@
             <Image url="@../images/euMap.jpg" />
         </image>
     </ImageView>
-    <Group id="routes">
+    <Group fx:id="routes">
         <Group id="Amsterdam - Bruxelles" onMouseClicked="#choixRouteOuVille">
             <Rectangle height="8.54" width="25.62" layoutX="215.4215" layoutY="154.3605" rotate="115.25316339457389" x="-12.81" y="-4.27" />
         </Group>
@@ -518,7 +518,7 @@
         </Group>
     </Group>
 
-    <Group id="villes">
+    <Group fx:id="villes">
         <Circle id="Cadiz" onMouseClicked="#choixRouteOuVille" layoutX="61.488" layoutY="457.74399999999997" radius="5.124" />
         <Circle id="Madrid" onMouseClicked="#choixRouteOuVille" layoutX="62.769" layoutY="403.942" radius="5.124" />
         <Circle id="Barcelona" onMouseClicked="#choixRouteOuVille" layoutX="143.472" layoutY="410.347" radius="5.124" />
