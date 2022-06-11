@@ -382,67 +382,85 @@ public class VueDuJeu extends BorderPane {
         }else if(nbJoueurs == 3){
             vueAutreJoueur1.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                 if (newValue) {
-                    vueAutreJoueur1.setPrefHeight(200);
+                    vueAutreJoueur1.expand();
+                    vueJoueurCourant.shrink();
                 } else {
-                    vueAutreJoueur1.setPrefHeight(59);
+                    vueJoueurCourant.expand();
+                    vueAutreJoueur1.shrink();
                 }
             });
             vueAutreJoueur2.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                 if (newValue) {
-                    vueAutreJoueur1.setPrefHeight(200);
+                    vueAutreJoueur2.expand();
+                    vueJoueurCourant.shrink();
                 } else {
-                    vueAutreJoueur1.setPrefHeight(59);
+                    vueJoueurCourant.expand();
+                    vueAutreJoueur2.shrink();
                 }
             });
         }else if(nbJoueurs == 4){
             vueAutreJoueur1.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                 if (newValue) {
-                    vueAutreJoueur1.setPrefHeight(200);
+                    vueAutreJoueur1.expand();
+                    vueJoueurCourant.shrink();
                 } else {
-                    vueAutreJoueur1.setPrefHeight(59);
+                    vueJoueurCourant.expand();
+                    vueAutreJoueur1.shrink();
                 }
             });
             vueAutreJoueur2.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                 if (newValue) {
-                    vueAutreJoueur1.setPrefHeight(200);
+                    vueAutreJoueur2.expand();
+                    vueJoueurCourant.shrink();
                 } else {
-                    vueAutreJoueur1.setPrefHeight(59);
+                    vueJoueurCourant.expand();
+                    vueAutreJoueur2.shrink();
                 }
             });
             vueAutreJoueur3.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                 if (newValue) {
-                    vueAutreJoueur1.setPrefHeight(200);
+                    vueAutreJoueur3.expand();
+                    vueJoueurCourant.shrink();
                 } else {
-                    vueAutreJoueur1.setPrefHeight(59);
+                    vueJoueurCourant.expand();
+                    vueAutreJoueur3.shrink();
                 }
             });
         }else if(nbJoueurs == 5){
             vueAutreJoueur1.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                 if (newValue) {
-                    vueAutreJoueur1.setPrefHeight(200);
+                    vueAutreJoueur1.expand();
+                    vueJoueurCourant.shrink();
                 } else {
-                    vueAutreJoueur1.setPrefHeight(59);
+                    vueJoueurCourant.expand();
+                    vueAutreJoueur1.shrink();
                 }
             });
             vueAutreJoueur2.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                 if (newValue) {
-                    vueAutreJoueur1.setPrefHeight(200);
+                    vueAutreJoueur2.expand();
+                    vueJoueurCourant.shrink();
                 } else {
-                    vueAutreJoueur1.setPrefHeight(59);
+                    vueJoueurCourant.expand();
+                    vueAutreJoueur2.shrink();
                 }
             });
             vueAutreJoueur3.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                 if (newValue) {
-                    vueAutreJoueur1.setPrefHeight(200);
+                    vueAutreJoueur3.expand();
+                    vueJoueurCourant.shrink();
                 } else {
-                    vueAutreJoueur1.setPrefHeight(59);
+                    vueJoueurCourant.expand();
+                    vueAutreJoueur3.shrink();
                 }
             });
             vueAutreJoueur4.hoverProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
                 if (newValue) {
-                    vueAutreJoueur1.setPrefHeight(200);
+                    vueAutreJoueur4.expand();
+                    vueJoueurCourant.shrink();
                 } else {
-                    vueAutreJoueur1.setPrefHeight(59);
+                    vueJoueurCourant.expand();
+                    vueAutreJoueur4.shrink();
                 }
             });
         }
