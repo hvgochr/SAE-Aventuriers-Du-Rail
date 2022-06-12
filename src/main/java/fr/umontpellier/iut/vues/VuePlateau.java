@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
@@ -132,19 +133,19 @@ public class VuePlateau extends Pane {
                                 Circle ville = (Circle) n;
                                 switch (v.getProprietaire().getCouleur()) {
                                     case BLEU:
-                                        ville.setFill(Color.BLUE);
+                                        ville.setFill(Paint.valueOf("34A9D5"));
                                         break;
                                     case JAUNE:
-                                        ville.setFill(Color.YELLOW);
+                                        ville.setFill(Paint.valueOf("FBBE00"));
                                         break;
                                     case ROSE:
-                                        ville.setFill(Color.PINK);
+                                        ville.setFill(Paint.valueOf("A04ABE"));
                                         break;
                                     case ROUGE:
-                                        ville.setFill(Color.RED);
+                                        ville.setFill(Paint.valueOf("D1332C"));
                                         break;
                                     case VERT:
-                                        ville.setFill(Color.GREEN);
+                                        ville.setFill(Paint.valueOf("3FA73D"));
                                         break;
                                 }
                             }

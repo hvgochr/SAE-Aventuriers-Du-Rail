@@ -11,17 +11,14 @@ import fr.umontpellier.iut.rails.CouleurWagon;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -62,7 +59,6 @@ public class VueDuJeu extends BorderPane {
     private HBox bot;
     private HBox boxChoix;
     private HBox top;
-
     private VBox left;
 
     private Button passer;
@@ -106,22 +102,11 @@ public class VueDuJeu extends BorderPane {
         dropShadow.setOffsetY(2);
         //BoxTop
         top = new HBox();
-        top.setSpacing(120);
-        top.setAlignment(Pos.CENTER_LEFT);
+        top.setSpacing(100);
         top.setPrefHeight(80);
-        top.setPadding(new Insets(0,0,0,70));
-
-        //règles
-        Button regle = new Button("Règles");
-        regle.setStyle("-fx-background-color: WHITE; -fx-border-color: BLACK");
-        top.getChildren().add(regle);
         //Pioches
-        try {
-            piocheWagon = new ImageView(new Image(new FileInputStream("ressources/images/images/carte-wagon.png")));
-            piocheDestination = new ImageView(new Image(new FileInputStream("ressources/images/images/eu_TicketBack.png")));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        piocheWagon = new ImageView(new Image("images/wagons.png"));
+        piocheDestination = new ImageView(new Image("images/destinations.png"));
         piocheDestination.setFitHeight(61);
         piocheDestination.setFitWidth(99);
         piocheDestination.setEffect(dropShadow);
@@ -142,6 +127,7 @@ public class VueDuJeu extends BorderPane {
         titre = new Text("Les Aventuriers Du Rail - Version Europe");
         titre.setFont(fontTitre);
         top.getChildren().add(titre);
+        top.setAlignment(Pos.CENTER);
         //Plateau
         vuePlateau = new VuePlateau();
         //Passer
@@ -153,8 +139,6 @@ public class VueDuJeu extends BorderPane {
         choix.setRight(passer);
         //Bot
         bot = new HBox();
-        bot.setAlignment(Pos.CENTER);
-        bot.setSpacing(15);
         bot.getChildren().addAll(choix);
         //This
         this.setTop(top);
@@ -162,12 +146,11 @@ public class VueDuJeu extends BorderPane {
         this.setCenter(vuePlateau);
         this.setRight(boxJoueurs);
         this.setBottom(bot);
+        VueDuJeu.setMargin(bot, new Insets(0, 0, 50, 100));
         VueDuJeu.setMargin(boxJoueurs, new Insets(0, 58, 0, 0));
         VueDuJeu.setMargin(left, new Insets(0, 0, 0, 58));
-        VueDuJeu.setMargin(vuePlateau, new Insets(0, 0, 0, 0));
+        VueDuJeu.setMargin(vuePlateau, new Insets(-100, 0, 0, 0));
         this.setStyle("-fx-background-color: #F2EDBF");
-
-
     }
 
     public IJeu getJeu () {
@@ -176,6 +159,8 @@ public class VueDuJeu extends BorderPane {
 
     public void creerBindings () {
         instructions.textProperty().bind(this.getJeu().instructionProperty());
+        this.boxJoueurs.prefWidthProperty().bind(this.getScene().widthProperty().multiply(0.2));
+        this.boxJoueurs.prefHeightProperty().bind(this.getScene().heightProperty().multiply(0.2));
         vuePlateau.creerBindings();
         this.getJeu().destinationsInitialesProperty().addListener(destinationsSontPiocheesListener);
         this.getJeu().cartesWagonVisiblesProperty().addListener(listeCarte);
