@@ -149,7 +149,7 @@ public class VueDuJeu extends BorderPane {
         VueDuJeu.setMargin(bot, new Insets(0, 0, 50, 100));
         VueDuJeu.setMargin(boxJoueurs, new Insets(0, 58, 0, 0));
         VueDuJeu.setMargin(left, new Insets(0, 0, 0, 58));
-        VueDuJeu.setMargin(vuePlateau, new Insets(-100, 0, 0, 0));
+        VueDuJeu.setMargin(vuePlateau, new Insets(-65, 0, 0, 0));
         this.setStyle("-fx-background-color: #F2EDBF");
     }
 
