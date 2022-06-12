@@ -23,4 +23,5 @@ public interface IJeu {
     void uneVilleOuUneRouteAEteChoisie(String nom);
     void uneDestinationAEteChoisie(String destination); // parmi les destinations affichées
     void uneCarteWagonAEteChoisie(ICouleurWagon couleurWagon); // parmi les 5 cartes wagons affichées
+    void remplirCartesWagonVisibles();
 }

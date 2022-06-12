@@ -200,34 +200,32 @@ public class VueDuJeu extends BorderPane {
         });
     };
 
-    private final ListChangeListener<ICouleurWagon> listeCarte = action -> 
+    private final ListChangeListener<ICouleurWagon> listeCarte = action ->
         Platform.runLater(() -> {
-            System.out.println(this.getNbLocomotives());
-            if(this.getNbLocomotives()==3){
-                carteWagonVisibles.getChildren().clear();
-            }
             while (action.next()) {
-                if (action.wasAdded()) {
-                    while(carteWagonVisibles.getChildren().size()>5){
-                        carteWagonVisibles.getChildren().remove(0);
-                    }
-                    for (ICouleurWagon couleurWagon : action.getAddedSubList()) {
-                        ImageView carte = new ImageView(new Image("images/cartesWagons/carte-wagon-" + couleurWagon.toString().toUpperCase() + ".png"));
-                        carte.setFitHeight(61);
-                        carte.setFitWidth(99);
-                        carte.setEffect(dropShadow);
-                        carteWagonVisibles.getChildren().add(carte);
-                        carte.setOnMouseClicked(e -> {
-                            carteWagonVisibles.getChildren().remove(carte);
-                            jeu.uneCarteWagonAEteChoisie(couleurWagon);
-                        });
-                    }
+                 if (action.wasAdded()) {
+                         for (ICouleurWagon couleurWagon : action.getAddedSubList()) {
+                             VueCarteWagon vueCarteWagon = new VueCarteWagon(couleurWagon);
+                             vueCarteWagon.setEffect(dropShadow);
+                             vueCarteWagon.setOnMouseClicked(e -> {
+                                 // carteWagonVisibles.getChildren().remove(carte);
+                                 jeu.uneCarteWagonAEteChoisie(couleurWagon);
+                             });
+                             carteWagonVisibles.getChildren().add(vueCarteWagon);
+                             System.out.println(carteWagonVisibles.getChildren().size());
+                         }
                 }else if (action.wasRemoved()) {
-                    while(carteWagonVisibles.getChildren().size()>5){
-                        carteWagonVisibles.getChildren().remove(0);
-                    }
                     for (ICouleurWagon couleurWagon : action.getRemoved()) {
                         carteWagonVisibles.getChildren().remove(trouveCarte(couleurWagon));
+                    }
+                }
+                if (carteWagonVisibles.getChildren().size() > 5){
+                    carteWagonVisibles.getChildren().clear();
+
+                    for (ICouleurWagon c : jeu.cartesWagonVisiblesProperty()) {
+                        VueCarteWagon carte = new VueCarteWagon(c);
+                        carte.setOnMouseClicked(a -> jeu.uneCarteWagonAEteChoisie(c));
+                        carteWagonVisibles.getChildren().add(carte);
                     }
                 }
             }
@@ -252,18 +250,15 @@ public class VueDuJeu extends BorderPane {
         return null;
     }
 
-    private ImageView trouveCarte(ICouleurWagon i) {
-        for (Node n : carteWagonVisibles.getChildren()) {
-            ImageView c = (ImageView) n;
-            try {
-                if(c.getImage().equals(new Image(new FileInputStream("ressources/images/images/carte-wagon-" + i.toString().toUpperCase() + ".png")))){
-                    return c;
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+    private Label trouveCarte(ICouleurWagon c){
+        Label res = null;
+        for (Node n : carteWagonVisibles.getChildren()){
+            VueCarteWagon labelCouleurWagon = (VueCarteWagon) n;
+            if (labelCouleurWagon.getCouleurWagon().toString().equals(c.toString())){
+                res = labelCouleurWagon;
             }
         }
-        return null;
+        return res;
     }
 
     public void changementOrdreDesJoueurs(int numJoueurCourant){
