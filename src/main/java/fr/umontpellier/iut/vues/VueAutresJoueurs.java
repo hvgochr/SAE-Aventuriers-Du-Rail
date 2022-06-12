@@ -154,7 +154,7 @@ public class VueAutresJoueurs extends VBox {
             stringIndice.set(String.valueOf(this.joueur.getNbCarteWagons(CouleurWagon.NOIR)));
             indice.setText(stringIndice.get());
         }else if(couleur.toUpperCase().equals("JAUNE")){
-            stringIndice.set(String.valueOf(CouleurWagon.JAUNE));
+            stringIndice.set(String.valueOf(this.joueur.getNbCarteWagons(CouleurWagon.JAUNE)));
             indice.setText(stringIndice.get());
         }else if(couleur.toUpperCase().equals("ROSE")){
             stringIndice.set(String.valueOf(this.joueur.getNbCarteWagons(CouleurWagon.ROSE)));
