@@ -1,7 +1,9 @@
 package fr.umontpellier.iut.vues;
 
 import fr.umontpellier.iut.ICouleurWagon;
+import fr.umontpellier.iut.IJeu;
 import fr.umontpellier.iut.IJoueur;
+import fr.umontpellier.iut.rails.CouleurWagon;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -31,12 +33,23 @@ import javafx.scene.text.Text;
 public class VueJoueurCourant extends VBox {
 
     private IJoueur joueurCourant;
+    private IJeu jeu;
 
     private Font fontPseudo;
 
     private VBox destinationsJoueur;
 
     private GridPane cartesJoueur;
+
+    public Pane blanc;
+    public Pane bleu;
+    public Pane jaune;
+    public Pane locomotive;
+    public Pane noir;
+    public Pane orange;
+    public Pane rose;
+    public Pane rouge;
+    public Pane vert;
 
     private IntegerProperty nbOrange = new SimpleIntegerProperty(0);
     private IntegerProperty nbBlanc = new SimpleIntegerProperty(0);
@@ -50,8 +63,9 @@ public class VueJoueurCourant extends VBox {
 
     private DropShadow dropShadow;
 
-    public VueJoueurCourant(IJoueur joueur){
+    public VueJoueurCourant(IJoueur joueur, IJeu jeu){
         this.joueurCourant = joueur;
+        this.jeu = jeu;
         this.creerBindings();
         //Font
         fontPseudo = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 10);
@@ -62,15 +76,51 @@ public class VueJoueurCourant extends VBox {
         cartesJoueur.setPrefSize(233, 112);
         cartesJoueur.setHgap(6);
         cartesJoueur.setVgap(5);
-        cartesJoueur.add(this.carteWagonPlusIndice("blanc"), 1, 0);
-        cartesJoueur.add(this.carteWagonPlusIndice("bleu"), 0, 1);
-        cartesJoueur.add(this.carteWagonPlusIndice("jaune"), 2, 1);
-        cartesJoueur.add(this.carteWagonPlusIndice("locomotive"), 1, 2);
-        cartesJoueur.add(this.carteWagonPlusIndice("noir"), 1, 1);
-        cartesJoueur.add(this.carteWagonPlusIndice("orange"), 0, 0);
-        cartesJoueur.add(this.carteWagonPlusIndice("rose"), 3, 1);
-        cartesJoueur.add(this.carteWagonPlusIndice("rouge"), 3, 0);
-        cartesJoueur.add(this.carteWagonPlusIndice("vert"), 2, 0);
+        blanc = this.carteWagonPlusIndice("blanc");
+        blanc.setOnMouseClicked(e -> {
+            jeu.uneCarteWagonAEteChoisie(CouleurWagon.BLANC);
+        });
+        bleu = this.carteWagonPlusIndice("bleu");
+        bleu.setOnMouseClicked(e -> {
+            jeu.uneCarteWagonAEteChoisie(CouleurWagon.BLEU);
+        });
+        jaune = this.carteWagonPlusIndice("jaune");
+        jaune.setOnMouseClicked(e -> {
+            jeu.uneCarteWagonAEteChoisie(CouleurWagon.JAUNE);
+        });
+        locomotive = this.carteWagonPlusIndice("locomotive");
+        locomotive.setOnMouseClicked(e -> {
+            jeu.uneCarteWagonAEteChoisie(CouleurWagon.LOCOMOTIVE);
+        });
+        noir = this.carteWagonPlusIndice("noir");
+        noir.setOnMouseClicked(e -> {
+            jeu.uneCarteWagonAEteChoisie(CouleurWagon.NOIR);
+        });
+        orange = this.carteWagonPlusIndice("orange");
+        orange.setOnMouseClicked(e -> {
+            jeu.uneCarteWagonAEteChoisie(CouleurWagon.ORANGE);
+        });
+        rose = this.carteWagonPlusIndice("rose");
+        rose.setOnMouseClicked(e -> {
+            jeu.uneCarteWagonAEteChoisie(CouleurWagon.ROSE);
+        });
+        rouge = this.carteWagonPlusIndice("rose");
+        rouge.setOnMouseClicked(e -> {
+            jeu.uneCarteWagonAEteChoisie(CouleurWagon.ROUGE);
+        });
+        vert = this.carteWagonPlusIndice("vert");
+        vert.setOnMouseClicked(e -> {
+            jeu.uneCarteWagonAEteChoisie(CouleurWagon.VERT);
+        });
+        cartesJoueur.add(blanc, 1, 0);
+        cartesJoueur.add(bleu, 0, 1);
+        cartesJoueur.add(jaune, 2, 1);
+        cartesJoueur.add(locomotive, 1, 2);
+        cartesJoueur.add(noir, 1, 1);
+        cartesJoueur.add(orange, 0, 0);
+        cartesJoueur.add(rose, 3, 1);
+        cartesJoueur.add(rouge, 3, 0);
+        cartesJoueur.add(vert, 2, 0);
         GridPane.setMargin(this.getNodeByRowColumnIndex(2, 1), new Insets(0, 0, 0, 29));
         GridPane.setMargin(this.getNodeByRowColumnIndex(1, 2), new Insets(0, 0, 0, -29));
         GridPane.setMargin(this.getNodeByRowColumnIndex(0, 2), new Insets(0, 0, 0, -29));

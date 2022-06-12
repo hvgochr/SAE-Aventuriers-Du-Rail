@@ -236,7 +236,7 @@ public class VueDuJeu extends BorderPane {
 
     private final ChangeListener<IJoueur> joueurChangeListener = (observableValue, ancienJoueur, nouveauJoueur) -> {
         Platform.runLater(() -> {
-            this.vueJoueurCourant = new VueJoueurCourant(nouveauJoueur);
+            this.vueJoueurCourant = new VueJoueurCourant(nouveauJoueur, jeu);
             boxJoueurs.getChildren().clear();
             changementOrdreDesJoueurs(nouveauJoueur.getOrdreJoueur());
         });
