@@ -56,7 +56,7 @@ public class VuePlateau extends Pane {
         }
         //Lighting
         lighting = new ColorAdjust();
-        lighting.setBrightness(0.6);
+        lighting.setBrightness(0.7);
         //Bouton toggle
         boutonToggle = new Circle(10);
         boutonToggle.setLayoutX(13);
@@ -121,7 +121,6 @@ public class VuePlateau extends Pane {
                                     rect.setFill(new ImagePattern(new Image("images/wagons/image-wagon-" + r.getProprietaire().getCouleur().toString().toUpperCase() + ".png")));
                                 }
                             }
-
                         }
                     });
                 }
@@ -150,7 +149,7 @@ public class VuePlateau extends Pane {
     private void bindRedimensionPlateau() {
         bindRoutes();
         bindVilles();
-//        Les dimensions de l'image varient avec celle de la scène
+        //Les dimensions de l'image varient avec celle de la scène
         image.fitWidthProperty().bind(getScene().widthProperty().multiply(0.65));
         image.fitHeightProperty().bind(getScene().heightProperty().multiply(0.65));
     }

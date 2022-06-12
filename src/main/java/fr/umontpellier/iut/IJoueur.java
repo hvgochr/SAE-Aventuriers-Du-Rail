@@ -23,4 +23,5 @@ public interface IJoueur {
     int getNbGares();
     int getScore();
     String convertirCouleurJoueur();
+    int getNbCarteWagons(CouleurWagon c);
 }

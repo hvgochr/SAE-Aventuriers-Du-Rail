@@ -594,6 +594,7 @@ public class Joueur implements IJoueur {
         }
     }
 
+    @Override
     public int getOrdreJoueur(){
         for(int i=0; i<jeu.getJoueurs().size(); i++){
             if(jeu.getJoueurs().get(i).equals(this)){
@@ -601,6 +602,17 @@ public class Joueur implements IJoueur {
             }
         }
         return (Integer) null;
+    }
+
+    @Override
+    public int getNbCarteWagons(CouleurWagon c){
+        int res = 0;
+        for(int i=0; i<this.cartesWagon.size(); i++){
+            if(this.cartesWagon.get(i).equals(c)){
+                res++;
+            }
+        }
+        return res;
     }
 
 }
