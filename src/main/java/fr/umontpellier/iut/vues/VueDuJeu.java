@@ -203,17 +203,16 @@ public class VueDuJeu extends BorderPane {
     private final ListChangeListener<ICouleurWagon> listeCarte = action ->
         Platform.runLater(() -> {
             while (action.next()) {
-                 if (action.wasAdded()) {
-                         for (ICouleurWagon couleurWagon : action.getAddedSubList()) {
-                             VueCarteWagon vueCarteWagon = new VueCarteWagon(couleurWagon);
-                             vueCarteWagon.setEffect(dropShadow);
-                             vueCarteWagon.setOnMouseClicked(e -> {
-                                 // carteWagonVisibles.getChildren().remove(carte);
-                                 jeu.uneCarteWagonAEteChoisie(couleurWagon);
-                             });
-                             carteWagonVisibles.getChildren().add(vueCarteWagon);
-                             System.out.println(carteWagonVisibles.getChildren().size());
-                         }
+                    if (action.wasAdded()) {
+                        for (ICouleurWagon couleurWagon : action.getAddedSubList()) {
+                            VueCarteWagon vueCarteWagon = new VueCarteWagon(couleurWagon);
+                            vueCarteWagon.setEffect(dropShadow);
+                            vueCarteWagon.setOnMouseClicked(e -> {
+                                // carteWagonVisibles.getChildren().remove(carte);
+                                jeu.uneCarteWagonAEteChoisie(couleurWagon);
+                            });
+                            carteWagonVisibles.getChildren().add(vueCarteWagon);
+                        }
                 }else if (action.wasRemoved()) {
                     for (ICouleurWagon couleurWagon : action.getRemoved()) {
                         carteWagonVisibles.getChildren().remove(trouveCarte(couleurWagon));
@@ -221,7 +220,7 @@ public class VueDuJeu extends BorderPane {
                 }
                 if (carteWagonVisibles.getChildren().size() > 5){
                     carteWagonVisibles.getChildren().clear();
-
+                    System.out.println("CLEAR");
                     for (ICouleurWagon c : jeu.cartesWagonVisiblesProperty()) {
                         VueCarteWagon carte = new VueCarteWagon(c);
                         carte.setOnMouseClicked(a -> jeu.uneCarteWagonAEteChoisie(c));

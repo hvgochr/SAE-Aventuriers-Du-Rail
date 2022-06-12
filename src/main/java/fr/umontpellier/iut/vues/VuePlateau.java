@@ -118,7 +118,8 @@ public class VuePlateau extends Pane {
                             if(stringRoute.toUpperCase().equals(r.getNom().toUpperCase())){
                                 for (Node nR : gRoute.getChildren()) {
                                     Rectangle rect = (Rectangle) nR;
-                                    rect.setFill(new ImagePattern(new Image("images/wagons/image-wagon-" + r.getProprietaire().getCouleur().toString().toUpperCase() + ".png")));
+                                    Image imgWagon = new Image("images/wagons/image-wagon-" + r.getProprietaire().getCouleur().toString().toUpperCase() + ".png");
+                                    rect.setFill(new ImagePattern(imgWagon));
                                 }
                             }
                         }
@@ -132,7 +133,23 @@ public class VuePlateau extends Pane {
                         for (Node n : villes.getChildren()) {
                             if(n.getId().equals(v.getNom())){
                                 Circle ville = (Circle) n;
-                                ville.setFill(new ImagePattern(new Image("images/gares/gare-" + v.getProprietaire().getCouleur().toString().toUpperCase() + ".png")));
+                                switch (v.getProprietaire().getCouleur()) {
+                                    case BLEU:
+                                        ville.setFill(Color.BLUE);
+                                        break;
+                                    case JAUNE:
+                                        ville.setFill(Color.YELLOW);
+                                        break;
+                                    case ROSE:
+                                        ville.setFill(Color.PINK);
+                                        break;
+                                    case ROUGE:
+                                        ville.setFill(Color.RED);
+                                        break;
+                                    case VERT:
+                                        ville.setFill(Color.GREEN);
+                                        break;
+                                }
                             }
                         }
                     });

@@ -22,7 +22,6 @@ public class VueCarteWagon extends Label {
         imageCarteWagon.setFitHeight(61);
         imageCarteWagon.setPreserveRatio(true);
         setGraphic(imageCarteWagon);
-
     }
 
     public ICouleurWagon getCouleurWagon() {
