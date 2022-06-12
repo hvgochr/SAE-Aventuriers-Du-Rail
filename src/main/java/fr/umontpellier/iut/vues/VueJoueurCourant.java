@@ -104,7 +104,7 @@ public class VueJoueurCourant extends VBox {
         rose.setOnMouseClicked(e -> {
             jeu.uneCarteWagonAEteChoisie(CouleurWagon.ROSE);
         });
-        rouge = this.carteWagonPlusIndice("rose");
+        rouge = this.carteWagonPlusIndice("rouge");
         rouge.setOnMouseClicked(e -> {
             jeu.uneCarteWagonAEteChoisie(CouleurWagon.ROUGE);
         });
