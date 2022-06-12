@@ -149,9 +149,10 @@ public class VueJoueurCourant extends VBox {
         getChildren().addAll(vueJoueur, destinationsJoueur, cartesJoueur);
     }
 
-    public void creerBindings(){
+    public void creerBindings() {
         this.joueurCourant.cartesWagonProperty().addListener(listeCarte);
     }
+
 
     private final ListChangeListener<ICouleurWagon> listeCarte = e -> {
         Platform.runLater(() -> {

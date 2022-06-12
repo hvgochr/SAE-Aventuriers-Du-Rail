@@ -11,14 +11,17 @@ import fr.umontpellier.iut.rails.CouleurWagon;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -59,6 +62,7 @@ public class VueDuJeu extends BorderPane {
     private HBox bot;
     private HBox boxChoix;
     private HBox top;
+
     private VBox left;
 
     private Button passer;
@@ -102,8 +106,15 @@ public class VueDuJeu extends BorderPane {
         dropShadow.setOffsetY(2);
         //BoxTop
         top = new HBox();
-        top.setSpacing(100);
+        top.setSpacing(120);
+        top.setAlignment(Pos.CENTER_LEFT);
         top.setPrefHeight(80);
+        top.setPadding(new Insets(0,0,0,70));
+
+        //règles
+        Button regle = new Button("Règles");
+        regle.setStyle("-fx-background-color: WHITE; -fx-border-color: BLACK");
+        top.getChildren().add(regle);
         //Pioches
         try {
             piocheWagon = new ImageView(new Image(new FileInputStream("ressources/images/images/carte-wagon.png")));
@@ -131,7 +142,6 @@ public class VueDuJeu extends BorderPane {
         titre = new Text("Les Aventuriers Du Rail - Version Europe");
         titre.setFont(fontTitre);
         top.getChildren().add(titre);
-        top.setAlignment(Pos.CENTER);
         //Plateau
         vuePlateau = new VuePlateau();
         //Passer
@@ -156,6 +166,8 @@ public class VueDuJeu extends BorderPane {
         VueDuJeu.setMargin(left, new Insets(0, 0, 0, 58));
         VueDuJeu.setMargin(vuePlateau, new Insets(0, 0, 0, 0));
         this.setStyle("-fx-background-color: #F2EDBF");
+
+
     }
 
     public IJeu getJeu () {
