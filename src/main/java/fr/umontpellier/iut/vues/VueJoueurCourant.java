@@ -24,11 +24,12 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-/** 
+/**
  * Cette classe présente les éléments appartenant au joueur courant.
  * 
- * On y définit les bindings sur le joueur courant, ainsi que le listener à exécuter lorsque ce joueur change
- */ 
+ * On y définit les bindings sur le joueur courant, ainsi que le listener à
+ * exécuter lorsque ce joueur change
+ */
 
 public class VueJoueurCourant extends VBox {
 
@@ -63,16 +64,16 @@ public class VueJoueurCourant extends VBox {
 
     private DropShadow dropShadow;
 
-    public VueJoueurCourant(IJoueur joueur, IJeu jeu){
+    public VueJoueurCourant(IJoueur joueur, IJeu jeu) {
         this.joueurCourant = joueur;
         this.jeu = jeu;
         this.creerBindings();
-        //Font
+        // Font
         fontPseudo = Font.loadFont("file:ressources/images/fonts/Trade_Winds/TradeWinds-Regular.ttf", 10);
-        //Cartes joueur
+        // Cartes joueur
         cartesJoueur = new GridPane();
         this.initIndicesNbCartes();
-        //Cartes
+        // Cartes
         cartesJoueur.setPrefSize(233, 112);
         cartesJoueur.setHgap(6);
         cartesJoueur.setVgap(5);
@@ -124,23 +125,23 @@ public class VueJoueurCourant extends VBox {
         GridPane.setMargin(this.getNodeByRowColumnIndex(2, 1), new Insets(0, 0, 0, 29));
         GridPane.setMargin(this.getNodeByRowColumnIndex(1, 2), new Insets(0, 0, 0, -29));
         GridPane.setMargin(this.getNodeByRowColumnIndex(0, 2), new Insets(0, 0, 0, -29));
-        //Destinations joueur
+        // Destinations joueur
         destinationsJoueur = new VBox();
-        for(int i=0; i<joueur.getDestinations().size(); i++){
+        for (int i = 0; i < joueur.getDestinations().size(); i++) {
             Text destination = new Text();
             destination.setFont(fontPseudo);
             destination.setText(joueur.getDestinations().get(i).toString());
             destinationsJoueur.getChildren().add(destination);
         }
-        //Vue
+        // Vue
         VueAutresJoueurs vueJoueur = new VueAutresJoueurs(joueur);
         vueJoueur.setEffect(null);
-        //Shadow
+        // Shadow
         dropShadow = new DropShadow(10, Color.BLACK);
         dropShadow.setOffsetX(2);
         dropShadow.setOffsetY(2);
         this.setEffect(dropShadow);
-        //This
+        // This
         this.setStyle("-fx-background-color: #" + joueurCourant.convertirCouleurJoueur());
         this.setPrefSize(250, 240);
         this.setMaxSize(250, 240);
@@ -153,52 +154,51 @@ public class VueJoueurCourant extends VBox {
         this.joueurCourant.cartesWagonProperty().addListener(listeCarte);
     }
 
-
     private final ListChangeListener<ICouleurWagon> listeCarte = e -> {
         Platform.runLater(() -> {
-            while(e.next()){
-                if(e.wasAdded()){
-                    for(ICouleurWagon c : e.getAddedSubList()){
-                        if(c.toString().toUpperCase().equals("BLANC")){
-                            nbBlanc.setValue(nbBlanc.getValue()+1);
-                        }else if(c.toString().toUpperCase().equals("ORANGE")){
-                            nbOrange.setValue(nbOrange.getValue()+1);
-                        }else if(c.toString().toUpperCase().equals("VERT")){
-                            nbVert.setValue(nbVert.getValue()+1);
-                        }else if(c.toString().toUpperCase().equals("ROUGE")){
-                            nbRouge.setValue(nbRouge.getValue()+1);
-                        }else if(c.toString().toUpperCase().equals("BLEU")){
-                            nbBleu.setValue(nbBleu.getValue()+1);
-                        }else if(c.toString().toUpperCase().equals("NOIR")){
-                            nbNoir.setValue(nbNoir.getValue()+1);
-                        }else if(c.toString().toUpperCase().equals("JAUNE")){
-                            nbJaune.setValue(nbJaune.getValue()+1);
-                        }else if(c.toString().toUpperCase().equals("ROSE")){
-                            nbRose.setValue(nbRose.getValue()+1);
-                        }else if(c.toString().toUpperCase().equals("LOCOMOTIVE")){
-                            nbLocomotive.setValue(nbLocomotive.getValue()+1);
+            while (e.next()) {
+                if (e.wasAdded()) {
+                    for (ICouleurWagon c : e.getAddedSubList()) {
+                        if (c.toString().toUpperCase().equals("BLANC")) {
+                            nbBlanc.setValue(nbBlanc.getValue() + 1);
+                        } else if (c.toString().toUpperCase().equals("ORANGE")) {
+                            nbOrange.setValue(nbOrange.getValue() + 1);
+                        } else if (c.toString().toUpperCase().equals("VERT")) {
+                            nbVert.setValue(nbVert.getValue() + 1);
+                        } else if (c.toString().toUpperCase().equals("ROUGE")) {
+                            nbRouge.setValue(nbRouge.getValue() + 1);
+                        } else if (c.toString().toUpperCase().equals("BLEU")) {
+                            nbBleu.setValue(nbBleu.getValue() + 1);
+                        } else if (c.toString().toUpperCase().equals("NOIR")) {
+                            nbNoir.setValue(nbNoir.getValue() + 1);
+                        } else if (c.toString().toUpperCase().equals("JAUNE")) {
+                            nbJaune.setValue(nbJaune.getValue() + 1);
+                        } else if (c.toString().toUpperCase().equals("ROSE")) {
+                            nbRose.setValue(nbRose.getValue() + 1);
+                        } else if (c.toString().toUpperCase().equals("LOCOMOTIVE")) {
+                            nbLocomotive.setValue(nbLocomotive.getValue() + 1);
                         }
                     }
-                }else if(e.wasRemoved()){
-                    for(ICouleurWagon c : e.getRemoved()){
-                        if(c.toString().toUpperCase().equals("BLANC")){
-                            nbBlanc.setValue(nbBlanc.getValue()-1);
-                        }else if(c.toString().toUpperCase().equals("ORANGE")){
-                            nbOrange.setValue(nbOrange.getValue()-1);
-                        }else if(c.toString().toUpperCase().equals("VERT")){
-                            nbVert.setValue(nbVert.getValue()-1);
-                        }else if(c.toString().toUpperCase().equals("ROUGE")){
-                            nbRouge.setValue(nbRouge.getValue()-1);
-                        }else if(c.toString().toUpperCase().equals("BLEU")){
-                            nbBleu.setValue(nbBleu.getValue()-1);
-                        }else if(c.toString().toUpperCase().equals("NOIR")){
-                            nbNoir.setValue(nbNoir.getValue()-1);
-                        }else if(c.toString().toUpperCase().equals("JAUNE")){
-                            nbJaune.setValue(nbJaune.getValue()-1);
-                        }else if(c.toString().toUpperCase().equals("ROSE")){
-                            nbRose.setValue(nbRose.getValue()-1);
-                        }else if(c.toString().toUpperCase().equals("LOCOMOTIVE")){
-                            nbLocomotive.setValue(nbLocomotive.getValue()-1);
+                } else if (e.wasRemoved()) {
+                    for (ICouleurWagon c : e.getRemoved()) {
+                        if (c.toString().toUpperCase().equals("BLANC")) {
+                            nbBlanc.setValue(nbBlanc.getValue() - 1);
+                        } else if (c.toString().toUpperCase().equals("ORANGE")) {
+                            nbOrange.setValue(nbOrange.getValue() - 1);
+                        } else if (c.toString().toUpperCase().equals("VERT")) {
+                            nbVert.setValue(nbVert.getValue() - 1);
+                        } else if (c.toString().toUpperCase().equals("ROUGE")) {
+                            nbRouge.setValue(nbRouge.getValue() - 1);
+                        } else if (c.toString().toUpperCase().equals("BLEU")) {
+                            nbBleu.setValue(nbBleu.getValue() - 1);
+                        } else if (c.toString().toUpperCase().equals("NOIR")) {
+                            nbNoir.setValue(nbNoir.getValue() - 1);
+                        } else if (c.toString().toUpperCase().equals("JAUNE")) {
+                            nbJaune.setValue(nbJaune.getValue() - 1);
+                        } else if (c.toString().toUpperCase().equals("ROSE")) {
+                            nbRose.setValue(nbRose.getValue() - 1);
+                        } else if (c.toString().toUpperCase().equals("LOCOMOTIVE")) {
+                            nbLocomotive.setValue(nbLocomotive.getValue() - 1);
                         }
                     }
                 }
@@ -206,72 +206,73 @@ public class VueJoueurCourant extends VBox {
         });
     };
 
-    public Node getNodeByRowColumnIndex (int row, int column) {
+    public Node getNodeByRowColumnIndex(int row, int column) {
         ObservableList<Node> children = this.cartesJoueur.getChildren();
         for (Node node : children) {
-            if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
                 return node;
             }
         }
         return null;
     }
 
-    public void initIndicesNbCartes(){
-        for(int i=0; i<this.joueurCourant.getCartesWagon().size(); i++){
-            if(this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("BLANC")){
-                nbBlanc.setValue(nbBlanc.getValue()+1);
-            }else if(this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("ORANGE")){
-                nbOrange.setValue(nbOrange.getValue()+1);
-            }else if(this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("VERT")){
-                nbVert.setValue(nbVert.getValue()+1);
-            }else if(this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("ROUGE")){
-                nbRouge.setValue(nbRouge.getValue()+1);
-            }else if(this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("BLEU")){
-                nbBleu.setValue(nbBleu.getValue()+1);
-            }else if(this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("NOIR")){
-                nbNoir.setValue(nbNoir.getValue()+1);
-            }else if(this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("JAUNE")){
-                nbJaune.setValue(nbJaune.getValue()+1);
-            }else if(this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("ROSE")){
-                nbRose.setValue(nbRose.getValue()+1);
-            }else if(this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("LOCOMOTIVE")){
-                nbLocomotive.setValue(nbLocomotive.getValue()+1);
+    public void initIndicesNbCartes() {
+        for (int i = 0; i < this.joueurCourant.getCartesWagon().size(); i++) {
+            if (this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("BLANC")) {
+                nbBlanc.setValue(nbBlanc.getValue() + 1);
+            } else if (this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("ORANGE")) {
+                nbOrange.setValue(nbOrange.getValue() + 1);
+            } else if (this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("VERT")) {
+                nbVert.setValue(nbVert.getValue() + 1);
+            } else if (this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("ROUGE")) {
+                nbRouge.setValue(nbRouge.getValue() + 1);
+            } else if (this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("BLEU")) {
+                nbBleu.setValue(nbBleu.getValue() + 1);
+            } else if (this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("NOIR")) {
+                nbNoir.setValue(nbNoir.getValue() + 1);
+            } else if (this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("JAUNE")) {
+                nbJaune.setValue(nbJaune.getValue() + 1);
+            } else if (this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("ROSE")) {
+                nbRose.setValue(nbRose.getValue() + 1);
+            } else if (this.joueurCourant.getCartesWagon().get(i).toString().toUpperCase().equals("LOCOMOTIVE")) {
+                nbLocomotive.setValue(nbLocomotive.getValue() + 1);
             }
         }
     }
 
-    private Pane carteWagonPlusIndice(String couleur){
+    private Pane carteWagonPlusIndice(String couleur) {
         Pane res = new Pane();
         res.setPrefSize(56, 37);
-        ImageView carte = new ImageView(new Image("images/cartesWagons/carte-wagon-" + couleur.toString().toUpperCase() + ".png"));
+        ImageView carte = new ImageView(
+                new Image("images/cartesWagons/carte-wagon-" + couleur.toString().toUpperCase() + ".png"));
         Circle cercle = new Circle(5);
         StringProperty stringIndice = new SimpleStringProperty();
         Text indice = new Text();
-        if(couleur.toUpperCase().equals("BLANC")){
+        if (couleur.toUpperCase().equals("BLANC")) {
             stringIndice.set(String.valueOf(nbBlanc.getValue()));
             indice.setText(stringIndice.get());
-        }else if(couleur.toUpperCase().equals("ORANGE")){
+        } else if (couleur.toUpperCase().equals("ORANGE")) {
             stringIndice.set(String.valueOf(nbOrange.getValue()));
             indice.setText(stringIndice.get());
-        }else if(couleur.toUpperCase().equals("VERT")){
+        } else if (couleur.toUpperCase().equals("VERT")) {
             stringIndice.set(String.valueOf(nbVert.getValue()));
             indice.setText(stringIndice.get());
-        }else if(couleur.toUpperCase().equals("ROUGE")){
+        } else if (couleur.toUpperCase().equals("ROUGE")) {
             stringIndice.set(String.valueOf(nbRouge.getValue()));
             indice.setText(stringIndice.get());
-        }else if(couleur.toUpperCase().equals("BLEU")){
+        } else if (couleur.toUpperCase().equals("BLEU")) {
             stringIndice.set(String.valueOf(nbBleu.getValue()));
             indice.setText(stringIndice.get());
-        }else if(couleur.toUpperCase().equals("NOIR")){
+        } else if (couleur.toUpperCase().equals("NOIR")) {
             stringIndice.set(String.valueOf(nbNoir.getValue()));
             indice.setText(stringIndice.get());
-        }else if(couleur.toUpperCase().equals("JAUNE")){
+        } else if (couleur.toUpperCase().equals("JAUNE")) {
             stringIndice.set(String.valueOf(nbJaune.getValue()));
             indice.setText(stringIndice.get());
-        }else if(couleur.toUpperCase().equals("ROSE")){
+        } else if (couleur.toUpperCase().equals("ROSE")) {
             stringIndice.set(String.valueOf(nbRose.getValue()));
             indice.setText(stringIndice.get());
-        }else if(couleur.toUpperCase().equals("LOCOMOTIVE")){
+        } else if (couleur.toUpperCase().equals("LOCOMOTIVE")) {
             stringIndice.set(String.valueOf(nbLocomotive.getValue()));
             indice.setText(stringIndice.get());
         }
@@ -291,12 +292,31 @@ public class VueJoueurCourant extends VBox {
         return res;
     }
 
-    public void shrink(){
+    /**
+     * <p>
+     * Méthode permettant de réduire l'affichage de la vue du joueur courant afin
+     * d'étendre celle d'un autre joueur.
+     * </p>
+     * <p>
+     * Utile lors du survol: {@code .hoverPropery -> if} d'un autre joueur.
+     * </p>
+     */
+    public void shrink() {
         this.getChildren().removeAll(destinationsJoueur, cartesJoueur);
         this.setPrefHeight(59);
     }
 
-    public void expand(){
+    /**
+     * <p>
+     * Méthode permettant de retourner à l'affichage de la vue du joueur courant
+     * lorsque le survol de celle d'un autre joueur est terminé.
+     * </p>
+     * <p>
+     * Utile lors de la fin du survol: {@code .hoverPropery -> else} d'un autre
+     * joueur.
+     * </p>
+     */
+    public void expand() {
         this.setPrefHeight(240);
         this.getChildren().addAll(destinationsJoueur, cartesJoueur);
     }
