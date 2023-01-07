@@ -202,7 +202,6 @@ public class VueDuJeu extends BorderPane {
                     VueCarteWagon vueCarteWagon = new VueCarteWagon(couleurWagon);
                     vueCarteWagon.setEffect(dropShadow);
                     vueCarteWagon.setOnMouseClicked(e -> {
-                        // carteWagonVisibles.getChildren().remove(carte);
                         jeu.uneCarteWagonAEteChoisie(couleurWagon);
                     });
                     carteWagonVisibles.getChildren().add(vueCarteWagon);
@@ -214,7 +213,6 @@ public class VueDuJeu extends BorderPane {
             }
             if (carteWagonVisibles.getChildren().size() > 5) {
                 carteWagonVisibles.getChildren().clear();
-                System.out.println("CLEAR");
                 for (ICouleurWagon c : jeu.cartesWagonVisiblesProperty()) {
                     VueCarteWagon carte = new VueCarteWagon(c);
                     carte.setOnMouseClicked(a -> jeu.uneCarteWagonAEteChoisie(c));

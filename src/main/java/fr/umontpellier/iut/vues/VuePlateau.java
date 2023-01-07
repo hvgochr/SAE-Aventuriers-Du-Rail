@@ -69,7 +69,7 @@ public class VuePlateau extends Pane {
                 image.setEffect(lighting);
                 clique = true;
             }else{
-                image.setEffect(dropShadow);
+                image.setEffect(null);
                 clique = false;
             }
         });
